@@ -6,21 +6,21 @@ import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'date-filter',
+  selector: 'number-filter',
   template: `
     <select [formControl]="filterTypeSelect">
       <option [value]="option" *ngFor="let  option of filterOptions">{{labelOptions[option]}}</option>
     </select>
     <div [ngSwitch]="filterType">
-     <input *ngSwitchCase="'before'" type="date" [formControl]="dateBefore" [ngClass]="inputClass" class="form-control">
-     <input *ngSwitchCase="'after'" type="date" [formControl]="dateAfter" [ngClass]="inputClass" class="form-control">
-     <input *ngSwitchCase="'equal'" type="date" [formControl]="dateEqual" [ngClass]="inputClass" class="form-control">
-     <input *ngSwitchCase="'between'" type="date" [formControl]="startDate" [ngClass]="inputClass" class="form-control">
-     <input *ngSwitchCase="'between'" type="date" [formControl]="endDate" [ngClass]="inputClass" class="form-control">
+     <input *ngSwitchCase="'before'" type="number" [formControl]="dateBefore" [ngClass]="inputClass" class="form-control">
+     <input *ngSwitchCase="'after'" type="number" [formControl]="dateAfter" [ngClass]="inputClass" class="form-control">
+     <input *ngSwitchCase="'equal'" type="number" [formControl]="dateEqual" [ngClass]="inputClass" class="form-control">
+     <input *ngSwitchCase="'between'" type="number" [formControl]="startDate" [ngClass]="inputClass" class="form-control">
+     <input *ngSwitchCase="'between'" type="number" [formControl]="endDate" [ngClass]="inputClass" class="form-control">
     </div>
   `,
 })
-export class DateFilterComponent extends DefaultFilter implements OnInit {
+export class NumberFilterComponent extends DefaultFilter implements OnInit {
 
   startDate = new FormControl();
   endDate = new FormControl();
@@ -34,16 +34,16 @@ export class DateFilterComponent extends DefaultFilter implements OnInit {
   labelOptions = {};
 
   labelOptionsEn = {
-    before: 'Before',
-    after: 'After',
+    before: 'Min',
+    after: 'Max',
     equal: 'Equal',
     between: 'Between',
   };
 
   labelOptionsFr = {
-    before: 'Avant',
-    after: 'Après',
-    equal: 'Egale',
+    before: 'Min',
+    after: 'Max',
+    equal: 'Egal',
     between: 'Entre',
   };
 
@@ -77,19 +77,19 @@ export class DateFilterComponent extends DefaultFilter implements OnInit {
   getFilterType() {
     switch (this.filterType) {
       case 'before': {
-        return this.dateBefore.valueChanges.pipe(map(value => '_date_before_' + value));
+        return this.dateBefore.valueChanges.pipe(map(value => '_number_before_' + value));
       }
       case 'after': {
-        return this.dateAfter.valueChanges.pipe(map(value => '_date_after_' + value));
+        return this.dateAfter.valueChanges.pipe(map(value => '_number_after_' + value));
       }
       case 'equal': {
-        return this.dateEqual.valueChanges.pipe(map(value => '_date_equal_' + value));
+        return this.dateEqual.valueChanges.pipe(map(value => '_number_equal_' + value));
       }
       case 'between': {
         return combineLatest(this.startDate.valueChanges, this.endDate.valueChanges)
           .pipe(map(([val1, val2]) => {
-            return '_start_date_' + val1 + '_end_date_' + val2;
-          }))
+            return '_start_number_' + val1 + '_end_number_' + val2;
+          }));
       }
     }
   }

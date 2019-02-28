@@ -11,13 +11,13 @@
   "license": "MIT",
   "main": "./bundles/table.umd.js",
   "module": "./index.js",
-  "name": "@jim060/ng2-smart-table-jhipster",
+  "name": "@afterdata/ng2-smart-table-jhipster",
   "repository": {
     "type": "git",
     "url": "git+http://github.com/jim060/ng2-smart-table-jhipster"
   },
   "typings": "./index.d.ts",
-  "version": "2.0.2",
+  "version": "2.0.0",
   "devDependencies": {
     "gulp": "^4.0.0"
   }

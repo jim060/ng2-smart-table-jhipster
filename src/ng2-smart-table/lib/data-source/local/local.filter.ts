@@ -39,6 +39,26 @@ export class LocalFilter {
     }
   }
 
+  protected static FILTER_NUMBER = (value: number, search: string) => {
+    if (search.startsWith('_number_before_')) { // Before
+      const beforeNumber = search.substring('_number_before_'.length);
+      return value >= Number.parseFloat(beforeNumber);
+    } else if (search.startsWith('_number_after_')) { // After
+      const afterNumber = search.substring('_number_after_'.length);
+      return value <= Number.parseFloat(afterNumber);
+    } else if (search.startsWith('_number_equal_')) { // Egual stricte
+      const equalsNumber = search.substring('_number_equal_'.length);
+      return value === Number.parseFloat(equalsNumber);
+    } else if (search.startsWith('_start_number_')) { // Between
+      const indexEnd = search.indexOf('_end_number_');
+      const beginNumber = search.substring('_start_number_'.length, indexEnd);
+      const endNumber = search.substring(indexEnd + '_end_number_'.length);
+      return Number.parseFloat(beginNumber) <= value && Number.parseFloat(endNumber) >= value;
+    } else { // Other : Default search
+      return (value.toString().toLowerCase().includes(search.toString().toLowerCase()));
+    }
+  }
+
   static filter(
     data: Array<any>,
     field: string,
@@ -46,10 +66,14 @@ export class LocalFilter {
     customFilter?: Function,
     multiSearch?: boolean,
     dateSearch?: boolean,
+    numberSearch?: boolean,
   ): Array<any> {
     const filter: Function = customFilter ? customFilter :
       (multiSearch ? this.FILTER_MULTI :
-      (dateSearch ? this.FILTER_DATE : this.FILTER));
+        (dateSearch ? this.FILTER_DATE :
+          (numberSearch ? this.FILTER_NUMBER : this.FILTER)
+        )
+      );
 
     return data.filter((el) => {
       const value = typeof el[field] === 'undefined' || el[field] === null ? '' : el[field];

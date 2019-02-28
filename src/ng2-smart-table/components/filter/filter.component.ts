@@ -34,6 +34,13 @@ import { Subscription } from 'rxjs';
                         [language]="language"
                         (filter)="onFilterDate($event)">
       </date-filter>
+      <number-filter *ngSwitchCase="'number'"
+                   [query]="query"
+                   [ngClass]="inputClass"
+                   [column]="column"
+                   [language]="language"
+                   (filter)="onFilterNumber($event)">
+      </number-filter>
       <mselect-filter *ngSwitchCase="'multiple'"
                         [query]="query"
                         [ngClass]="inputClass"
@@ -109,6 +116,15 @@ export class FilterComponent implements OnChanges {
       search: query,
       filter: this.column.getFilterFunction(),
       dateSearch: true,
+    });
+  }
+
+  onFilterNumber(query: string) {
+    this.source.addFilter({
+      field: this.column.id,
+      search: query,
+      filter: this.column.getFilterFunction(),
+      numberSearch: true,
     });
   }
 }

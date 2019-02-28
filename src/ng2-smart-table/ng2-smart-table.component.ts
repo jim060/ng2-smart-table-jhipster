@@ -186,7 +186,7 @@ export class Ng2SmartTableComponent implements OnChanges {
   }
 
   prepareSettings(): Object {
-    if (this.settings['language'] === 'fr') {
+    if ((<any>this.settings)['language'] === 'fr') {
       return deepExtend({}, this.defaultSettings, this.defaultSettingsFr, this.settings);
     } else {
       return deepExtend({}, this.defaultSettings, this.settings);

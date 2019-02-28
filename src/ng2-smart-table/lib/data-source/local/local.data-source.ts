@@ -14,6 +14,7 @@ export class LocalDataSource extends DataSource {
     andOperator: true,
     multiSearch: false,
     dateSearch: false,
+    numberSearch: false,
   };
   protected pagingConf: any = {};
 
@@ -96,6 +97,7 @@ export class LocalDataSource extends DataSource {
         andOperator: true,
         multiSearch: false,
         dateSearch: false,
+        numberSearch: false,
       };
       this.sortConf = [];
       this.pagingConf['page'] = 1;
@@ -163,6 +165,7 @@ export class LocalDataSource extends DataSource {
         andOperator: true,
         multiSearch: false,
         dateSearch: false,
+        numberSearch: false,
       };
     }
     this.filterConf.andOperator = andOperator;
@@ -245,7 +248,7 @@ export class LocalDataSource extends DataSource {
             data = LocalFilter
               .filter(data,
                 fieldConf['field'], fieldConf['search'], fieldConf['filter'],
-                fieldConf['multiSearch'], fieldConf['dateSearch']
+                fieldConf['multiSearch'], fieldConf['dateSearch'], fieldConf['numberSearch']
               );
           }
         });
@@ -256,7 +259,7 @@ export class LocalDataSource extends DataSource {
             mergedData = mergedData.concat(LocalFilter
               .filter(data,
                 fieldConf['field'], fieldConf['search'], fieldConf['filter'],
-                fieldConf['multiSearch'], fieldConf['dateSearch']
+                fieldConf['multiSearch'], fieldConf['dateSearch'], fieldConf['numberSearch']
               )
             );
           }

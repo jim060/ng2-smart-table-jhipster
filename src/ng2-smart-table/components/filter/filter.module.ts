@@ -9,6 +9,7 @@ import { FilterComponent } from './filter.component';
 import { CheckboxFilterComponent } from './filter-types/checkbox-filter.component';
 import { CompleterFilterComponent } from './filter-types/completer-filter.component';
 import { DateFilterComponent } from './filter-types/date-filter.component';
+import { NumberFilterComponent } from './filter-types/number-filter.component';
 import { InputFilterComponent } from './filter-types/input-filter.component';
 import { SelectFilterComponent } from './filter-types/select-filter.component';
 import { MselectFilterComponent } from './filter-types/mselect-filter.component';
@@ -18,6 +19,7 @@ const FILTER_COMPONENTS = [
   CheckboxFilterComponent,
   CompleterFilterComponent,
   DateFilterComponent,
+  NumberFilterComponent,
   InputFilterComponent,
   SelectFilterComponent,
   MselectFilterComponent

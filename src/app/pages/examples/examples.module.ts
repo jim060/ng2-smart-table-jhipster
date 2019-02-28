@@ -28,6 +28,8 @@ import { MultiselectFilterExampleComponent } from './multiselect/multiselect-fil
 import { MultiselectExamplesComponent } from './multiselect/multiselect-examples.component';
 import { DateselectFilterExampleComponent } from './dateselect/dateselect-filter-example.component';
 import { DateselectExamplesComponent } from './dateselect/dateselect-examples.component';
+import { NumberselectFilterExampleComponent } from './numberselect/numberselect-filter-example.component';
+import { NumberselectExamplesComponent } from './numberselect/numberselect-examples.component';
 
 import {
   BasicExampleButtonViewComponent,
@@ -53,6 +55,8 @@ const EXAMPLES_COMPONENTS = [
   MultiselectFilterExampleComponent,
   DateselectExamplesComponent,
   DateselectFilterExampleComponent,
+  NumberselectExamplesComponent,
+  NumberselectFilterExampleComponent,
   BasicExampleButtonViewComponent,
   BasicExampleCustomActionsComponent,
   ButtonViewComponent,
