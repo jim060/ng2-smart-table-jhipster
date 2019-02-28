@@ -40,6 +40,7 @@ export class Ng2SmartTableComponent implements OnChanges {
   defaultSettings: Object = {
     mode: 'inline', // inline|external|click-to-edit
     selectMode: 'single', // single|multi
+    language: 'en', // en|fr
     hideHeader: false,
     hideSubHeader: false,
     actions: {
@@ -81,7 +82,24 @@ export class Ng2SmartTableComponent implements OnChanges {
       display: true,
       perPage: 10,
     },
-    rowClassFunction: () => ""
+    rowClassFunction: () => '',
+  };
+
+  defaultSettingsFr: Object = {
+    edit: {
+      editButtonContent: 'Modifier',
+      saveButtonContent: 'Enregistrer',
+      cancelButtonContent: 'Annuler',
+    },
+    add: {
+      addButtonContent: 'Ajouter',
+      createButtonContent: 'Créer',
+      cancelButtonContent: 'Annuler',
+    },
+    delete: {
+      deleteButtonContent: 'Supprimer',
+    },
+    noDataMessage: 'Aucune donnée disponible',
   };
 
   isAllSelected: boolean = false;
@@ -168,7 +186,11 @@ export class Ng2SmartTableComponent implements OnChanges {
   }
 
   prepareSettings(): Object {
-    return deepExtend({}, this.defaultSettings, this.settings);
+    if (this.settings['language'] === 'fr') {
+      return deepExtend({}, this.defaultSettings, this.defaultSettingsFr, this.settings);
+    } else {
+      return deepExtend({}, this.defaultSettings, this.settings);
+    }
   }
 
   changePage($event: any) {

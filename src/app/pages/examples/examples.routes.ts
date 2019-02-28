@@ -1,11 +1,12 @@
-import { ModuleWithProviders } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { ExamplesComponent } from './examples.component';
 import { FilterExamplesComponent } from './filter/filter-examples.component';
 import { ServerExamplesComponent } from './server/server-examples.component';
 import { CustomViewEditExamplesComponent } from './custom-edit-view/custom-edit-view-examples.component';
 import { VariousExamplesComponent } from './various/various-examples.component';
+import { MultiselectExamplesComponent } from './multiselect/multiselect-examples.component';
+import { DateselectExamplesComponent } from './dateselect/dateselect-examples.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,14 @@ export const routes: Routes = [
       {
         path: 'various',
         component: VariousExamplesComponent,
+      },
+      {
+        path: 'multiselect',
+        component: MultiselectExamplesComponent,
+      },
+      {
+        path: 'dateselect',
+        component: DateselectExamplesComponent,
       },
     ],
   },

@@ -1,10 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { Ng2SmartTableModule } from '../ng2-smart-table';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 import { PagesModule } from './pages/pages.module';
 
@@ -25,9 +29,20 @@ import { ScrollPositionDirective } from './theme/directives/scrollPosition.direc
     HttpClientModule,
     RouterModule.forRoot(routes, { useHash: true }),
     Ng2SmartTableModule,
+    AngularMultiSelectModule,
     PagesModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'fr'
+    },
+    DatePipe
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    registerLocaleData(localeFr);
+  }
+}

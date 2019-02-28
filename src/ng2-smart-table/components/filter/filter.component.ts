@@ -27,6 +27,20 @@ import { Subscription } from 'rxjs';
                         [column]="column"
                         (filter)="onFilter($event)">
       </completer-filter>
+      <date-filter *ngSwitchCase="'date'"
+                        [query]="query"
+                        [ngClass]="inputClass"
+                        [column]="column"
+                        [language]="language"
+                        (filter)="onFilterDate($event)">
+      </date-filter>
+      <mselect-filter *ngSwitchCase="'multiple'"
+                        [query]="query"
+                        [ngClass]="inputClass"
+                        [column]="column"
+                        [language]="language"
+                        (filter)="onFilterMulti($event)">
+      </mselect-filter>
       <input-filter *ngSwitchDefault
                     [query]="query"
                     [ngClass]="inputClass"
@@ -40,6 +54,7 @@ export class FilterComponent implements OnChanges {
 
   @Input() column: Column;
   @Input() source: DataSource;
+  @Input() language: string = 'en';
   @Input() inputClass: string = '';
 
   @Output() filter = new EventEmitter<any>();
@@ -76,6 +91,24 @@ export class FilterComponent implements OnChanges {
       field: this.column.id,
       search: query,
       filter: this.column.getFilterFunction(),
+    });
+  }
+
+  onFilterMulti(query: string) {
+    this.source.addFilter({
+      field: this.column.id,
+      search: query,
+      filter: this.column.getFilterFunction(),
+      multiSearch: true,
+    });
+  }
+
+  onFilterDate(query: string) {
+    this.source.addFilter({
+      field: this.column.id,
+      search: query,
+      filter: this.column.getFilterFunction(),
+      dateSearch: true,
     });
   }
 }

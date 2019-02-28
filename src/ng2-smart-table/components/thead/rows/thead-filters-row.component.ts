@@ -15,6 +15,7 @@ import { Column } from "../../../lib/data-set/column";
     <th *ngFor="let column of grid.getColumns()" class="ng2-smart-th {{ column.id }}">
       <ng2-smart-table-filter [source]="source"
                               [column]="column"
+                              [language]="language"
                               [inputClass]="filterInputClass"
                               (filter)="filter.emit($event)">
       </ng2-smart-table-filter>
@@ -38,11 +39,13 @@ export class TheadFitlersRowComponent implements OnChanges {
   showActionColumnLeft: boolean;
   showActionColumnRight: boolean;
   filterInputClass: string;
+  language: string;
 
   ngOnChanges() {
     this.isMultiSelectVisible = this.grid.isMultiSelectVisible();
     this.showActionColumnLeft = this.grid.showActionColumn('left');
     this.showActionColumnRight = this.grid.showActionColumn('right');
     this.filterInputClass = this.grid.getSetting('filter.inputClass');
+    this.language = this.grid.getSetting('language');
   }
 }

@@ -12,6 +12,8 @@ export class LocalDataSource extends DataSource {
   protected filterConf: any = {
     filters: [],
     andOperator: true,
+    multiSearch: false,
+    dateSearch: false,
   };
   protected pagingConf: any = {};
 
@@ -92,6 +94,8 @@ export class LocalDataSource extends DataSource {
       this.filterConf = {
         filters: [],
         andOperator: true,
+        multiSearch: false,
+        dateSearch: false,
       };
       this.sortConf = [];
       this.pagingConf['page'] = 1;
@@ -157,6 +161,8 @@ export class LocalDataSource extends DataSource {
       this.filterConf = {
         filters: [],
         andOperator: true,
+        multiSearch: false,
+        dateSearch: false,
       };
     }
     this.filterConf.andOperator = andOperator;
@@ -237,7 +243,10 @@ export class LocalDataSource extends DataSource {
         this.filterConf.filters.forEach((fieldConf: any) => {
           if (fieldConf['search'].length > 0) {
             data = LocalFilter
-              .filter(data, fieldConf['field'], fieldConf['search'], fieldConf['filter']);
+              .filter(data,
+                fieldConf['field'], fieldConf['search'], fieldConf['filter'],
+                fieldConf['multiSearch'], fieldConf['dateSearch']
+              );
           }
         });
       } else {
@@ -245,7 +254,11 @@ export class LocalDataSource extends DataSource {
         this.filterConf.filters.forEach((fieldConf: any) => {
           if (fieldConf['search'].length > 0) {
             mergedData = mergedData.concat(LocalFilter
-              .filter(data, fieldConf['field'], fieldConf['search'], fieldConf['filter']));
+              .filter(data,
+                fieldConf['field'], fieldConf['search'], fieldConf['filter'],
+                fieldConf['multiSearch'], fieldConf['dateSearch']
+              )
+            );
           }
         });
         // remove non unique items

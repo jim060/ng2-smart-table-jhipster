@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { SharedModule } from '../../shared/shared.module';
 import { Ng2SmartTableModule } from '../../../ng2-smart-table';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { routes } from './examples.routes';
 import { ExamplesComponent } from './examples.component';
 import { AdvancedExampleFiltersComponent } from './filter/advanced-example-filters.component';
@@ -23,6 +24,10 @@ import { ServerExamplesComponent } from './server/server-examples.component';
 import { CustomViewEditExamplesComponent } from './custom-edit-view/custom-edit-view-examples.component';
 import { BasicExampleCustomActionsComponent } from './custom-edit-view/basic-example-custom-actions.component';
 import { VariousExamplesComponent } from './various/various-examples.component';
+import { MultiselectFilterExampleComponent } from './multiselect/multiselect-filter-example.component';
+import { MultiselectExamplesComponent } from './multiselect/multiselect-examples.component';
+import { DateselectFilterExampleComponent } from './dateselect/dateselect-filter-example.component';
+import { DateselectExamplesComponent } from './dateselect/dateselect-examples.component';
 
 import {
   BasicExampleButtonViewComponent,
@@ -44,6 +49,10 @@ const EXAMPLES_COMPONENTS = [
   ServerExamplesComponent,
   CustomViewEditExamplesComponent,
   VariousExamplesComponent,
+  MultiselectExamplesComponent,
+  MultiselectFilterExampleComponent,
+  DateselectExamplesComponent,
+  DateselectFilterExampleComponent,
   BasicExampleButtonViewComponent,
   BasicExampleCustomActionsComponent,
   ButtonViewComponent,
@@ -57,6 +66,7 @@ const EXAMPLES_COMPONENTS = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     Ng2SmartTableModule,
+    AngularMultiSelectModule,
     SharedModule,
   ],
   entryComponents: [
