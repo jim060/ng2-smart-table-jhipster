@@ -12,21 +12,26 @@ import { map } from 'rxjs/operators';
       <option [value]="option" *ngFor="let  option of filterOptions">{{labelOptions[option]}}</option>
     </select>
     <div [ngSwitch]="filterType">
-     <input *ngSwitchCase="'before'" type="number" [formControl]="dateBefore" [ngClass]="inputClass" class="form-control">
-     <input *ngSwitchCase="'after'" type="number" [formControl]="dateAfter" [ngClass]="inputClass" class="form-control">
-     <input *ngSwitchCase="'equal'" type="number" [formControl]="dateEqual" [ngClass]="inputClass" class="form-control">
-     <input *ngSwitchCase="'between'" type="number" [formControl]="startDate" [ngClass]="inputClass" class="form-control">
-     <input *ngSwitchCase="'between'" type="number" [formControl]="endDate" [ngClass]="inputClass" class="form-control">
+     <input *ngSwitchCase="'before'" type="number"
+            [formControl]="numBefore" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'after'" type="number"
+            [formControl]="numAfter" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'equal'" type="number"
+            [formControl]="numEqual" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'between'" type="number"
+            [formControl]="startNum" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'between'" type="number"
+            [formControl]="endNum" [ngClass]="inputClass" class="form-control"/>
     </div>
   `,
 })
 export class NumberFilterComponent extends DefaultFilter implements OnInit {
 
-  startDate = new FormControl();
-  endDate = new FormControl();
-  dateBefore = new FormControl();
-  dateAfter = new FormControl();
-  dateEqual = new FormControl();
+  startNum = new FormControl();
+  endNum = new FormControl();
+  numBefore = new FormControl();
+  numAfter = new FormControl();
+  numEqual = new FormControl();
   filterTypeSelect = new FormControl();
   filterType: string = 'equal';
   filterOptions = ['before', 'after', 'equal', 'between'];
@@ -59,9 +64,9 @@ export class NumberFilterComponent extends DefaultFilter implements OnInit {
       }
 
       this.changesSubscription = this.getFilterType()
-        .subscribe(value => {
-          this.query = value;
-          this.setFilter()
+        .subscribe(val => {
+          this.query = val;
+          this.setFilter();
         });
     });
 
@@ -77,18 +82,18 @@ export class NumberFilterComponent extends DefaultFilter implements OnInit {
   getFilterType() {
     switch (this.filterType) {
       case 'before': {
-        return this.dateBefore.valueChanges.pipe(map(value => '_number_before_' + value));
+        return this.numBefore.valueChanges.pipe(map(value => `_number_before_${value}`));
       }
       case 'after': {
-        return this.dateAfter.valueChanges.pipe(map(value => '_number_after_' + value));
+        return this.numAfter.valueChanges.pipe(map(value => `_number_after_${value}`));
       }
       case 'equal': {
-        return this.dateEqual.valueChanges.pipe(map(value => '_number_equal_' + value));
+        return this.numEqual.valueChanges.pipe(map(value => `_number_equal_${value}`));
       }
       case 'between': {
-        return combineLatest(this.startDate.valueChanges, this.endDate.valueChanges)
+        return combineLatest(this.startNum.valueChanges, this.endNum.valueChanges)
           .pipe(map(([val1, val2]) => {
-            return '_start_number_' + val1 + '_end_number_' + val2;
+            return `_start_number_${val1}_end_number_${val2}`;
           }));
       }
     }

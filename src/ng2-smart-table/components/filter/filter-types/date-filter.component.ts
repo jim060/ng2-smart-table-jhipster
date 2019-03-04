@@ -12,11 +12,16 @@ import { map } from 'rxjs/operators';
       <option [value]="option" *ngFor="let  option of filterOptions">{{labelOptions[option]}}</option>
     </select>
     <div [ngSwitch]="filterType">
-     <input *ngSwitchCase="'before'" type="date" [formControl]="dateBefore" [ngClass]="inputClass" class="form-control">
-     <input *ngSwitchCase="'after'" type="date" [formControl]="dateAfter" [ngClass]="inputClass" class="form-control">
-     <input *ngSwitchCase="'equal'" type="date" [formControl]="dateEqual" [ngClass]="inputClass" class="form-control">
-     <input *ngSwitchCase="'between'" type="date" [formControl]="startDate" [ngClass]="inputClass" class="form-control">
-     <input *ngSwitchCase="'between'" type="date" [formControl]="endDate" [ngClass]="inputClass" class="form-control">
+     <input *ngSwitchCase="'before'" type="date"
+            [formControl]="dateBefore" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'after'" type="date"
+            [formControl]="dateAfter" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'equal'" type="date"
+            [formControl]="dateEqual" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'between'" type="date"
+            [formControl]="startDate" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'between'" type="date"
+            [formControl]="endDate" [ngClass]="inputClass" class="form-control"/>
     </div>
   `,
 })
@@ -59,9 +64,16 @@ export class DateFilterComponent extends DefaultFilter implements OnInit {
       }
 
       this.changesSubscription = this.getFilterType()
-        .subscribe(value => {
-          this.query = value;
-          this.setFilter()
+        .subscribe(val => {
+          if (
+            val === '_date_before_' ||
+            val === '_date_after_' ||
+            val === '_date_equal_') {
+            this.query = `${val}null`;
+          } else {
+            this.query = val;
+          }
+          this.setFilter();
         });
     });
 
@@ -77,19 +89,19 @@ export class DateFilterComponent extends DefaultFilter implements OnInit {
   getFilterType() {
     switch (this.filterType) {
       case 'before': {
-        return this.dateBefore.valueChanges.pipe(map(value => '_date_before_' + value));
+        return this.dateBefore.valueChanges.pipe(map(value => `_date_before_${value}`));
       }
       case 'after': {
-        return this.dateAfter.valueChanges.pipe(map(value => '_date_after_' + value));
+        return this.dateAfter.valueChanges.pipe(map(value => `_date_after_${value}`));
       }
       case 'equal': {
-        return this.dateEqual.valueChanges.pipe(map(value => '_date_equal_' + value));
+        return this.dateEqual.valueChanges.pipe(map(value => `_date_equal_${value}`));
       }
       case 'between': {
         return combineLatest(this.startDate.valueChanges, this.endDate.valueChanges)
           .pipe(map(([val1, val2]) => {
-            return '_start_date_' + val1 + '_end_date_' + val2;
-          }))
+            return `_start_date_${val1 === '' ? 'null' : val1}_end_date_${val2 === '' ? 'null' : val2}`;
+          }));
       }
     }
   }
