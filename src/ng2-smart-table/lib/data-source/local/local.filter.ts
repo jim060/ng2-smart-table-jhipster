@@ -1,3 +1,5 @@
+import {Time} from "@angular/common";
+
 export class LocalFilter {
 
   protected static FILTER = (value: string, search: string) => {
@@ -39,6 +41,45 @@ export class LocalFilter {
     }
   }
 
+  protected static FILTER_TIME = (value: any, search: string) => {
+    const dateValue = new Date();
+    const dateSearch = new Date();
+    const dateSearch2 = new Date();
+    if (typeof value === 'string') {
+      const splitVal = value.split(':');
+      dateValue.setHours(Number(splitVal[0]), Number(splitVal[1]), 0, 0);
+    } else {
+      dateValue.setHours(value.getHours(), value.getMinutes(), 0, 0);
+    }
+
+    if (search.startsWith('_time_before_')) { // Before
+      const beforeTimeStr = search.substring('_time_before_'.length);
+      const splitVal = beforeTimeStr.split(':');
+      dateSearch.setHours(Number(splitVal[0]), Number(splitVal[1]), 0, 0);
+      return dateValue <= dateSearch;
+    } else if (search.startsWith('_time_after_')) { // After
+      const afterTimeStr = search.substring('_time_after_'.length);
+      const splitVal = afterTimeStr.split(':');
+      dateSearch.setHours(Number(splitVal[0]), Number(splitVal[1]), 0, 0);
+      return dateValue >= dateSearch;
+    } else if (search.startsWith('_time_equal_')) { // Egual stricte
+      const equalsTimeStr = search.substring('_time_equal_'.length);
+      const splitVal = equalsTimeStr.split(':');
+      dateSearch.setHours(Number(splitVal[0]), Number(splitVal[1]), 0, 0);
+      return dateValue.getTime() === dateSearch.getTime();
+    } else if (search.startsWith('_start_time_')) { // Between
+      const beginTimeStr = search.substring('_start_time_'.length, '_start_time_'.length + 5);
+      const splitVal = beginTimeStr.split(':');
+      dateSearch.setHours(Number(splitVal[0]), Number(splitVal[1]), 0, 0);
+      const endTimeStr = search.substring('_start_time_'.length + 5 + '_end_time_'.length);
+      const splitVal2 = endTimeStr.split(':');
+      dateSearch2.setHours(Number(splitVal2[0]), Number(splitVal2[1]), 0, 0);
+      return dateSearch <= dateValue && dateSearch2 >= dateValue;
+    } else { // Other : Default search
+      return (value.toString().toLowerCase().includes(search.toString().toLowerCase()));
+    }
+  }
+
   protected static FILTER_NUMBER = (value: number, search: string) => {
     if (search.startsWith('_number_before_')) { // Before
       const beforeNumber = search.substring('_number_before_'.length);
@@ -66,12 +107,15 @@ export class LocalFilter {
     customFilter?: Function,
     multiSearch?: boolean,
     dateSearch?: boolean,
+    timeSearch?: boolean,
     numberSearch?: boolean,
   ): Array<any> {
     const filter: Function = customFilter ? customFilter :
       (multiSearch ? this.FILTER_MULTI :
         (dateSearch ? this.FILTER_DATE :
-          (numberSearch ? this.FILTER_NUMBER : this.FILTER)
+            (timeSearch ? this.FILTER_TIME :
+              (numberSearch ? this.FILTER_NUMBER : this.FILTER)
+            )
         )
       );
 

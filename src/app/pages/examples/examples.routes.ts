@@ -7,6 +7,7 @@ import { CustomViewEditExamplesComponent } from './custom-edit-view/custom-edit-
 import { VariousExamplesComponent } from './various/various-examples.component';
 import { MultiselectExamplesComponent } from './multiselect/multiselect-examples.component';
 import { DateselectExamplesComponent } from './dateselect/dateselect-examples.component';
+import { TimeselectExamplesComponent } from './timeselect/timeselect-examples.component';
 import { NumberselectExamplesComponent } from './numberselect/numberselect-examples.component';
 
 export const routes: Routes = [
@@ -41,6 +42,10 @@ export const routes: Routes = [
       {
         path: 'dateselect',
         component: DateselectExamplesComponent,
+      },
+      {
+        path: 'timeselect',
+        component: TimeselectExamplesComponent,
       },
       {
         path: 'numberselect',

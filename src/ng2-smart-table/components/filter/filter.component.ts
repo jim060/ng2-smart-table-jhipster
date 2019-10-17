@@ -34,6 +34,13 @@ import { Subscription } from 'rxjs';
                         [language]="language"
                         (filter)="onFilterDate($event)">
       </date-filter>
+      <time-filter *ngSwitchCase="'time'"
+                   [query]="query"
+                   [ngClass]="inputClass"
+                   [column]="column"
+                   [language]="language"
+                   (filter)="onFilterTime($event)">
+      </time-filter>
       <number-filter *ngSwitchCase="'number'"
                    [query]="query"
                    [ngClass]="inputClass"
@@ -116,6 +123,15 @@ export class FilterComponent implements OnChanges {
       search: query,
       filter: this.column.getFilterFunction(),
       dateSearch: true,
+    });
+  }
+
+  onFilterTime(query: string) {
+    this.source.addFilter({
+      field: this.column.id,
+      search: query,
+      filter: this.column.getFilterFunction(),
+      timeSearch: true,
     });
   }
 
