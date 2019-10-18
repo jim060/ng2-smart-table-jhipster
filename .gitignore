@@ -7,9 +7,11 @@
 
 # dependencies
 /node_modules
+/src/ng2-smart-table/node_modules
 
 # IDEs and editors
 /.idea
+/src/ng2-smart-table/.idea
 .project
 .classpath
 .c9/
