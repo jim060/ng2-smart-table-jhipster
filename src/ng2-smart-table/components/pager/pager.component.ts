@@ -81,9 +81,9 @@ export class PagerComponent implements OnChanges {
   currentPerPage: any;
 
   protected pages: Array<any>;
-  protected page: number;
-  protected count: number = 0;
-  protected perPage: number;
+  page: number;
+  count: number = 0;
+  perPage: number;
 
   protected dataChangedSub: Subscription;
 
