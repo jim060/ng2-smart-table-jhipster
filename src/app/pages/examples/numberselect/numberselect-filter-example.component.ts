@@ -44,6 +44,11 @@ export class NumberselectFilterExampleComponent {
         },
         filter: {
           type: 'number',
+          config: {
+            selectType: 'between',
+            defaultValue: 29,
+            defaultEndValue: 32
+          }
         },
       },
     },

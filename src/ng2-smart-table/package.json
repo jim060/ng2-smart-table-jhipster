@@ -17,7 +17,7 @@
     "url": "git+http://github.com/jim060/ng2-smart-table-jhipster"
   },
   "typings": "./index.d.ts",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "devDependencies": {
     "gulp": "^4.0.0"
   }

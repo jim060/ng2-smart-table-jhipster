@@ -76,7 +76,36 @@ export class NumberFilterComponent extends DefaultFilter implements OnInit {
       this.labelOptions = Object.assign({}, this.labelOptionsEn);
     }
 
-    this.filterTypeSelect.setValue('equal');
+    this.initDefaultFilter();
+  }
+
+  initDefaultFilter() {
+    const config = this.column.getFilterConfig();
+    if (config) {
+      if (config.selectType) {
+        this.filterType = config.selectType;
+      }
+      if (config.defaultValue) {
+        switch (this.filterType) {
+          case 'before': {
+            this.numBefore.setValue(config.defaultValue);
+          }
+          case 'after': {
+            this.numAfter.setValue(config.defaultValue);
+          }
+          case 'equal': {
+            this.numEqual.setValue(config.defaultValue);
+          }
+          case 'between': {
+            this.startNum.setValue(config.defaultValue);
+            if (config.defaultEndValue) {
+              this.endNum.setValue(config.defaultEndValue);
+            }
+          }
+        }
+      }
+    }
+    this.filterTypeSelect.setValue(this.filterType);
   }
 
   getFilterType() {
