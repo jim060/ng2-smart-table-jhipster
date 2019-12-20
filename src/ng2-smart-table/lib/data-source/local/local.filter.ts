@@ -9,7 +9,7 @@ export class LocalFilter {
   protected static FILTER_MULTI = (value: string, search: string) => {
     const listSearch = search.split(';');
     const valCell = value.replace(/ /g, '');
-    return (listSearch.toString().toLowerCase().includes(valCell.toString().toLowerCase()));
+    return (listSearch.toString().toLowerCase().includes(value.toString().toLowerCase()));
   }
 
   protected static FILTER_DATE = (value: Date, search: string) => {

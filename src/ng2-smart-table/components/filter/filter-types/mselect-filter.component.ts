@@ -95,7 +95,8 @@ export class MselectFilterComponent extends DefaultFilter implements OnInit {
         this.updateQuery();
     }
     updateQuery() {
-        this.query = this.selectedItems.map(item => item.itemName).join(';').replace(/ /g, '');
+        // this.query = this.selectedItems.map(item => item.itemName).join(';').replace(/ /g, '');
+        this.query = this.selectedItems.map(item => item.itemName).join(';');
         this.setFilter();
     }
 }
