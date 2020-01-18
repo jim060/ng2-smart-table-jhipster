@@ -2,7 +2,6 @@ import {Component, Input, Output, EventEmitter, OnChanges} from '@angular/core';
 
 import { Grid } from '../../../lib/grid';
 import { DataSource } from '../../../lib/data-source/data-source';
-import { Column } from "../../../lib/data-set/column";
 
 @Component({
   selector: '[ng2-st-thead-filters-row]',
@@ -17,6 +16,9 @@ import { Column } from "../../../lib/data-set/column";
                               [column]="column"
                               [language]="language"
                               [inputClass]="filterInputClass"
+                              [rememberFilter]="rememberFilter"
+                              [tableID]="tableID"
+                              (columnLoaded)="ngAfterAllColumnsLoaded($event)"
                               (filter)="filter.emit($event)">
       </ng2-smart-table-filter>
     </th>
@@ -40,6 +42,20 @@ export class TheadFitlersRowComponent implements OnChanges {
   showActionColumnRight: boolean;
   filterInputClass: string;
   language: string;
+  rememberFilter: boolean;
+  tableID: string;
+  countColumns: number;
+  countColumnLoaded: number;
+
+  ngAfterAllColumnsLoaded() {
+    if (this.rememberFilter && this.tableID) {
+      this.countColumnLoaded++;
+      if (this.countColumnLoaded === this.countColumns) {
+        // Emit OnChanged filter after all column filter init
+        this.source.emitOnChanged('filter');
+      }
+    }
+  }
 
   ngOnChanges() {
     this.isMultiSelectVisible = this.grid.isMultiSelectVisible();
@@ -47,5 +63,11 @@ export class TheadFitlersRowComponent implements OnChanges {
     this.showActionColumnRight = this.grid.showActionColumn('right');
     this.filterInputClass = this.grid.getSetting('filter.inputClass');
     this.language = this.grid.getSetting('language');
+    this.rememberFilter = this.grid.getSetting('attr.rememberFilter');
+    this.tableID = this.grid.getSetting('attr.id');
+    if (this.rememberFilter && this.tableID) {
+      this.countColumnLoaded = 0;
+      this.countColumns = this.grid.dataSet.getColumns().length;
+    }
   }
 }

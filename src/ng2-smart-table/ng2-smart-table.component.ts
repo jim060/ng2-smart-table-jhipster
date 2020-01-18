@@ -76,6 +76,7 @@ export class Ng2SmartTableComponent implements OnChanges {
     attr: {
       id: '',
       class: '',
+      rememberFilter: false,
     },
     noDataMessage: 'No data found',
     columns: {},

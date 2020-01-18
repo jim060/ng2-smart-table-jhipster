@@ -14,6 +14,10 @@ export class NumberselectFilterExampleComponent {
   test = [];
   settings = {
     language: 'fr',
+    attr: {
+      id: 'NumberselectFilterExampleComponent',
+      rememberFilter: true
+    },
     actions: {
       add: false,
       edit: false,

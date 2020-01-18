@@ -14,6 +14,10 @@ export class MultiselectFilterExampleComponent {
   test = [];
   settings = {
     language: 'fr',
+    attr: {
+      id: 'MultiselectFilterExampleComponent',
+      rememberFilter: true
+    },
     actions: {
       add: false,
       edit: false,

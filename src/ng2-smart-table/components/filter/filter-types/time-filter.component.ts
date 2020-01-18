@@ -83,7 +83,11 @@ export class TimeFilterComponent extends DefaultFilter implements OnInit {
       this.labelOptions = Object.assign({}, this.labelOptionsEn);
     }
 
-    this.initDefaultFilter();
+    if (this.query) {
+      this.initRememberFilter();
+    } else {
+      this.initDefaultFilter();
+    }
   }
 
   initDefaultFilter() {
@@ -113,6 +117,39 @@ export class TimeFilterComponent extends DefaultFilter implements OnInit {
       }
     }
     this.filterTypeSelect.setValue(this.filterType);
+  }
+
+  initRememberFilter() {
+    const querySplit = this.query.split('_');
+    if (querySplit[2] === 'before' || querySplit[2] === 'after' || querySplit[2] === 'equal') {
+      this.filterType = querySplit[2];
+      if (querySplit[3]) {
+        const defaultValue = querySplit[3];
+        switch (this.filterType) {
+          case 'before': {
+            this.timeBefore.setValue(defaultValue);
+          }
+          case 'after': {
+            this.timeAfter.setValue(defaultValue);
+          }
+          case 'equal': {
+            this.timeEqual.setValue(defaultValue);
+          }
+        }
+      }
+      this.filterTypeSelect.setValue(this.filterType);
+    } else if (querySplit[2] === 'time') {
+      this.filterType = 'between';
+      if (querySplit[3]) {
+        const defaultValue = querySplit[3];
+        const defaultEndValue = querySplit[6];
+        this.startTime.setValue(defaultValue);
+        if (defaultEndValue) {
+          this.endTime.setValue(defaultEndValue);
+        }
+      }
+      this.filterTypeSelect.setValue(this.filterType);
+    }
   }
 
   getFilterType() {

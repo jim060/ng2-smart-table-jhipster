@@ -3,8 +3,10 @@
     "name": "afterdata"
   },
   "dependencies": {
+    "@angular/platform-browser": "7.0.0",
     "angular2-multiselect-dropdown": "^4.2.1",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "ngx-webstorage": "2.0.1"
   },
   "description": "Angular Smart Table with Jhipster",
   "homepage": "https://github.com/jim060/ng2-smart-table-jhipster/#readme",
@@ -17,7 +19,7 @@
     "url": "git+http://github.com/jim060/ng2-smart-table-jhipster"
   },
   "typings": "./index.d.ts",
-  "version": "2.0.6",
+  "version": "2.1.1",
   "devDependencies": {
     "gulp": "^4.0.0"
   }

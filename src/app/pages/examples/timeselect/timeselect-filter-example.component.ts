@@ -5,7 +5,7 @@ import { LocalDataSource } from '../../../../ng2-smart-table';
 @Component({
   selector: 'timeselect-example-filter',
   template: `
-    <ng2-smart-table
+    <ng2-smart-table id="mySmartTableIdTOTO"
       [settings]="settings"
       [source]="source"></ng2-smart-table>
   `,
@@ -14,6 +14,10 @@ export class TimeselectFilterExampleComponent {
   test = [];
   settings = {
     language: 'fr',
+    attr: {
+      id: 'TimeselectFilterExampleComponent',
+      rememberFilter: true
+    },
     actions: {
       add: false,
       edit: false,

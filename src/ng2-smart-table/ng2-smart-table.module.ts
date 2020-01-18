@@ -9,6 +9,7 @@ import { TBodyModule } from './components/tbody/tbody.module';
 import { THeadModule } from './components/thead/thead.module';
 
 import { Ng2SmartTableComponent } from './ng2-smart-table.component';
+import { Ng2Webstorage } from 'ngx-webstorage';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { Ng2SmartTableComponent } from './ng2-smart-table.component';
     PagerModule,
     TBodyModule,
     THeadModule,
+    Ng2Webstorage,
   ],
   declarations: [
     Ng2SmartTableComponent,

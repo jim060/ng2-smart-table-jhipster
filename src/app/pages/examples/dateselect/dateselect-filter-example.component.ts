@@ -14,6 +14,10 @@ export class DateselectFilterExampleComponent {
   test = [];
   settings = {
     language: 'fr',
+    attr: {
+      id: 'DateselectFilterExampleComponent',
+      rememberFilter: true
+    },
     actions: {
       add: false,
       edit: false,
