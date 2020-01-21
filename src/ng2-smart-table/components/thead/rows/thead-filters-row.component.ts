@@ -18,7 +18,7 @@ import { DataSource } from '../../../lib/data-source/data-source';
                               [inputClass]="filterInputClass"
                               [rememberFilter]="rememberFilter"
                               [tableID]="tableID"
-                              (columnLoaded)="ngAfterAllColumnsLoaded($event)"
+                              (columnLoaded)="ngAfterAllColumnsLoaded()"
                               (filter)="filter.emit($event)">
       </ng2-smart-table-filter>
     </th>
