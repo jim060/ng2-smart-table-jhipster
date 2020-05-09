@@ -4,8 +4,8 @@ import {
   ComponentFactoryResolver,
   ViewChild,
   ViewContainerRef,
-  OnInit,
   OnDestroy,
+  AfterViewInit,
 } from '@angular/core';
 
 import { Cell } from '../../../lib/data-set/cell';
@@ -17,7 +17,7 @@ import { ViewCell } from './view-cell';
     <ng-template #dynamicTarget></ng-template>
   `,
 })
-export class CustomViewComponent implements OnInit, OnDestroy {
+export class CustomViewComponent implements AfterViewInit, OnDestroy {
 
   customComponent: any;
   @Input() cell: Cell;
@@ -26,11 +26,11 @@ export class CustomViewComponent implements OnInit, OnDestroy {
   constructor(private resolver: ComponentFactoryResolver) {
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     if (this.cell && !this.customComponent) {
-      this.createCustomComponent();
-      this.callOnComponentInit();
-      this.patchInstance();
+        this.createCustomComponent();
+        this.callOnComponentInit();
+        this.patchInstance();
     }
   }
 
@@ -41,6 +41,7 @@ export class CustomViewComponent implements OnInit, OnDestroy {
   }
 
   protected createCustomComponent() {
+    this.dynamicTarget.clear();
     const componentFactory = this.resolver.resolveComponentFactory(this.cell.getColumn().renderComponent);
     this.customComponent = this.dynamicTarget.createComponent(componentFactory);
   }
@@ -52,6 +53,7 @@ export class CustomViewComponent implements OnInit, OnDestroy {
 
   protected patchInstance() {
     Object.assign(this.customComponent.instance, this.getPatch());
+    this.customComponent.changeDetectorRef.detectChanges();
   }
 
   protected getPatch(): ViewCell {
