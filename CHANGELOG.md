@@ -1,3 +1,39 @@
+# [1.6.0](https://github.com/yggg/ng2-smart-table/compare/v1.5.0...v1.6.0) (2020-03-23)
+
+
+### Features
+
+* upgrade to Angular 9 ([#1140](https://github.com/yggg/ng2-smart-table/issues/1140)) ([8a4f0bb](https://github.com/yggg/ng2-smart-table/commit/8a4f0bb))
+
+
+### BREAKING CHANGES
+
+* `ng2-completer` dependency replaced by `@akveo/ng2-completer`. Read details in [#1140](https://github.com/yggg/ng2-smart-table/issues/1140). This is a temporary measure until the original ng2-completer fixed. We have no plans to support `@akveo/ng2-completer`.
+* We no longer have a direct dependency on tslib. Instead it is now
+listed a peerDependency. This matches Angular framework.
+
+
+
+# [1.5.0](https://github.com/akveo/ng2-smart-table/compare/v1.4.0...v1.5.0) (2019-06-18)
+
+Tables updated to Angular 8.
+
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/akveo/ng2-smart-table/compare/v1.3.5...v1.4.0) (2019-02-19)
+
+
+### Bug Fixes
+
+* deprecation warning with angular 7 ([#961](https://github.com/akveo/ng2-smart-table/issues/961)) ([c1558b1](https://github.com/akveo/ng2-smart-table/commit/c1558b1))
+* **filter:** search on first input ([#883](https://github.com/akveo/ng2-smart-table/issues/883)) ([8d7283d](https://github.com/akveo/ng2-smart-table/commit/8d7283d))
+
+
+### Features
+
+* **filter:** add support for custom filters ([#825](https://github.com/akveo/ng2-smart-table/issues/825)) ([b4713d9](https://github.com/akveo/ng2-smart-table/commit/b4713d9)), closes [#632](https://github.com/akveo/ng2-smart-table/issues/632) [#569](https://github.com/akveo/ng2-smart-table/issues/569) [#447](https://github.com/akveo/ng2-smart-table/issues/447)
+
+
+
 <a name="1.3.5"></a>
 ## [1.3.5](https://github.com/akveo/ng2-smart-table/compare/v1.3.4...v1.3.5) (2018-07-12)
 

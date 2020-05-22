@@ -4,18 +4,14 @@
 
 ng2-smart-table component made with :heart:  by [Akveo team](http://akveo.com/). Follow us on [Twitter](https://twitter.com/akveo_inc) to get latest news about this component first!
 
+## ⚠ Low Maintenance
+Due to project priority and resource constraints, this project is currently on low maintenance. We recognize that there are a lot of activities around this package. However, we are unable to accommodate the maintenance this project requires.
+
 ### Demo
 
 <a target="_blank" href="https://akveo.github.io/ng2-smart-table/">Live Demo</a>
 
 ![alt tag](src/assets/img/demo.gif)
-
-## Development
-
-- Run `npm install` in the "ng2-smart-table-demo" project.
-- Make your changes on the code in the `src/ng2-smart-table` folder and test them through the demo app.
-- When you're done, run `npm run build:release` in the "ng2-smart-table-demo" project.
-- The `dist\ng2-smart-table` folder will contain the output files: copy them to the repository which stores the component library.
 
 ## Installation
 
