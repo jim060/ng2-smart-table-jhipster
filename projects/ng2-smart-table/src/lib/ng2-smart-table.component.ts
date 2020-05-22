@@ -14,7 +14,7 @@ import { LocalDataSource } from './lib/data-source/local/local.data-source';
 export class Ng2SmartTableComponent implements OnChanges {
 
   @Input() source: any;
-  @Input() settings: Object = {};
+  @Input() settings = {};
 
   @Output() rowSelect = new EventEmitter<any>();
   @Output() userRowSelect = new EventEmitter<any>();
@@ -29,17 +29,20 @@ export class Ng2SmartTableComponent implements OnChanges {
 
   tableClass: string;
   tableId: string;
+  tableRememberFilter: boolean;
   perPageSelect: any;
   isHideHeader: boolean;
   isHideSubHeader: boolean;
   isPagerDisplay: boolean;
   rowClassFunction: Function;
+  language = 'en';
 
 
   grid: Grid;
-  defaultSettings: Object = {
+  defaultSettings = {
     mode: 'inline', // inline|external|click-to-edit
     selectMode: 'single', // single|multi
+    language: 'en', // en|fr
     hideHeader: false,
     hideSubHeader: false,
     actions: {
@@ -74,6 +77,7 @@ export class Ng2SmartTableComponent implements OnChanges {
     attr: {
       id: '',
       class: '',
+      rememberFilter: false,
     },
     noDataMessage: 'No data found',
     columns: {},
@@ -81,10 +85,27 @@ export class Ng2SmartTableComponent implements OnChanges {
       display: true,
       perPage: 10,
     },
-    rowClassFunction: () => ""
+    rowClassFunction: () => '',
   };
 
-  isAllSelected: boolean = false;
+  defaultSettingsFr = {
+    edit: {
+      editButtonContent: 'Modifier',
+      saveButtonContent: 'Enregistrer',
+      cancelButtonContent: 'Annuler',
+    },
+    add: {
+      addButtonContent: 'Ajouter',
+      createButtonContent: 'Créer',
+      cancelButtonContent: 'Annuler',
+    },
+    delete: {
+      deleteButtonContent: 'Supprimer',
+    },
+    noDataMessage: 'Aucune donnée disponible',
+  };
+
+  isAllSelected = false;
 
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
     if (this.grid) {
@@ -100,12 +121,14 @@ export class Ng2SmartTableComponent implements OnChanges {
     }
     this.tableId = this.grid.getSetting('attr.id');
     this.tableClass = this.grid.getSetting('attr.class');
+    this.tableRememberFilter = this.grid.getSetting('attr.rememberFilter');
     this.isHideHeader = this.grid.getSetting('hideHeader');
     this.isHideSubHeader = this.grid.getSetting('hideSubHeader');
     this.isPagerDisplay = this.grid.getSetting('pager.display');
     this.isPagerDisplay = this.grid.getSetting('pager.display');
     this.perPageSelect = this.grid.getSetting('pager.perPageSelect');
     this.rowClassFunction = this.grid.getSetting('rowClassFunction');
+    this.language = this.grid.getSetting('language');
   }
 
   editRowSelect(row: Row) {
@@ -168,7 +191,11 @@ export class Ng2SmartTableComponent implements OnChanges {
   }
 
   prepareSettings(): Object {
-    return deepExtend({}, this.defaultSettings, this.settings);
+    if ((<any>this.settings)['language'] === 'fr') {
+      return deepExtend({}, this.defaultSettings, this.defaultSettingsFr, this.settings);
+    } else {
+      return deepExtend({}, this.defaultSettings, this.settings);
+    }
   }
 
   changePage($event: any) {

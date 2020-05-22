@@ -1,8 +1,8 @@
 {
-  "name": "ng2-smart-table",
-  "version": "1.6.0",
-  "description": "Angular Smart Table",
-  "author": "akveo",
+  "name": "@afterdata/ng2-smart-table-jhipster",
+  "version": "2.3.0",
+  "description": "Angular Smart Table Customed by AfterData",
+  "author": "afterdata",
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.10"

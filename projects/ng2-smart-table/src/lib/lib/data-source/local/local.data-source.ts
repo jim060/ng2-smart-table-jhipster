@@ -12,6 +12,9 @@ export class LocalDataSource extends DataSource {
   protected filterConf: any = {
     filters: [],
     andOperator: true,
+    multiSearch: false,
+    dateSearch: false,
+    numberSearch: false,
   };
   protected pagingConf: any = {};
 
@@ -77,7 +80,7 @@ export class LocalDataSource extends DataSource {
   }
 
   getFilteredAndSorted(): Promise<any> {
-    let data = this.data.slice(0);
+    const data = this.data.slice(0);
     this.prepareData(data);
     return Promise.resolve(this.filteredAndSorted);
   }
@@ -92,6 +95,9 @@ export class LocalDataSource extends DataSource {
       this.filterConf = {
         filters: [],
         andOperator: true,
+        multiSearch: false,
+        dateSearch: false,
+        numberSearch: false,
       };
       this.sortConf = [];
       this.pagingConf['page'] = 1;
@@ -157,6 +163,9 @@ export class LocalDataSource extends DataSource {
       this.filterConf = {
         filters: [],
         andOperator: true,
+        multiSearch: false,
+        dateSearch: false,
+        numberSearch: false,
       };
     }
     this.filterConf.andOperator = andOperator;
@@ -235,17 +244,24 @@ export class LocalDataSource extends DataSource {
     if (this.filterConf.filters) {
       if (this.filterConf.andOperator) {
         this.filterConf.filters.forEach((fieldConf: any) => {
-          if (fieldConf['search'].length > 0) {
+          if (fieldConf['search'].length > 0 && fieldConf['search'].indexOf('_null') < 0) {
             data = LocalFilter
-              .filter(data, fieldConf['field'], fieldConf['search'], fieldConf['filter']);
+              .filter(data,
+                fieldConf['field'], fieldConf['search'], fieldConf['filter'],
+                fieldConf['multiSearch'], fieldConf['dateSearch'], fieldConf['timeSearch'], fieldConf['numberSearch']
+              );
           }
         });
       } else {
         let mergedData: any = [];
         this.filterConf.filters.forEach((fieldConf: any) => {
-          if (fieldConf['search'].length > 0) {
+          if (fieldConf['search'].length > 0 && fieldConf['search'].indexOf('_null') < 0) {
             mergedData = mergedData.concat(LocalFilter
-              .filter(data, fieldConf['field'], fieldConf['search'], fieldConf['filter']));
+              .filter(data,
+                fieldConf['field'], fieldConf['search'], fieldConf['filter'],
+                fieldConf['multiSearch'], fieldConf['dateSearch'], fieldConf['timeSearch'], fieldConf['numberSearch']
+              )
+            );
           }
         });
         // remove non unique items

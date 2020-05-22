@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2CompleterModule } from '@akveo/ng2-completer';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { HttpClientModule } from '@angular/common/http';
 
 import { FilterComponent } from './filter.component';
 import { DefaultFilterComponent } from "./default-filter.component";
@@ -10,6 +12,10 @@ import { CheckboxFilterComponent } from './filter-types/checkbox-filter.componen
 import { CompleterFilterComponent } from './filter-types/completer-filter.component';
 import { InputFilterComponent } from './filter-types/input-filter.component';
 import { SelectFilterComponent } from './filter-types/select-filter.component';
+import { DateFilterComponent } from './filter-types/date-filter.component';
+import { TimeFilterComponent } from './filter-types/time-filter.component';
+import { NumberFilterComponent } from './filter-types/number-filter.component';
+import { MselectFilterComponent } from './filter-types/mselect-filter.component';
 import { DefaultFilter } from './filter-types/default-filter';
 import { FilterDefault } from './filter-default';
 
@@ -23,6 +29,10 @@ const FILTER_COMPONENTS = [
   CompleterFilterComponent,
   InputFilterComponent,
   SelectFilterComponent,
+  DateFilterComponent,
+  TimeFilterComponent,
+  NumberFilterComponent,
+  MselectFilterComponent
 ];
 
 @NgModule({
@@ -31,6 +41,8 @@ const FILTER_COMPONENTS = [
     FormsModule,
     ReactiveFormsModule,
     Ng2CompleterModule,
+    AngularMultiSelectModule,
+    HttpClientModule
   ],
   declarations: [
     ...FILTER_COMPONENTS,

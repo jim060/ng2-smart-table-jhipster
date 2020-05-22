@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { FilterDefault } from './filter-default';
 import { Subscription } from 'rxjs';
 
@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
                               [query]="query"
                               [column]="column"
                               [source]="source"
+                              [language]="language"
                               [inputClass]="inputClass"
                               (filter)="onFilter($event)">
         </default-table-filter>

@@ -9,18 +9,22 @@ import {
 } from '@angular/core';
 
 import { FilterDefault } from './filter-default';
+import {SessionStorageService} from 'ngx-webstorage';
 
 @Component({
   selector: 'custom-table-filter',
   template: `<ng-template #dynamicTarget></ng-template>`,
 })
 export class CustomFilterComponent extends FilterDefault implements OnChanges, OnDestroy {
+  @Input() language = 'en';
   @Input() query: string;
+  @Input() rememberFilter = false;
+  @Input() tableID: string;
   customComponent: any;
   @ViewChild('dynamicTarget', { read: ViewContainerRef, static: true }) dynamicTarget: any;
 
-  constructor(private resolver: ComponentFactoryResolver) {
-    super();
+  constructor(private resolver: ComponentFactoryResolver, protected sessionStorage: SessionStorageService) {
+    super(sessionStorage);
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -9,9 +11,12 @@ import { TBodyModule } from './components/tbody/tbody.module';
 import { THeadModule } from './components/thead/thead.module';
 
 import { Ng2SmartTableComponent } from './ng2-smart-table.component';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 @NgModule({
   imports: [
+    NgxWebstorageModule.forRoot(),
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -20,6 +25,7 @@ import { Ng2SmartTableComponent } from './ng2-smart-table.component';
     PagerModule,
     TBodyModule,
     THeadModule,
+    AngularMultiSelectModule,
   ],
   declarations: [
     Ng2SmartTableComponent,
@@ -27,6 +33,16 @@ import { Ng2SmartTableComponent } from './ng2-smart-table.component';
   exports: [
     Ng2SmartTableComponent,
   ],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'fr'
+    },
+    DatePipe
+  ],
 })
 export class Ng2SmartTableModule {
+  constructor() {
+    registerLocaleData(localeFr);
+  }
 }

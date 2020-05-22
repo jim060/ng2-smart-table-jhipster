@@ -2,6 +2,8 @@
   font-size: 1rem;
 
   ::ng-deep {
+    @import "ng2-smart-table.multiselectfilter.theme";
+
     * {
       box-sizing: border-box;
     }

@@ -6,7 +6,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { routes } from './pages.routes';
 import { SharedModule } from '../shared/shared.module';
-
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 @NgModule({
   imports: [
     FormsModule,
@@ -14,6 +14,7 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     Ng2SmartTableModule,
+    AngularMultiSelectModule,
     SharedModule,
   ],
 })

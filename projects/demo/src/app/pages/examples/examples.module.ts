@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { SharedModule } from '../../shared/shared.module';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { routes } from './examples.routes';
 import { ExamplesComponent } from './examples.component';
 import { AdvancedExampleFiltersComponent } from './filter/advanced-example-filters.component';
@@ -24,6 +25,14 @@ import { ServerExamplesComponent } from './server/server-examples.component';
 import { CustomViewEditExamplesComponent } from './custom-edit-view/custom-edit-view-examples.component';
 import { BasicExampleCustomActionsComponent } from './custom-edit-view/basic-example-custom-actions.component';
 import { VariousExamplesComponent } from './various/various-examples.component';
+import { MultiselectFilterExampleComponent } from './multiselect/multiselect-filter-example.component';
+import { MultiselectExamplesComponent } from './multiselect/multiselect-examples.component';
+import { DateselectFilterExampleComponent } from './dateselect/dateselect-filter-example.component';
+import { DateselectExamplesComponent } from './dateselect/dateselect-examples.component';
+import { TimeselectFilterExampleComponent } from './timeselect/timeselect-filter-example.component';
+import { TimeselectExamplesComponent } from './timeselect/timeselect-examples.component';
+import { NumberselectFilterExampleComponent } from './numberselect/numberselect-filter-example.component';
+import { NumberselectExamplesComponent } from './numberselect/numberselect-examples.component';
 
 import {
   BasicExampleButtonViewComponent,
@@ -46,6 +55,14 @@ const EXAMPLES_COMPONENTS = [
   ServerExamplesComponent,
   CustomViewEditExamplesComponent,
   VariousExamplesComponent,
+  MultiselectExamplesComponent,
+  MultiselectFilterExampleComponent,
+  DateselectExamplesComponent,
+  DateselectFilterExampleComponent,
+  TimeselectExamplesComponent,
+  TimeselectFilterExampleComponent,
+  NumberselectExamplesComponent,
+  NumberselectFilterExampleComponent,
   BasicExampleButtonViewComponent,
   BasicExampleCustomActionsComponent,
   ButtonViewComponent,
@@ -59,6 +76,7 @@ const EXAMPLES_COMPONENTS = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     Ng2SmartTableModule,
+    AngularMultiSelectModule,
     SharedModule,
   ],
   entryComponents: [

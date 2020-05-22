@@ -15,7 +15,11 @@ import { Column } from "../../../lib/data-set/column";
     <th *ngFor="let column of grid.getColumns()" class="ng2-smart-th {{ column.id }}">
       <ng2-smart-table-filter [source]="source"
                               [column]="column"
+                              [language]="language"
                               [inputClass]="filterInputClass"
+                              [rememberFilter]="rememberFilter"
+                              [tableID]="tableID"
+                              (columnLoaded)="ngAfterAllColumnsLoaded()"
                               (filter)="filter.emit($event)">
       </ng2-smart-table-filter>
     </th>
@@ -38,11 +42,33 @@ export class TheadFitlersRowComponent implements OnChanges {
   showActionColumnLeft: boolean;
   showActionColumnRight: boolean;
   filterInputClass: string;
+  language: string;
+  rememberFilter: boolean;
+  tableID: string;
+  countColumns: number;
+  countColumnLoaded: number;
+
+  ngAfterAllColumnsLoaded() {
+    if (this.rememberFilter && this.tableID) {
+      this.countColumnLoaded++;
+      if (this.countColumnLoaded === this.countColumns) {
+        // Emit OnChanged filter after all column filter init
+        this.source.emitOnChanged('filter');
+      }
+    }
+  }
 
   ngOnChanges() {
     this.isMultiSelectVisible = this.grid.isMultiSelectVisible();
     this.showActionColumnLeft = this.grid.showActionColumn('left');
     this.showActionColumnRight = this.grid.showActionColumn('right');
     this.filterInputClass = this.grid.getSetting('filter.inputClass');
+    this.language = this.grid.getSetting('language');
+    this.rememberFilter = this.grid.getSetting('attr.rememberFilter');
+    this.tableID = this.grid.getSetting('attr.id');
+    if (this.rememberFilter && this.tableID) {
+      this.countColumnLoaded = 0;
+      this.countColumns = this.grid.dataSet.getColumns().length;
+    }
   }
 }

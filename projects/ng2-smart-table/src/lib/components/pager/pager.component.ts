@@ -59,21 +59,31 @@ import { DataSource } from '../../lib/data-source/data-source';
         <option *ngFor="let item of perPageSelect" [value]="item">{{ item }}</option>
       </select>
     </nav>
+    
+    <div class="row ng2-smart-item-count">
+      <div class="col col-12" *ngIf="language=='en'">
+        Showing {{((page-1)*perPage)+1}} - {{page*perPage>count?count:page*perPage}} of {{count}} items 
+      </div>
+      <div class="col col-12" *ngIf="language=='fr'">
+        De {{((page-1)*perPage)+1}} à {{page*perPage>count?count:page*perPage}} éléments sur {{count}} au total
+      </div>
+    </div>
   `,
 })
 export class PagerComponent implements OnChanges {
 
   @Input() source: DataSource;
   @Input() perPageSelect: any[] = [];
+  @Input() language: string;
 
   @Output() changePage = new EventEmitter<any>();
 
   currentPerPage: any;
 
   protected pages: Array<any>;
-  protected page: number;
-  protected count: number = 0;
-  protected perPage: number;
+  page: number;
+  count = 0;
+  perPage: number;
 
   protected dataChangedSub: Subscription;
 

@@ -48,7 +48,10 @@ export class Grid {
     this.dataSet = new DataSet([], this.getSetting('columns'));
 
     if (this.source) {
-      this.source.refresh();
+      if (!this.getSetting('attr.rememberFilter')) {
+        // If rememberFilter, a filter event will be emit later
+        this.source.refresh();
+      }
     }
   }
 
@@ -234,7 +237,11 @@ export class Grid {
       source.setPaging(1, this.getSetting('pager.perPage'), false);
     }
 
-    source.refresh();
+    if (!this.getSetting('attr.rememberFilter')) {
+      // If rememberFilter, a filter event will be emit later
+      source.refresh();
+    }
+
     return source;
   }
 
