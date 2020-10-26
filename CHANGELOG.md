@@ -1,3 +1,7 @@
+# [2.5.0](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.5.0) (2020-10-26)
+
+
+
 # [2.4.0](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.4.0) (2020-10-22)
 
 
