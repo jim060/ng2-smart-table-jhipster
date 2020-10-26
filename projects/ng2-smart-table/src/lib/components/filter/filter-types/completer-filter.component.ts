@@ -6,7 +6,7 @@ import { DefaultFilter } from './default-filter';
 import { distinctUntilChanged, debounceTime, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'completer-filter',
+  selector: 'lib-completer-filter',
   template: `
     <ng2-completer [(ngModel)]="query"
                    (ngModelChange)="inputTextChanged($event)"

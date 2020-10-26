@@ -6,7 +6,7 @@ import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'number-filter',
+  selector: 'lib-number-filter',
   template: `
     <select [formControl]="filterTypeSelect">
       <option [value]="option" *ngFor="let  option of filterOptions">{{labelOptions[option]}}</option>
@@ -33,7 +33,7 @@ export class NumberFilterComponent extends DefaultFilter implements OnInit {
   numAfter = new FormControl();
   numEqual = new FormControl();
   filterTypeSelect = new FormControl();
-  filterType: string = 'equal';
+  filterType = 'equal';
   filterOptions = ['before', 'after', 'equal', 'between'];
 
   labelOptions = {};

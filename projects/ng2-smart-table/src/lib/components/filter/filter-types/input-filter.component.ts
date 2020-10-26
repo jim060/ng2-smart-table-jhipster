@@ -5,7 +5,7 @@ import { debounceTime, distinctUntilChanged, skip } from 'rxjs/operators';
 import { DefaultFilter } from './default-filter';
 
 @Component({
-  selector: 'input-filter',
+  selector: 'lib-input-filter',
   template: `
     <input
       [ngClass]="inputClass"

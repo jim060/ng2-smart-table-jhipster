@@ -11,7 +11,7 @@ import {
 import { EditCellDefault } from './edit-cell-default';
 
 @Component({
-  selector: 'table-cell-custom-editor',
+  selector: 'lib-table-cell-custom-editor',
   template: `
     <ng-template #dynamicTarget></ng-template>
   `,

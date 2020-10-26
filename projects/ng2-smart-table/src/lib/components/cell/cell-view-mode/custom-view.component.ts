@@ -12,7 +12,7 @@ import { Cell } from '../../../lib/data-set/cell';
 import { ViewCell } from './view-cell';
 
 @Component({
-  selector: 'custom-view-component',
+  selector: 'lib-custom-view-component',
   template: `
     <ng-template #dynamicTarget></ng-template>
   `,

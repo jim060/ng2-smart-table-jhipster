@@ -1,35 +1,35 @@
 <div [ngSwitch]="getEditorType()">
-    <select-editor *ngSwitchCase="'list'"
-                   [cell]="cell"
-                   [inputClass]="inputClass"
-                   (onClick)="onClick($event)"
-                   (onEdited)="onEdited($event)"
-                   (onStopEditing)="onStopEditing()">
-    </select-editor>
+    <lib-select-editor *ngSwitchCase="'list'"
+                       [cell]="cell"
+                       [inputClass]="inputClass"
+                       (onClick)="onClick($event)"
+                       (onEdited)="onEdited($event)"
+                       (onStopEditing)="onStopEditing()">
+    </lib-select-editor>
 
-    <textarea-editor *ngSwitchCase="'textarea'"
-                     [cell]="cell"
-                     [inputClass]="inputClass"
-                     (onClick)="onClick($event)"
-                     (onEdited)="onEdited($event)"
-                     (onStopEditing)="onStopEditing()">
-    </textarea-editor>
+    <lib-textarea-editor *ngSwitchCase="'textarea'"
+                         [cell]="cell"
+                         [inputClass]="inputClass"
+                         (onClick)="onClick($event)"
+                         (onEdited)="onEdited($event)"
+                         (onStopEditing)="onStopEditing()">
+    </lib-textarea-editor>
 
-    <checkbox-editor *ngSwitchCase="'checkbox'"
-                     [cell]="cell"
-                     [inputClass]="inputClass"
-                     (onClick)="onClick($event)">
-    </checkbox-editor>
+    <lib-checkbox-editor *ngSwitchCase="'checkbox'"
+                         [cell]="cell"
+                         [inputClass]="inputClass"
+                         (onClick)="onClick($event)">
+    </lib-checkbox-editor>
 
-    <completer-editor *ngSwitchCase="'completer'"
-                      [cell]="cell">
-    </completer-editor>
+    <lib-completer-editor *ngSwitchCase="'completer'"
+                          [cell]="cell">
+    </lib-completer-editor>
 
-    <input-editor *ngSwitchDefault
-                  [cell]="cell"
-                  [inputClass]="inputClass"
-                  (onClick)="onClick($event)"
-                  (onEdited)="onEdited($event)"
-                  (onStopEditing)="onStopEditing()">
-    </input-editor>
+    <lib-input-editor *ngSwitchDefault
+                      [cell]="cell"
+                      [inputClass]="inputClass"
+                      (onClick)="onClick($event)"
+                      (onEdited)="onEdited($event)"
+                      (onStopEditing)="onStopEditing()">
+    </lib-input-editor>
 </div>

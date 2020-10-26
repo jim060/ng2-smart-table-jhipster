@@ -5,7 +5,7 @@ import { distinctUntilChanged, debounceTime, skip } from 'rxjs/operators';
 import { DefaultFilter } from './default-filter';
 
 @Component({
-  selector: 'select-filter',
+  selector: 'lib-select-filter',
   template: `
     <select [ngClass]="inputClass"
             class="form-control"

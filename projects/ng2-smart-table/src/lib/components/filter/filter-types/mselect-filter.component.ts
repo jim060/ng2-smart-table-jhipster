@@ -25,13 +25,13 @@ export interface DropdownSettings {
 
 // See : https://cuppalabs.github.io/angular2-multiselect-dropdown/#/basic
 @Component({
-    selector: 'mselect-filter',
-    template: `<angular2-multiselect [data]="dropdownList" 
-    [(ngModel)]="selectedItems" 
-    [settings]="dropdownSettings" 
+    selector: 'lib-mselect-filter',
+    template: `<angular2-multiselect [data]="dropdownList"
+    [(ngModel)]="selectedItems"
+    [settings]="dropdownSettings"
     (onSelect)="onItemSelect($event)"
-    (onDeSelect)="OnItemDeSelect($event)" 
-    (onSelectAll)="onSelectAll($event)" 
+    (onDeSelect)="OnItemDeSelect($event)"
+    (onSelectAll)="onSelectAll($event)"
     (onDeSelectAll)="onDeSelectAll($event)">
     </angular2-multiselect>`,
 })

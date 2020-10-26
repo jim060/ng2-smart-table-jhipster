@@ -6,8 +6,8 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FilterComponent } from './filter.component';
-import { DefaultFilterComponent } from "./default-filter.component";
-import { CustomFilterComponent } from "./custom-filter.component";
+import { DefaultFilterComponent } from './default-filter.component';
+import { CustomFilterComponent } from './custom-filter.component';
 import { CheckboxFilterComponent } from './filter-types/checkbox-filter.component';
 import { CompleterFilterComponent } from './filter-types/completer-filter.component';
 import { InputFilterComponent } from './filter-types/input-filter.component';

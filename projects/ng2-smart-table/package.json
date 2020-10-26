@@ -1,7 +1,7 @@
 {
   "name": "@afterdata/ng2-smart-table-jhipster",
   "version": "2.3.0",
-  "description": "Angular Smart Table Customed by AfterData",
+  "description": "Angular Smart Table Customized by AfterData",
   "author": "afterdata",
   "license": "MIT",
   "dependencies": {

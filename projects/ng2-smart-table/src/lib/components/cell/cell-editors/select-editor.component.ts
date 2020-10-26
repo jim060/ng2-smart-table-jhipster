@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { DefaultEditor } from './default-editor';
 
 @Component({
-  selector: 'select-editor',
+  selector: 'lib-select-editor',
   template: `
     <select [ngClass]="inputClass"
             class="form-control"

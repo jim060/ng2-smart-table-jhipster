@@ -9,24 +9,25 @@ import { Column } from "../../../lib/data-set/column";
   template: `
     <th *ngIf="isMultiSelectVisible"></th>
     <th ng2-st-add-button *ngIf="showActionColumnLeft"
-                          [grid]="grid"
-                          (create)="create.emit($event)">
+        [grid]="grid"
+        (create)="create.emit($event)">
     </th>
     <th *ngFor="let column of grid.getColumns()" class="ng2-smart-th {{ column.id }}">
-      <ng2-smart-table-filter [source]="source"
-                              [column]="column"
-                              [language]="language"
-                              [inputClass]="filterInputClass"
-                              [rememberFilter]="rememberFilter"
-                              [tableID]="tableID"
-                              (columnLoaded)="ngAfterAllColumnsLoaded()"
-                              (filter)="filter.emit($event)">
-      </ng2-smart-table-filter>
+      <lib-ng2-smart-table-filter [source]="source"
+                                  [column]="column"
+                                  [language]="language"
+                                  [inputClass]="filterInputClass"
+                                  [rememberFilter]="rememberFilter"
+                                  [tableID]="tableID"
+                                  [initializeFilter]="initializeFilter"
+                                  (columnLoaded)="ngAfterAllColumnsLoaded()"
+                                  (filter)="filter.emit($event)">
+      </lib-ng2-smart-table-filter>
     </th>
     <th ng2-st-add-button *ngIf="showActionColumnRight"
-                          [grid]="grid"
-                          [source]="source"
-                          (create)="create.emit($event)">
+        [grid]="grid"
+        [source]="source"
+        (create)="create.emit($event)">
     </th>
   `,
 })
@@ -44,6 +45,7 @@ export class TheadFitlersRowComponent implements OnChanges {
   filterInputClass: string;
   language: string;
   rememberFilter: boolean;
+  initializeFilter: boolean;
   tableID: string;
   countColumns: number;
   countColumnLoaded: number;
@@ -66,6 +68,7 @@ export class TheadFitlersRowComponent implements OnChanges {
     this.language = this.grid.getSetting('language');
     this.rememberFilter = this.grid.getSetting('attr.rememberFilter');
     this.tableID = this.grid.getSetting('attr.id');
+    this.initializeFilter = this.grid.getSetting('attr.initializeFilter');
     if (this.rememberFilter && this.tableID) {
       this.countColumnLoaded = 0;
       this.countColumns = this.grid.dataSet.getColumns().length;

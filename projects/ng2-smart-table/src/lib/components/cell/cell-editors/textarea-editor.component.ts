@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { DefaultEditor } from './default-editor';
 
 @Component({
-  selector: 'textarea-editor',
+  selector: 'lib-textarea-editor',
   styleUrls: ['./editor.component.scss'],
   template: `
     <textarea [ngClass]="inputClass"

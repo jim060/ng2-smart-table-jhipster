@@ -12,7 +12,7 @@ import { FilterDefault } from './filter-default';
 import {SessionStorageService} from 'ngx-webstorage';
 
 @Component({
-  selector: 'custom-table-filter',
+  selector: 'lib-custom-table-filter',
   template: `<ng-template #dynamicTarget></ng-template>`,
 })
 export class CustomFilterComponent extends FilterDefault implements OnChanges, OnDestroy {
@@ -28,6 +28,7 @@ export class CustomFilterComponent extends FilterDefault implements OnChanges, O
   }
 
   ngOnChanges(changes: SimpleChanges) {
+
     if (this.column && !this.customComponent) {
       const componentFactory = this.resolver.resolveComponentFactory(this.column.filter.component);
       this.customComponent = this.dynamicTarget.createComponent(componentFactory);

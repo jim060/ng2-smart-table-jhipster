@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { DefaultEditor } from './default-editor';
 
 @Component({
-  selector: 'input-editor',
+  selector: 'lib-input-editor',
   styleUrls: ['./editor.component.scss'],
   template: `
     <input [ngClass]="inputClass"

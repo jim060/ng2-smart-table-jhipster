@@ -5,7 +5,7 @@ import { DefaultFilter } from './default-filter';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
-  selector: 'checkbox-filter',
+  selector: 'lib-checkbox-filter',
   template: `
     <input type="checkbox" [formControl]="inputControl" [ngClass]="inputClass" class="form-control">
     <a href="#" *ngIf="filterActive"
@@ -14,7 +14,7 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class CheckboxFilterComponent extends DefaultFilter implements OnInit {
 
-  filterActive: boolean = false;
+  filterActive = false;
   inputControl = new FormControl();
 
   constructor() {

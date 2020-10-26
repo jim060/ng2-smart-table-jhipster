@@ -12,8 +12,9 @@ export class FilterDefault implements OnInit, OnDestroy {
   @Input() column: Column;
   @Input() source: DataSource;
   @Input() language = 'en';
-  @Input() inputClass: string = '';
+  @Input() inputClass = '';
   @Input() rememberFilter = false;
+  @Input() initializeFilter = false;
   @Input() tableID: string;
 
   @Output() filter = new EventEmitter<any>();
@@ -22,9 +23,45 @@ export class FilterDefault implements OnInit, OnDestroy {
   query = '';
 
   constructor(protected sessionStorage: SessionStorageService) {
+
   }
 
   ngOnInit() {
+    //  ON LOAD MULTi SELECT FILTER TO BE APPLIED
+    if (this.column.getFilterType() === 'multiple' &&  this.initializeFilter && this.column.filter.config.selectedItems.length > 0) {
+      let query: string | any = '';
+      this.column.filter.config.selectedItems.forEach(element => {
+        query += element.itemName + ';'; });
+      query = query.slice(0, -1);
+      this.onFilterMulti(query, true);
+      //  ON LOAD NUMBER FILTER TO BE APPLIED
+    } else if (this.column.getFilterType() === 'number' && this.initializeFilter) {
+      if (!this.column.filter.config.selectType.toString().toLowerCase().includes('between')) {
+        this.onFilterNumber( '_number_' + this.column.filter.config.selectType  + '_' +
+          this.column.filter.config.defaultValue , true);
+      }  else {
+        this.onFilterNumber( '_start_number_' + this.column.filter.config.defaultValue  + '_end_number_' +
+          this.column.filter.config.defaultEndValue , true);
+      }
+      //  ON LOAD DATE FILTER TO BE APPLIED
+    } else if (this.column.getFilterType() === 'date' && this.initializeFilter) {
+      if (!this.column.filter.config.selectType.toString().toLowerCase().includes('between')) {
+        this.onFilterDate( '_date_' + this.column.filter.config.selectType  + '_' +
+          this.column.filter.config.defaultValue , true);
+      } else {
+        this.onFilterDate( '_start_date_' + this.column.filter.config.defaultValue  + '_end_date_' +
+          this.column.filter.config.defaultEndValue , true);
+      }
+      //  ON LOAD TIME FILTER TO BE APPLIED
+    } else if (this.column.getFilterType() === 'time' && this.initializeFilter) {
+      if (!this.column.filter.config.selectType.toString().toLowerCase().includes('between')) {
+        this.onFilterTime( '_time_' + this.column.filter.config.selectType  + '_' +
+          this.column.filter.config.defaultValue , true);
+      } else {
+        this.onFilterTime( '_start_time_' + this.column.filter.config.defaultValue  + '_end_time_' +
+          this.column.filter.config.defaultEndValue , true);
+      }
+    }
     // retrieve column filter if rememberFilter mode is activate
     if (this.rememberFilter && this.tableID) {
       this.query = this.sessionStorage.retrieve(this.tableID + '_' + this.column.id);
@@ -32,6 +69,7 @@ export class FilterDefault implements OnInit, OnDestroy {
         const filter = this.column.filter;
         if (filter) {
           const type = filter.type;
+
           switch (type) {
             case 'multiple':
               filter.config.selectedItems = this.sessionStorage.retrieve(this.tableID + '_' + this.column.id + '_selectedItems');
@@ -102,6 +140,7 @@ export class FilterDefault implements OnInit, OnDestroy {
   }
 
   onFilterTime(query: string, doEmit = true) {
+
     this.source.addFilter({
       field: this.column.id,
       search: query,
