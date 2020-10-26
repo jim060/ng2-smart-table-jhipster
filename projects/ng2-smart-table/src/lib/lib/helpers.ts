@@ -31,7 +31,7 @@ export const deepExtend = function(...objects: Array<any>): any {
       return;
     }
 
-    Object.keys(obj).forEach(function (key) {
+    Object.keys(obj).forEach((key) => {
       src = target[key]; // source value
       val = obj[key]; // new value
 

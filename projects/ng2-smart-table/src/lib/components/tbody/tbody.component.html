@@ -19,15 +19,15 @@
     <ng2-st-tbody-create-cancel [grid]="grid" [row]="row" [editConfirm]="editConfirm"></ng2-st-tbody-create-cancel>
   </td>
   <td *ngFor="let cell of row.cells">
-    <ng2-smart-table-cell [cell]="cell"
-                          [grid]="grid"
-                          [row]="row"
-                          [isNew]="false"
-                          [mode]="mode"
-                          [editConfirm]="editConfirm"
-                          [inputClass]="editInputClass"
-                          [isInEditing]="row.isInEditing">
-    </ng2-smart-table-cell>
+    <lib-ng2-smart-table-cell [cell]="cell"
+                              [grid]="grid"
+                              [row]="row"
+                              [isNew]="false"
+                              [mode]="mode"
+                              [editConfirm]="editConfirm"
+                              [inputClass]="editInputClass"
+                              [isInEditing]="row.isInEditing">
+    </lib-ng2-smart-table-cell>
   </td>
 
   <td *ngIf="row.isInEditing && showActionColumnRight"  class="ng2-smart-actions">

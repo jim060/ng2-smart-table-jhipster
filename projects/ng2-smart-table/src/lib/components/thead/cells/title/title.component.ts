@@ -34,8 +34,8 @@ export class TitleComponent implements OnChanges {
       this.dataChangedSub = this.source.onChanged().subscribe((dataChanges) => {
         const sortConf = this.source.getSort();
 
-        if (sortConf.length > 0 && sortConf[0]['field'] === this.column.id) {
-          this.currentDirection = sortConf[0]['direction'];
+        if (sortConf.length > 0 && sortConf[0].field === this.column.id) {
+          this.currentDirection = sortConf[0].direction;
         } else {
           this.currentDirection = '';
         }

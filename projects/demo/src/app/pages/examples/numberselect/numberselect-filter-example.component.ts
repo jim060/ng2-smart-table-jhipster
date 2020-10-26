@@ -1,61 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
+import {CustomColumnComponent} from '../customColumnComponent/custom-column.component';
 
 @Component({
-  selector: 'numberselect-example-filter',
+  selector: 'app-number-select-example-filter',
   template: `
     <ng2-smart-table
       [settings]="settings"
       [source]="source"></ng2-smart-table>
   `,
 })
-export class NumberselectFilterExampleComponent {
-  test = [];
-  settings = {
-    language: 'fr',
-    attr: {
-      id: 'NumberselectFilterExampleComponent',
-      rememberFilter: true
-    },
-    actions: {
-      add: false,
-      edit: false,
-      delete: false
-    },
-    columns: {
-      id: {
-        width: '20%',
-        title: 'ID',
-      },
-      name: {
-        width: '20%',
-        title: 'Full Name',
-      },
-      username: {
-        width: '20%',
-        title: 'User Name',
-      },
-      email: {
-        width: '20%',
-        title: 'Email',
-      },
-      recAge: {
-        width: '20%',
-        title: 'Age',
-        valuePrepareFunction: age => {
-          return `${age} ans`;
-        },
-        filter: {
-          type: 'number',
-          config: {
-            selectType: 'between',
-            defaultValue: 29,
-            defaultEndValue: 32
-          }
-        },
-      },
-    },
-  };
+export class NumberselectFilterExampleComponent implements OnInit {
+  settings = {};
 
   data = [
     {
@@ -149,8 +105,60 @@ export class NumberselectFilterExampleComponent {
   ];
 
   source: LocalDataSource;
-
+  isFilterInitialize = false;
   constructor() {
     this.source = new LocalDataSource(this.data);
+  }
+  ngOnInit(): void {
+    this.settings = this.isFilterInitialize ? this.settings = this.getSettings(this.isFilterInitialize, 'between', 28, 35) :
+      this.settings = this.getSettings(this.isFilterInitialize);
+  }
+  getSettings(isFilterInitialize: boolean, selectedType?: string, value?: number, valueEnd?: number  ): any {
+    return {
+      language: 'fr',
+      attr: {
+        id: 'NumberSelectFilterExampleComponent',
+        rememberFilter: false,
+        initializeFilter: isFilterInitialize
+      },
+      actions: {
+        add: false,
+        edit: false,
+        delete: false
+      },
+      columns: {
+        id: {
+          width: '20%',
+          title: 'ID',
+        },
+        name: {
+          width: '20%',
+          title: 'Full Name',
+        },
+        username: {
+          width: '20%',
+          title: 'User Name',
+        },
+        email: {
+          width: '20%',
+          title: 'Email',
+        },
+        recAge: {
+          width: '20%',
+          title: 'Age',
+          valuePrepareFunction: age => {
+            return `${age} ans`;
+          },
+          filter: {
+            type: 'number',
+            config: {
+              selectType: selectedType,
+              defaultValue: value,
+              defaultEndValue: valueEnd
+            }
+          },
+        },
+      },
+    };
   }
 }

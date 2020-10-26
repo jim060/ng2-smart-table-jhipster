@@ -79,6 +79,6 @@ export class BasicExampleCustomActionsComponent {
   ];
 
   onCustom(event) {
-    alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`)
+    alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
   }
 }

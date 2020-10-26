@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { DefaultFilter } from './default-filter';
+import { DefaultFilterTypeComponent } from './default-filter-type.component';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'number-filter',
+  selector: 'lib-number-filter',
   template: `
     <select [formControl]="filterTypeSelect">
       <option [value]="option" *ngFor="let  option of filterOptions">{{labelOptions[option]}}</option>
@@ -25,7 +25,7 @@ import { map } from 'rxjs/operators';
     </div>
   `,
 })
-export class NumberFilterComponent extends DefaultFilter implements OnInit {
+export class NumberFilterComponent extends DefaultFilterTypeComponent implements OnInit {
 
   startNum = new FormControl();
   endNum = new FormControl();
@@ -33,7 +33,7 @@ export class NumberFilterComponent extends DefaultFilter implements OnInit {
   numAfter = new FormControl();
   numEqual = new FormControl();
   filterTypeSelect = new FormControl();
-  filterType: string = 'equal';
+  filterType = 'equal';
   filterOptions = ['before', 'after', 'equal', 'between'];
 
   labelOptions = {};

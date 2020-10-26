@@ -1,63 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
-  selector: 'dateselect-example-filter',
+  selector: 'app-date-select-example-filter',
   template: `
     <ng2-smart-table
       [settings]="settings"
       [source]="source"></ng2-smart-table>
   `,
 })
-export class DateselectFilterExampleComponent {
-  test = [];
-  settings = {
-    language: 'fr',
-    attr: {
-      id: 'DateselectFilterExampleComponent',
-      rememberFilter: true
-    },
-    actions: {
-      add: false,
-      edit: false,
-      delete: false
-    },
-    columns: {
-      id: {
-        width: '20%',
-        title: 'ID',
-      },
-      name: {
-        width: '20%',
-        title: 'Full Name',
-      },
-      username: {
-        width: '20%',
-        title: 'User Name',
-      },
-      email: {
-        width: '20%',
-        title: 'Email',
-      },
-      recDate: {
-        width: '20%',
-        title: 'Date',
-        valuePrepareFunction: date => {
-          if (!date) {
-            return date;
-          }
-          const raw = new Date(date);
-
-          const formatted = new DatePipe('fr-FR').transform(raw, 'dd/MM/yyyy');
-          return formatted;
-        },
-        filter: {
-          type: 'date',
-        },
-      },
-    },
-  };
+export class DateselectFilterExampleComponent implements OnInit {
+  settings = {};
 
   data = [
     {
@@ -151,8 +105,71 @@ export class DateselectFilterExampleComponent {
   ];
 
   source: LocalDataSource;
+  isFilterInitialize = false;
 
   constructor() {
     this.source = new LocalDataSource(this.data);
+  }
+
+
+  ngOnInit(): void {
+    this.settings = this.isFilterInitialize ? this.settings = this.getSettings(this.isFilterInitialize,
+      'between', '2018-07-17', '2018-07-20') : this.settings = this.getSettings(this.isFilterInitialize);
+
+  }
+  getSettings(isFilterInitialize: boolean, selectedType?: string, value?: string, valueEnd?: string  ): any {
+    return {
+      language: 'fr',
+      attr: {
+        id: 'DateSelectFilterExampleComponent',
+        rememberFilter: false,
+        initializeFilter: isFilterInitialize
+      },
+      actions: {
+        add: false,
+        edit: false,
+        delete: false
+      },
+      columns: {
+        id: {
+          width: '20%',
+          title: 'ID',
+        },
+        name: {
+          width: '20%',
+          title: 'Full Name',
+        },
+        username: {
+          width: '20%',
+          title: 'User Name',
+        },
+        email: {
+          width: '20%',
+          title: 'Email',
+        },
+        recDate: {
+          width: '20%',
+          title: 'Date',
+          valuePrepareFunction: date => {
+            if (!date) {
+              return date;
+            }
+            const raw = new Date(date);
+
+            const formatted = new DatePipe('fr-FR').transform(raw, 'dd/MM/yyyy');
+            return formatted;
+          },
+          filter: {
+            type: 'date',
+            config : {
+              selectType: selectedType,
+              defaultValue: value,
+              defaultEndValue : valueEnd
+            }
+
+          },
+        },
+      },
+    };
   }
 }

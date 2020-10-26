@@ -9,7 +9,7 @@
     ],
     "component-selector": [
       true,
-      "element",
+//      "element",
       "lib",
       "kebab-case"
     ]

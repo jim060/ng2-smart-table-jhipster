@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-import { DefaultEditor } from './default-editor';
+import { DefaultEditorComponent } from './default-editor.component';
 
 @Component({
-  selector: 'input-editor',
+  selector: 'lib-input-editor',
   styleUrls: ['./editor.component.scss'],
   template: `
     <input [ngClass]="inputClass"
@@ -17,7 +17,7 @@ import { DefaultEditor } from './default-editor';
            (keydown.esc)="onStopEditing.emit()">
     `,
 })
-export class InputEditorComponent extends DefaultEditor {
+export class InputEditorComponent extends DefaultEditorComponent {
 
   constructor() {
     super();

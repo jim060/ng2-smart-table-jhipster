@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { DefaultFilter } from './default-filter';
+import { DefaultFilterTypeComponent } from './default-filter-type.component';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'date-filter',
+  selector: 'lib-date-filter',
   template: `
     <select [formControl]="filterTypeSelect">
       <option [value]="option" *ngFor="let  option of filterOptions">{{labelOptions[option]}}</option>
@@ -25,7 +25,7 @@ import { map } from 'rxjs/operators';
     </div>
   `,
 })
-export class DateFilterComponent extends DefaultFilter implements OnInit {
+export class DateFilterComponent extends DefaultFilterTypeComponent implements OnInit {
 
   startDate = new FormControl();
   endDate = new FormControl();

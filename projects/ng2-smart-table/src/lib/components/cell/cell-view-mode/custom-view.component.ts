@@ -12,7 +12,7 @@ import { Cell } from '../../../lib/data-set/cell';
 import { ViewCell } from './view-cell';
 
 @Component({
-  selector: 'custom-view-component',
+  selector: 'lib-custom-view-component',
   template: `
     <ng-template #dynamicTarget></ng-template>
   `,
@@ -47,6 +47,7 @@ export class CustomViewComponent implements OnInit, OnDestroy {
 
   protected callOnComponentInit() {
     const onComponentInitFunction = this.cell.getColumn().getOnComponentInitFunction();
+    // tslint:disable-next-line:no-unused-expression
     onComponentInitFunction && onComponentInitFunction(this.customComponent.instance);
   }
 
@@ -58,6 +59,6 @@ export class CustomViewComponent implements OnInit, OnDestroy {
     return {
       value: this.cell.getValue(),
       rowData: this.cell.getRow().getData()
-    }
+    };
   }
 }

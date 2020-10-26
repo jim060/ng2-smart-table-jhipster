@@ -26,11 +26,11 @@ import { CustomViewEditExamplesComponent } from './custom-edit-view/custom-edit-
 import { BasicExampleCustomActionsComponent } from './custom-edit-view/basic-example-custom-actions.component';
 import { VariousExamplesComponent } from './various/various-examples.component';
 import { MultiselectFilterExampleComponent } from './multiselect/multiselect-filter-example.component';
-import { MultiselectExamplesComponent } from './multiselect/multiselect-examples.component';
+import { MultiSelectExamplesComponent } from './multiselect/multi-select-examples.component';
 import { DateselectFilterExampleComponent } from './dateselect/dateselect-filter-example.component';
-import { DateselectExamplesComponent } from './dateselect/dateselect-examples.component';
+import { DateSelectExamplesComponent } from './dateselect/date-select-examples.component';
 import { TimeselectFilterExampleComponent } from './timeselect/timeselect-filter-example.component';
-import { TimeselectExamplesComponent } from './timeselect/timeselect-examples.component';
+import { TimeSelectExamplesComponent } from './timeselect/time-select-examples.component';
 import { NumberselectFilterExampleComponent } from './numberselect/numberselect-filter-example.component';
 import { NumberselectExamplesComponent } from './numberselect/numberselect-examples.component';
 
@@ -55,11 +55,11 @@ const EXAMPLES_COMPONENTS = [
   ServerExamplesComponent,
   CustomViewEditExamplesComponent,
   VariousExamplesComponent,
-  MultiselectExamplesComponent,
+  MultiSelectExamplesComponent,
   MultiselectFilterExampleComponent,
-  DateselectExamplesComponent,
+  DateSelectExamplesComponent,
   DateselectFilterExampleComponent,
-  TimeselectExamplesComponent,
+  TimeSelectExamplesComponent,
   TimeselectFilterExampleComponent,
   NumberselectExamplesComponent,
   NumberselectFilterExampleComponent,

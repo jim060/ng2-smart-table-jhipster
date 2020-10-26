@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-import { DefaultEditor } from './default-editor';
+import { DefaultEditorComponent } from './default-editor.component';
 
 @Component({
-  selector: 'select-editor',
+  selector: 'lib-select-editor',
   template: `
     <select [ngClass]="inputClass"
             class="form-control"
@@ -20,7 +20,7 @@ import { DefaultEditor } from './default-editor';
     </select>
     `,
 })
-export class SelectEditorComponent extends DefaultEditor {
+export class SelectEditorComponent extends DefaultEditorComponent {
 
   constructor() {
     super();

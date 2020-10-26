@@ -39,7 +39,7 @@ import { DataSource } from '../../lib/data-source/data-source';
             <span class="sr-only">Next</span>
           </a>
         </li>
-        
+
         <li class="ng2-smart-page-item page-item"
         [ngClass]="{disabled: getPage() == getLast()}">
           <a class="ng2-smart-page-link page-link" href="#"
@@ -50,7 +50,7 @@ import { DataSource } from '../../lib/data-source/data-source';
         </li>
       </ul>
     </nav>
-    
+
     <nav *ngIf="perPageSelect && perPageSelect.length > 0" class="ng2-smart-pagination-per-page">
       <label for="per-page">
         Per Page:
@@ -59,10 +59,10 @@ import { DataSource } from '../../lib/data-source/data-source';
         <option *ngFor="let item of perPageSelect" [value]="item">{{ item }}</option>
       </select>
     </nav>
-    
+
     <div class="row ng2-smart-item-count">
       <div class="col col-12" *ngIf="language=='en'">
-        Showing {{((page-1)*perPage)+1}} - {{page*perPage>count?count:page*perPage}} of {{count}} items 
+        Showing {{((page-1)*perPage)+1}} - {{page*perPage>count?count:page*perPage}} of {{count}} items
       </div>
       <div class="col col-12" *ngIf="language=='fr'">
         De {{((page-1)*perPage)+1}} à {{page*perPage>count?count:page*perPage}} éléments sur {{count}} au total
@@ -111,13 +111,13 @@ export class PagerComponent implements OnChanges {
    * We change the page here depending on the action performed against data source
    * if a new element was added to the end of the table - then change the page to the last
    * if a new element was added to the beginning of the table - then to the first page
-   * @param changes
+   * @param changes changes
    */
   processPageChange(changes: any) {
-    if (changes['action'] === 'prepend') {
+    if (changes.action === 'prepend') {
       this.source.setPage(1);
     }
-    if (changes['action'] === 'append') {
+    if (changes.action === 'append') {
       this.source.setPage(this.getLast());
     }
   }

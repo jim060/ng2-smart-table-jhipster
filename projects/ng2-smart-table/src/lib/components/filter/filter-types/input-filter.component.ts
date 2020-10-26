@@ -2,10 +2,10 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, skip } from 'rxjs/operators';
 
-import { DefaultFilter } from './default-filter';
+import { DefaultFilterTypeComponent } from './default-filter-type.component';
 
 @Component({
-  selector: 'input-filter',
+  selector: 'lib-input-filter',
   template: `
     <input
       [ngClass]="inputClass"
@@ -15,7 +15,7 @@ import { DefaultFilter } from './default-filter';
       placeholder="{{ column.title }}"/>
   `,
 })
-export class InputFilterComponent extends DefaultFilter implements OnInit, OnChanges {
+export class InputFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnChanges {
 
   inputControl = new FormControl();
 

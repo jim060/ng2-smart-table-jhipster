@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { distinctUntilChanged, debounceTime, skip } from 'rxjs/operators';
 
-import { DefaultFilter } from './default-filter';
+import { DefaultFilterTypeComponent } from './default-filter-type.component';
 
 @Component({
-  selector: 'select-filter',
+  selector: 'lib-select-filter',
   template: `
     <select [ngClass]="inputClass"
             class="form-control"
@@ -19,7 +19,7 @@ import { DefaultFilter } from './default-filter';
     </select>
   `,
 })
-export class SelectFilterComponent extends DefaultFilter implements OnInit {
+export class SelectFilterComponent extends DefaultFilterTypeComponent implements OnInit {
 
   @ViewChild('inputControl', { read: NgControl, static: true }) inputControl: NgControl;
 

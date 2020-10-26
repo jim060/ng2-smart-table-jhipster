@@ -102,13 +102,13 @@ export class LocalFilter {
     data: Array<any>,
     field: string,
     search: string,
-    customFilter?: Function,
+    customFilter?: any,
     multiSearch?: boolean,
     dateSearch?: boolean,
     timeSearch?: boolean,
     numberSearch?: boolean,
   ): Array<any> {
-    const filter: Function = customFilter ? customFilter :
+    const filter: any = customFilter ? customFilter :
       (multiSearch ? filterMulti :
         (dateSearch ? filterDate :
             (timeSearch ? filterTime :

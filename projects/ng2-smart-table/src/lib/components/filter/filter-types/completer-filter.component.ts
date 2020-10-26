@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CompleterService } from '@akveo/ng2-completer';
 
-import { DefaultFilter } from './default-filter';
+import { DefaultFilterTypeComponent } from './default-filter-type.component';
 import { distinctUntilChanged, debounceTime, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'completer-filter',
+  selector: 'lib-completer-filter',
   template: `
     <ng2-completer [(ngModel)]="query"
                    (ngModelChange)="inputTextChanged($event)"
@@ -18,7 +18,7 @@ import { distinctUntilChanged, debounceTime, map } from 'rxjs/operators';
     </ng2-completer>
   `,
 })
-export class CompleterFilterComponent extends DefaultFilter implements OnInit {
+export class CompleterFilterComponent extends DefaultFilterTypeComponent implements OnInit {
 
   completerContent = new Subject<any>();
 

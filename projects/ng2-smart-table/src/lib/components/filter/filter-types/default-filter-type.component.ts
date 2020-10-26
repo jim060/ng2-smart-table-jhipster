@@ -6,7 +6,7 @@ import { Column } from '../../../lib/data-set/column';
 @Component({
   template: '',
 })
-export class DefaultFilter implements Filter, OnDestroy {
+export class DefaultFilterTypeComponent implements Filter, OnDestroy {
 
   delay = 600;
   changesSubscription: Subscription;

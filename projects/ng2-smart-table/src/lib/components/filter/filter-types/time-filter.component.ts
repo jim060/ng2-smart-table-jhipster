@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { DefaultFilter } from './default-filter';
+import { DefaultFilterTypeComponent } from './default-filter-type.component';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'time-filter',
+  selector: 'lib-time-filter',
   template: `
     <select [formControl]="filterTypeSelect">
       <option [value]="option" *ngFor="let  option of filterOptions">{{labelOptions[option]}}</option>
@@ -20,12 +20,12 @@ import { map } from 'rxjs/operators';
             [formControl]="timeEqual" [ngClass]="inputClass" class="form-control"/>
      <input *ngSwitchCase="'between'" type="time"
             [formControl]="startTime" [ngClass]="inputClass" class="form-control"/>
-     <input *ngSwitchCase="'between'" type="time"
+     <input *ngSwitchCase="'between'" t ype="time"
             [formControl]="endTime" [ngClass]="inputClass" class="form-control"/>
     </div>
   `,
 })
-export class TimeFilterComponent extends DefaultFilter implements OnInit {
+export class TimeFilterComponent extends DefaultFilterTypeComponent implements OnInit {
 
   startTime = new FormControl();
   endTime = new FormControl();

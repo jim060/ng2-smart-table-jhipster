@@ -9,9 +9,9 @@ export class DataSet {
   protected columns: Array<Column> = [];
   protected rows: Array<Row> = [];
   protected selectedRow: Row;
-  protected willSelect: string = 'first';
+  protected willSelect = 'first';
 
-  constructor(data: Array<any> = [], protected columnSettings: Object) {
+  constructor(data: Array<any> = [], protected columnSettings: object) {
     this.createColumns(columnSettings);
     this.setData(data);
 
@@ -125,8 +125,7 @@ export class DataSet {
 
   /**
    * Create columns by mapping from the settings
-   * @param settings
-   * @private
+   * @param settings settings
    */
   createColumns(settings: any) {
     for (const id in settings) {
@@ -138,7 +137,6 @@ export class DataSet {
 
   /**
    * Create rows based on current data prepared in data source
-   * @private
    */
   createRows() {
     this.rows = [];

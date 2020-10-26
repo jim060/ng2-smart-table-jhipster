@@ -3,26 +3,26 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Cell } from '../../../lib/data-set/cell';
 
 @Component({
-  selector: 'table-cell-edit-mode',
+  selector: 'lib-table-cell-edit-mode',
   template: `
-      <div [ngSwitch]="getEditorType()">
-        <table-cell-custom-editor *ngSwitchCase="'custom'"
-                                  [cell]="cell"
-                                  [inputClass]="inputClass"
-                                  (edited)="onEdited($event)">
-        </table-cell-custom-editor>
-        <table-cell-default-editor *ngSwitchDefault
-                                  [cell]="cell"
-                                  [inputClass]="inputClass"
-                                  (edited)="onEdited($event)">
-        </table-cell-default-editor>
-      </div>
-    `,
+    <div [ngSwitch]="getEditorType()">
+      <lib-table-cell-custom-editor *ngSwitchCase="'custom'"
+                                    [cell]="cell"
+                                    [inputClass]="inputClass"
+                                    (edited)="onEdited($event)">
+      </lib-table-cell-custom-editor>
+      <lib-table-cell-default-editor *ngSwitchDefault
+                                     [cell]="cell"
+                                     [inputClass]="inputClass"
+                                     (edited)="onEdited($event)">
+      </lib-table-cell-default-editor>
+    </div>
+  `,
 })
 export class EditCellComponent {
 
   @Input() cell: Cell;
-  @Input() inputClass: string = '';
+  @Input() inputClass = '';
 
   @Output() edited = new EventEmitter<any>();
 
@@ -30,7 +30,6 @@ export class EditCellComponent {
     this.edited.next(event);
     return false;
   }
-
   getEditorType(): string {
     return this.cell.getColumn().editor && this.cell.getColumn().editor.type;
   }

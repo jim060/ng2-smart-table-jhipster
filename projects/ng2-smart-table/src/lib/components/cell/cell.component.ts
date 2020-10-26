@@ -5,13 +5,13 @@ import { Cell } from '../../lib/data-set/cell';
 import { Row } from '../../lib/data-set/row';
 
 @Component({
-  selector: 'ng2-smart-table-cell',
+  selector: 'lib-ng2-smart-table-cell',
   template: `
-    <table-cell-view-mode *ngIf="!isInEditing" [cell]="cell"></table-cell-view-mode>
-    <table-cell-edit-mode *ngIf="isInEditing" [cell]="cell"
-                          [inputClass]="inputClass"
-                          (edited)="onEdited($event)">
-    </table-cell-edit-mode>
+    <lib-table-cell-view-mode *ngIf="!isInEditing" [cell]="cell"></lib-table-cell-view-mode>
+    <lib-table-cell-edit-mode *ngIf="isInEditing" [cell]="cell"
+                              [inputClass]="inputClass"
+                              (edited)="onEdited($event)">
+    </lib-table-cell-edit-mode>
   `,
 })
 export class CellComponent {
@@ -22,9 +22,9 @@ export class CellComponent {
   @Input() createConfirm: EventEmitter<any>;
   @Input() isNew: boolean;
   @Input() cell: Cell;
-  @Input() inputClass: string = '';
-  @Input() mode: string = 'inline';
-  @Input() isInEditing: boolean = false;
+  @Input() inputClass = '';
+  @Input() mode = 'inline';
+  @Input() isInEditing = false;
 
   @Output() edited = new EventEmitter<any>();
 

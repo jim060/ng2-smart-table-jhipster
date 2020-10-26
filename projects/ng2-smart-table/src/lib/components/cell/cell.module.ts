@@ -15,12 +15,12 @@ import { TextareaEditorComponent } from './cell-editors/textarea-editor.componen
 import { CustomViewComponent } from './cell-view-mode/custom-view.component';
 import { ViewCellComponent } from './cell-view-mode/view-cell.component';
 import { EditCellDefault } from './cell-edit-mode/edit-cell-default';
-import { DefaultEditor } from './cell-editors/default-editor';
+import { DefaultEditorComponent } from './cell-editors/default-editor.component';
 
 const CELL_COMPONENTS = [
   CellComponent,
   EditCellDefault,
-  DefaultEditor,
+  DefaultEditorComponent,
   CustomEditComponent,
   DefaultEditComponent,
   EditCellComponent,

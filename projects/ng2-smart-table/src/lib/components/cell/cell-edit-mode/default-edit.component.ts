@@ -4,7 +4,7 @@ import { EditCellDefault } from './edit-cell-default';
 import { Cell } from '../../../lib/data-set/cell';
 
 @Component({
-  selector: 'table-cell-default-editor',
+  selector: 'lib-table-cell-default-editor',
   templateUrl: './default-edit.component.html',
 })
 export class DefaultEditComponent extends EditCellDefault {

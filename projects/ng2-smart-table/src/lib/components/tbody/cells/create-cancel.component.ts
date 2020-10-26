@@ -35,8 +35,8 @@ export class TbodyCreateCancelComponent implements OnChanges {
     this.row.isInEditing = false;
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.saveButtonContent = this.grid.getSetting('edit.saveButtonContent');
-    this.cancelButtonContent = this.grid.getSetting('edit.cancelButtonContent')
+    this.cancelButtonContent = this.grid.getSetting('edit.cancelButtonContent');
   }
 }

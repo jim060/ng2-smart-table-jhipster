@@ -6,8 +6,8 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FilterComponent } from './filter.component';
-import { DefaultFilterComponent } from "./default-filter.component";
-import { CustomFilterComponent } from "./custom-filter.component";
+import { DefaultFilterComponent } from './default-filter.component';
+import { CustomFilterComponent } from './custom-filter.component';
 import { CheckboxFilterComponent } from './filter-types/checkbox-filter.component';
 import { CompleterFilterComponent } from './filter-types/completer-filter.component';
 import { InputFilterComponent } from './filter-types/input-filter.component';
@@ -16,12 +16,12 @@ import { DateFilterComponent } from './filter-types/date-filter.component';
 import { TimeFilterComponent } from './filter-types/time-filter.component';
 import { NumberFilterComponent } from './filter-types/number-filter.component';
 import { MselectFilterComponent } from './filter-types/mselect-filter.component';
-import { DefaultFilter } from './filter-types/default-filter';
-import { FilterDefault } from './filter-default';
+import { DefaultFilterTypeComponent } from './filter-types/default-filter-type.component';
+import { FilterDefaultComponent } from './filter-default.component';
 
 const FILTER_COMPONENTS = [
-  FilterDefault,
-  DefaultFilter,
+  FilterDefaultComponent,
+  DefaultFilterTypeComponent,
   FilterComponent,
   DefaultFilterComponent,
   CustomFilterComponent,

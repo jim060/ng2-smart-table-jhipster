@@ -5,7 +5,7 @@ import { Cell } from '../../../lib/data-set/cell';
 @Component({
   template: '',
 })
-export class DefaultEditor implements Editor {
+export class DefaultEditorComponent implements Editor {
   @Input() cell: Cell;
   @Input() inputClass: string;
 

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CompleterService } from '@akveo/ng2-completer';
 
-import { DefaultEditor } from './default-editor';
+import { DefaultEditorComponent } from './default-editor.component';
 
 @Component({
-  selector: 'completer-editor',
+  selector: 'lib-completer-editor',
   template: `
     <ng2-completer [(ngModel)]="completerStr"
                    [dataService]="cell.getColumn().getConfig().completer.dataService"
@@ -15,9 +15,9 @@ import { DefaultEditor } from './default-editor';
     </ng2-completer>
     `,
 })
-export class CompleterEditorComponent extends DefaultEditor implements OnInit {
+export class CompleterEditorComponent extends DefaultEditorComponent implements OnInit {
 
-  completerStr: string = '';
+  completerStr = '';
 
   constructor(private completerService: CompleterService) {
     super();
@@ -31,7 +31,7 @@ export class CompleterEditorComponent extends DefaultEditor implements OnInit {
     }
   }
 
-  onEditedCompleter(event: { title: '' }): boolean {
+  onEditedCompleter(event: any): boolean {
     this.cell.newValue = event.title;
     return false;
   }

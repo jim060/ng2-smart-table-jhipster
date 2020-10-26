@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { DefaultEditor } from 'ng2-smart-table';
+import { DefaultEditorComponent } from 'ng2-smart-table';
 
 @Component({
   template: `
@@ -26,7 +26,7 @@ import { DefaultEditor } from 'ng2-smart-table';
     <div [hidden]="true" [innerHTML]="cell.getValue()" #htmlValue></div>
   `,
 })
-export class CustomEditorComponent extends DefaultEditor implements AfterViewInit {
+export class CustomEditorComponent extends DefaultEditorComponent implements AfterViewInit {
 
   @ViewChild('name') name: ElementRef;
   @ViewChild('url') url: ElementRef;

@@ -1,66 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
-  selector: 'timeselect-example-filter',
+  selector: 'app-time-select-example-filter',
   template: `
     <ng2-smart-table id="mySmartTableIdTOTO"
       [settings]="settings"
       [source]="source"></ng2-smart-table>
   `,
 })
-export class TimeselectFilterExampleComponent {
-  settings = {
-    language: 'fr',
-    attr: {
-      id: 'TimeselectFilterExampleComponent',
-      rememberFilter: true
-    },
-    actions: {
-      add: false,
-      edit: false,
-      delete: false
-    },
-    columns: {
-      id: {
-        width: '20%',
-        title: 'ID',
-      },
-      name: {
-        width: '20%',
-        title: 'Full Name',
-      },
-      username: {
-        width: '20%',
-        title: 'User Name',
-      },
-      email: {
-        width: '20%',
-        title: 'Email',
-      },
-      recTime: {
-        width: '20%',
-        title: 'Time',
-        valuePrepareFunction: time => {
-          if (!time) {
-            return time;
-          }
-
-          try {
-            const raw = new Date(time);
-            const formatted = new DatePipe('fr-FR').transform(raw, 'HH:mm');
-            return formatted;
-          } catch (error) {
-            return time;
-          }
-        },
-        filter: {
-          type: 'time',
-        },
-      },
-    },
-  };
+export class TimeselectFilterExampleComponent implements OnInit {
+  settings = {};
 
   data = [
     {
@@ -133,7 +84,7 @@ export class TimeselectFilterExampleComponent {
       username: 'Delphine',
       email: 'Chaim_McDermott@dana.io',
       notShownField: false,
-      recTime: '09:23:12',
+      recTime: new Date('07/20/2018 09:23:12'),
     },
     {
       id: 10,
@@ -154,8 +105,72 @@ export class TimeselectFilterExampleComponent {
   ];
 
   source: LocalDataSource;
-
+  isFilterInitialize = false;
   constructor() {
     this.source = new LocalDataSource(this.data);
+  }
+
+  ngOnInit(): void {
+    this.settings = this.isFilterInitialize ? this.settings = this.getSettings(this.isFilterInitialize, 'between', '10:00', '22:00') :
+      this.settings = this.getSettings(this.isFilterInitialize);
+
+  }
+  getSettings(isFilterInitialize: boolean, selectedType?: string, value?: string, valueEnd?: string  ): any {
+    return {
+      language: 'fr',
+      attr: {
+        id: 'TimeSelectFilterExampleComponent',
+        rememberFilter: false,
+        initializeFilter: isFilterInitialize
+      },
+      actions: {
+        add: false,
+        edit: false,
+        delete: false
+      },
+      columns: {
+        id: {
+          width: '20%',
+          title: 'ID',
+        },
+        name: {
+          width: '20%',
+          title: 'Full Name',
+        },
+        username: {
+          width: '20%',
+          title: 'User Name',
+        },
+        email: {
+          width: '20%',
+          title: 'Email',
+        },
+        recTime: {
+          width: '20%',
+          title: 'Time',
+          valuePrepareFunction: time => {
+            if (!time) {
+              return time;
+            }
+
+            try {
+              const raw = new Date(time);
+              const formatted = new DatePipe('fr-FR').transform(raw, 'HH:mm');
+              return formatted;
+            } catch (error) {
+              return time;
+            }
+          },
+          filter: {
+            type: 'time',
+            config: {
+              selectType: selectedType,
+              defaultValue: value,
+              defaultEndValue: valueEnd
+            }
+          },
+        },
+      },
+    };
   }
 }

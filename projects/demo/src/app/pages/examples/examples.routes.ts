@@ -6,9 +6,9 @@ import { FilterExamplesComponent } from './filter/filter-examples.component';
 import { ServerExamplesComponent } from './server/server-examples.component';
 import { CustomViewEditExamplesComponent } from './custom-edit-view/custom-edit-view-examples.component';
 import { VariousExamplesComponent } from './various/various-examples.component';
-import { MultiselectExamplesComponent } from './multiselect/multiselect-examples.component';
-import { DateselectExamplesComponent } from './dateselect/dateselect-examples.component';
-import { TimeselectExamplesComponent } from './timeselect/timeselect-examples.component';
+import { MultiSelectExamplesComponent } from './multiselect/multi-select-examples.component';
+import { DateSelectExamplesComponent } from './dateselect/date-select-examples.component';
+import { TimeSelectExamplesComponent } from './timeselect/time-select-examples.component';
 import { NumberselectExamplesComponent } from './numberselect/numberselect-examples.component';
 
 export const routes: Routes = [
@@ -38,15 +38,15 @@ export const routes: Routes = [
       },
       {
         path: 'multiselect',
-        component: MultiselectExamplesComponent,
+        component: MultiSelectExamplesComponent,
       },
       {
         path: 'dateselect',
-        component: DateselectExamplesComponent,
+        component: DateSelectExamplesComponent,
       },
       {
         path: 'timeselect',
-        component: TimeselectExamplesComponent,
+        component: TimeSelectExamplesComponent,
       },
       {
         path: 'numberselect',

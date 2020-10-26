@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { DefaultFilter } from './default-filter';
+import { DefaultFilterTypeComponent } from './default-filter-type.component';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
-  selector: 'checkbox-filter',
+  selector: 'lib-checkbox-filter',
   template: `
     <input type="checkbox" [formControl]="inputControl" [ngClass]="inputClass" class="form-control">
     <a href="#" *ngIf="filterActive"
                 (click)="resetFilter($event)">{{column.getFilterConfig()?.resetText || 'reset'}}</a>
   `,
 })
-export class CheckboxFilterComponent extends DefaultFilter implements OnInit {
+export class CheckboxFilterComponent extends DefaultFilterTypeComponent implements OnInit {
 
-  filterActive: boolean = false;
+  filterActive = false;
   inputControl = new FormControl();
 
   constructor() {

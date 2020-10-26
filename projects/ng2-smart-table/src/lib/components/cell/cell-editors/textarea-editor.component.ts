@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-import { DefaultEditor } from './default-editor';
+import { DefaultEditorComponent } from './default-editor.component';
 
 @Component({
-  selector: 'textarea-editor',
+  selector: 'lib-textarea-editor',
   styleUrls: ['./editor.component.scss'],
   template: `
     <textarea [ngClass]="inputClass"
@@ -18,7 +18,7 @@ import { DefaultEditor } from './default-editor';
     </textarea>
     `,
 })
-export class TextareaEditorComponent extends DefaultEditor {
+export class TextareaEditorComponent extends DefaultEditorComponent {
 
   constructor() {
     super();

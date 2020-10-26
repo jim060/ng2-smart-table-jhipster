@@ -7,6 +7,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { routes } from './pages.routes';
 import { SharedModule } from '../shared/shared.module';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import {CustomColumnComponent} from './examples/customColumnComponent/custom-column.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -17,6 +18,8 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     AngularMultiSelectModule,
     SharedModule,
   ],
+  entryComponents: [CustomColumnComponent],
+  declarations: [CustomColumnComponent]
 })
 export class PagesModule {
 }
