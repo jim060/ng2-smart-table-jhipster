@@ -3,8 +3,6 @@ import {Output, EventEmitter, Input, Component, OnInit, OnDestroy} from '@angula
 import { Column } from '../../lib/data-set/column';
 import { DataSource } from '../../lib/data-source/data-source';
 import {SessionStorageService} from 'ngx-webstorage';
-import {unique} from "ng-packagr/lib/utils/array";
-import {unwrapConstructorDependencies} from "@angular/compiler-cli/src/ngtsc/annotations/src/util";
 
 @Component({
   template: '',
@@ -29,16 +27,15 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-    //  ON LOAD MULTi SELECT FILTER TO BE APPLIED
-    if (this.column.getFilterType() === 'multiple' &&  this.initializeFilter && this.column.filter.config.selectedItems.length > 0) {
+    //  ON LOAD MULTI SELECT FILTER INIT
+    if ( this.initializeFilter && this.column.getFilterType() === 'multiple' &&  this.column.filter.config.selectedItems) {
       let query: string | any = '';
       this.column.filter.config.selectedItems.forEach(element => {
         query += element.itemName + ';'; });
       query = query.slice(0, -1);
       this.onFilterMulti(query, true);
-      //  ON LOAD NUMBER FILTER TO BE APPLIED
-    } else if (this.column.getFilterType() === 'number' && this.initializeFilter && this.column.filter.config.selectType !== undefined) {
+      //  ON LOAD NUMBER FILTER INIT
+    } else if ( this.initializeFilter && this.column.getFilterType() === 'number' &&   this.column.filter.config ) {
       if (!this.column.filter.config.selectType.toString().toLowerCase().includes('between')) {
         this.onFilterNumber( '_number_' + this.column.filter.config.selectType  + '_' +
           this.column.filter.config.defaultValue , true);
@@ -46,8 +43,8 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
         this.onFilterNumber( '_start_number_' + this.column.filter.config.defaultValue  + '_end_number_' +
           this.column.filter.config.defaultEndValue , true);
       }
-      //  ON LOAD DATE FILTER TO BE APPLIED
-    } else if (this.column.getFilterType() === 'date' && this.initializeFilter && this.column.filter.config.selectType !== undefined) {
+      //  ON LOAD DATE FILTER INIT
+    } else if (this.initializeFilter && this.column.getFilterType() === 'date'  &&  this.column.filter.config) {
       if (!this.column.filter.config.selectType.toString().toLowerCase().includes('between')) {
         this.onFilterDate( '_date_' + this.column.filter.config.selectType  + '_' +
           this.column.filter.config.defaultValue , true);
@@ -55,8 +52,8 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
         this.onFilterDate( '_start_date_' + this.column.filter.config.defaultValue  + '_end_date_' +
           this.column.filter.config.defaultEndValue , true);
       }
-      //  ON LOAD TIME FILTER TO BE APPLIED
-    } else if (this.column.getFilterType() === 'time' && this.initializeFilter && this.column.filter.config.selectType !== undefined) {
+      //  ON LOAD TIME FILTER INIT
+    } else if (this.initializeFilter  && this.column.getFilterType() === 'time'  &&  this.column.filter.config) {
       if (!this.column.filter.config.selectType.toString().toLowerCase().includes('between')) {
         this.onFilterTime( '_time_' + this.column.filter.config.selectType  + '_' +
           this.column.filter.config.defaultValue , true);
