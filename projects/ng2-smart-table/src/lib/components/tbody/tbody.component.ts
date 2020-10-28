@@ -10,13 +10,14 @@ import {Column} from '../../lib/data-set/column';
   styleUrls: ['./tbody.component.scss'],
   templateUrl: './tbody.component.html',
 })
-export class Ng2SmartTableTbodyComponent  implements OnChanges{
+export class Ng2SmartTableTbodyComponent  implements OnChanges {
 
   @Input() grid: Grid;
   @Input() source: DataSource;
   @Input() deleteConfirm: EventEmitter<any>;
   @Input() editConfirm: EventEmitter<any>;
   @Input() rowClassFunction: any;
+  @Input() dynamicCellValue = false;
 
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<any>();

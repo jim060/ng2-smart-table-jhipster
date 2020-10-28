@@ -9,7 +9,7 @@ import { VariousExamplesComponent } from './various/various-examples.component';
 import { MultiSelectExamplesComponent } from './multiselect/multi-select-examples.component';
 import { DateSelectExamplesComponent } from './dateselect/date-select-examples.component';
 import { TimeSelectExamplesComponent } from './timeselect/time-select-examples.component';
-import { NumberselectExamplesComponent } from './numberselect/numberselect-examples.component';
+import { NumberSelectExamplesComponent } from './numberselect/number-select-examples.component';
 
 export const routes: Routes = [
   {
@@ -50,7 +50,7 @@ export const routes: Routes = [
       },
       {
         path: 'numberselect',
-        component: NumberselectExamplesComponent,
+        component: NumberSelectExamplesComponent,
       },
     ],
   },

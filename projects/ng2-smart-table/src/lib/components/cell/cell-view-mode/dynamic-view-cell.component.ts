@@ -1,9 +1,9 @@
-import {Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy, OnInit} from '@angular/core';
 
 import { Cell } from '../../../lib/data-set/cell';
 
 @Component({
-  selector: 'lib-table-cell-view-mode',
+  selector: 'lib-table-cell-dynamic-view-mode',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <div [ngSwitch]="cell.getColumn().type">
@@ -13,6 +13,7 @@ import { Cell } from '../../../lib/data-set/cell';
     </div>
   `,
 })
-export class ViewCellComponent {
+export class DynamicViewCellComponent {
   @Input() cell: Cell;
 }
+

@@ -33,33 +33,33 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
       this.column.filter.config.selectedItems.forEach(element => {
         query += element.itemName + ';'; });
       query = query.slice(0, -1);
-      this.onFilterMulti(query, true);
+      this.onFilterMulti(query, false);
       //  ON LOAD NUMBER FILTER INIT
     } else if ( this.initializeFilter && this.column.getFilterType() === 'number' &&   this.column.filter.config ) {
       if (!this.column.filter.config.selectType.toString().toLowerCase().includes('between')) {
         this.onFilterNumber( '_number_' + this.column.filter.config.selectType  + '_' +
-          this.column.filter.config.defaultValue , true);
+          this.column.filter.config.defaultValue , false);
       }  else {
         this.onFilterNumber( '_start_number_' + this.column.filter.config.defaultValue  + '_end_number_' +
-          this.column.filter.config.defaultEndValue , true);
+          this.column.filter.config.defaultEndValue , false);
       }
       //  ON LOAD DATE FILTER INIT
     } else if (this.initializeFilter && this.column.getFilterType() === 'date'  &&  this.column.filter.config) {
       if (!this.column.filter.config.selectType.toString().toLowerCase().includes('between')) {
         this.onFilterDate( '_date_' + this.column.filter.config.selectType  + '_' +
-          this.column.filter.config.defaultValue , true);
+          this.column.filter.config.defaultValue , false);
       } else {
         this.onFilterDate( '_start_date_' + this.column.filter.config.defaultValue  + '_end_date_' +
-          this.column.filter.config.defaultEndValue , true);
+          this.column.filter.config.defaultEndValue , false);
       }
       //  ON LOAD TIME FILTER INIT
     } else if (this.initializeFilter  && this.column.getFilterType() === 'time'  &&  this.column.filter.config) {
       if (!this.column.filter.config.selectType.toString().toLowerCase().includes('between')) {
         this.onFilterTime( '_time_' + this.column.filter.config.selectType  + '_' +
-          this.column.filter.config.defaultValue , true);
+          this.column.filter.config.defaultValue , false);
       } else {
         this.onFilterTime( '_start_time_' + this.column.filter.config.defaultValue  + '_end_time_' +
-          this.column.filter.config.defaultEndValue , true);
+          this.column.filter.config.defaultEndValue , false);
       }
     }
     // retrieve column filter if rememberFilter mode is activate

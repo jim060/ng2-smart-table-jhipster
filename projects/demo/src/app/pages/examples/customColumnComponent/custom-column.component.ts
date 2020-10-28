@@ -30,14 +30,16 @@ export class CustomColumnComponent implements ViewCell, OnInit {
   testBackEndResponse(): void {
     this.customColumnService.getWorkflowByAgg().subscribe(
       (response: HttpResponse<any>) => {
-        console.warn('response', response);
-        this.value = 50;
+        setTimeout(() => {
+          this.value = 50;
+        }, 5000);
+
         setTimeout(() => {
           this.value = 70;
-        }, 20000);
+        }, 10000);
         setTimeout(() => {
           this.value = 100;
-        }, (5 * 60000));
+        }, (15000));
       },
       (errorResponse: HttpErrorResponse) => {
         console.warn('ERROR : ', errorResponse);

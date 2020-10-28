@@ -7,7 +7,10 @@ import { Row } from '../../lib/data-set/row';
 @Component({
   selector: 'lib-ng2-smart-table-cell',
   template: `
-    <lib-table-cell-view-mode *ngIf="!isInEditing" [cell]="cell"></lib-table-cell-view-mode>
+    <div *ngIf="!isInEditing">
+      <lib-table-cell-static-view-mode *ngIf="!dynamicCellValue" [cell]="cell"></lib-table-cell-static-view-mode>
+      <lib-table-cell-dynamic-view-mode *ngIf="dynamicCellValue" [cell]="cell"></lib-table-cell-dynamic-view-mode>
+    </div>
     <lib-table-cell-edit-mode *ngIf="isInEditing" [cell]="cell"
                               [inputClass]="inputClass"
                               (edited)="onEdited($event)">
@@ -25,6 +28,7 @@ export class CellComponent {
   @Input() inputClass = '';
   @Input() mode = 'inline';
   @Input() isInEditing = false;
+  @Input() dynamicCellValue = false;
 
   @Output() edited = new EventEmitter<any>();
 

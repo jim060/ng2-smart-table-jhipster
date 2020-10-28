@@ -13,9 +13,10 @@ import { InputEditorComponent } from './cell-editors/input-editor.component';
 import { SelectEditorComponent } from './cell-editors/select-editor.component';
 import { TextareaEditorComponent } from './cell-editors/textarea-editor.component';
 import { CustomViewComponent } from './cell-view-mode/custom-view.component';
-import { ViewCellComponent } from './cell-view-mode/view-cell.component';
+import { StaticViewCellComponent } from './cell-view-mode/static-view-cell.component';
 import { EditCellDefault } from './cell-edit-mode/edit-cell-default';
 import { DefaultEditorComponent } from './cell-editors/default-editor.component';
+import {DynamicViewCellComponent} from './cell-view-mode/dynamic-view-cell.component';
 
 const CELL_COMPONENTS = [
   CellComponent,
@@ -30,7 +31,8 @@ const CELL_COMPONENTS = [
   SelectEditorComponent,
   TextareaEditorComponent,
   CustomViewComponent,
-  ViewCellComponent,
+  StaticViewCellComponent,
+  DynamicViewCellComponent
 ];
 
 @NgModule({

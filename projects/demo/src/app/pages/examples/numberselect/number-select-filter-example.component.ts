@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
+import {LocalDataSource} from 'ng2-smart-table';
 import {CustomColumnComponent} from '../customColumnComponent/custom-column.component';
 
 @Component({
@@ -7,12 +7,12 @@ import {CustomColumnComponent} from '../customColumnComponent/custom-column.comp
   template: `
     <ng2-smart-table
       [settings]="settings"
-      [source]="source"></ng2-smart-table>
+      [source]="source"
+      [dynamicCellValue]="false"></ng2-smart-table>
   `,
 })
-export class NumberselectFilterExampleComponent implements OnInit {
+export class NumberSelectFilterExampleComponent implements OnInit {
   settings = {};
-
   data = [
     {
       id: 1,
@@ -105,15 +105,18 @@ export class NumberselectFilterExampleComponent implements OnInit {
   ];
 
   source: LocalDataSource;
-  isFilterInitialize = false;
+  isFilterInitialize = true;
+
   constructor() {
     this.source = new LocalDataSource(this.data);
   }
+
   ngOnInit(): void {
     this.settings = this.isFilterInitialize ? this.settings = this.getSettings(this.isFilterInitialize, 'between', 28, 35) :
       this.settings = this.getSettings(this.isFilterInitialize);
   }
-  getSettings(isFilterInitialize: boolean, selectedType?: string, value?: number, valueEnd?: number  ): any {
+
+  getSettings(isFilterInitialize: boolean, selectedType?: string, value?: number, valueEnd?: number): any {
     return {
       language: 'fr',
       attr: {
@@ -144,11 +147,13 @@ export class NumberselectFilterExampleComponent implements OnInit {
           title: 'Email',
         },
         recAge: {
+          type: 'custom',
           width: '20%',
           title: 'Age',
           valuePrepareFunction: age => {
             return `${age} ans`;
           },
+          renderComponent: CustomColumnComponent,
           filter: {
             type: 'number',
             config: {

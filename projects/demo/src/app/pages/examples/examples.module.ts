@@ -31,8 +31,8 @@ import { DateselectFilterExampleComponent } from './dateselect/dateselect-filter
 import { DateSelectExamplesComponent } from './dateselect/date-select-examples.component';
 import { TimeselectFilterExampleComponent } from './timeselect/timeselect-filter-example.component';
 import { TimeSelectExamplesComponent } from './timeselect/time-select-examples.component';
-import { NumberselectFilterExampleComponent } from './numberselect/numberselect-filter-example.component';
-import { NumberselectExamplesComponent } from './numberselect/numberselect-examples.component';
+import { NumberSelectFilterExampleComponent } from './numberselect/number-select-filter-example.component';
+import { NumberSelectExamplesComponent } from './numberselect/number-select-examples.component';
 
 import {
   BasicExampleButtonViewComponent,
@@ -61,8 +61,8 @@ const EXAMPLES_COMPONENTS = [
   DateselectFilterExampleComponent,
   TimeSelectExamplesComponent,
   TimeselectFilterExampleComponent,
-  NumberselectExamplesComponent,
-  NumberselectFilterExampleComponent,
+  NumberSelectExamplesComponent,
+  NumberSelectFilterExampleComponent,
   BasicExampleButtonViewComponent,
   BasicExampleCustomActionsComponent,
   ButtonViewComponent,
