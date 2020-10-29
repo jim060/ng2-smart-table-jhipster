@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 
-import { EditCellDefault } from './edit-cell-default';
-import { Cell } from '../../../lib/data-set/cell';
+import { EditCellDefaultComponent } from './edit-cell-default.component';
 
 @Component({
   selector: 'lib-table-cell-default-editor',
   templateUrl: './default-edit.component.html',
 })
-export class DefaultEditComponent extends EditCellDefault {
+export class DefaultEditComponent extends EditCellDefaultComponent {
 
   constructor() {
     super();

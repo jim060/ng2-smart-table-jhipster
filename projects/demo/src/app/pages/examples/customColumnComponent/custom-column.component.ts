@@ -18,7 +18,6 @@ export class CustomColumnComponent implements ViewCell, OnInit {
   rowData: any;
   @Output()
   view: EventEmitter<any> = new EventEmitter();
-  cssClass = '';
 
   constructor(public customColumnService: CustomColumnService) {
   }

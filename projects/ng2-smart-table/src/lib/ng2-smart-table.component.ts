@@ -7,6 +7,8 @@ import { deepExtend } from './lib/helpers';
 import { LocalDataSource } from './lib/data-source/local/local.data-source';
 
 @Component({
+  // TSLINT:DISABLE TO DISABLE VERIFICATION ON THIS SELECTOR (lib-ng2-smart-table)
+  // tslint:disable-next-line:component-selector
   selector: 'ng2-smart-table',
   styleUrls: ['./ng2-smart-table.component.scss'],
   templateUrl: './ng2-smart-table.component.html',
@@ -15,7 +17,6 @@ export class Ng2SmartTableComponent implements OnChanges {
 
   @Input() source: any;
   @Input() settings = {};
-  @Input() dynamicCellValue = false;
 
   @Output() rowSelect = new EventEmitter<any>();
   @Output() userRowSelect = new EventEmitter<any>();
@@ -110,10 +111,10 @@ export class Ng2SmartTableComponent implements OnChanges {
 
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
     if (this.grid) {
-      if (changes['settings']) {
+      if (changes.settings) {
         this.grid.setSettings(this.prepareSettings());
       }
-      if (changes['source']) {
+      if (changes.source) {
         this.source = this.prepareSource();
         this.grid.setSource(this.source);
       }
@@ -191,8 +192,8 @@ export class Ng2SmartTableComponent implements OnChanges {
     return new LocalDataSource();
   }
 
-  prepareSettings(): Object {
-    if ((<any>this.settings)['language'] === 'fr') {
+  prepareSettings(): object {
+    if ((this.settings as any).language === 'fr') {
       return deepExtend({}, this.defaultSettings, this.defaultSettingsFr, this.settings);
     } else {
       return deepExtend({}, this.defaultSettings, this.settings);

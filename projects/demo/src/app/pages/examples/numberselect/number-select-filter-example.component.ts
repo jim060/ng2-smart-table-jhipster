@@ -7,8 +7,8 @@ import {CustomColumnComponent} from '../customColumnComponent/custom-column.comp
   template: `
     <ng2-smart-table
       [settings]="settings"
-      [source]="source"
-      [dynamicCellValue]="false"></ng2-smart-table>
+      [source]="source">
+    </ng2-smart-table>
   `,
 })
 export class NumberSelectFilterExampleComponent implements OnInit {
@@ -105,7 +105,7 @@ export class NumberSelectFilterExampleComponent implements OnInit {
   ];
 
   source: LocalDataSource;
-  isFilterInitialize = true;
+  isFilterInitialize = false;
 
   constructor() {
     this.source = new LocalDataSource(this.data);
@@ -137,7 +137,11 @@ export class NumberSelectFilterExampleComponent implements OnInit {
         name: {
           width: '20%',
           title: 'Full Name',
-        },
+          dynamicValue: false,
+//          type: 'custom',
+//          renderComponent: CustomColumnComponent,
+
+  },
         username: {
           width: '20%',
           title: 'User Name',
@@ -147,13 +151,15 @@ export class NumberSelectFilterExampleComponent implements OnInit {
           title: 'Email',
         },
         recAge: {
-          type: 'custom',
+
+          dynamicValue: false,
           width: '20%',
           title: 'Age',
-          valuePrepareFunction: age => {
+          valuePrepareFunction: (age: any) => {
             return `${age} ans`;
           },
-          renderComponent: CustomColumnComponent,
+//        type: 'custom',
+//        renderComponent: CustomColumnComponent,
           filter: {
             type: 'number',
             config: {

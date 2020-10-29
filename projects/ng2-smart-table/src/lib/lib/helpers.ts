@@ -22,9 +22,8 @@ export const deepExtend = function(...objects: Array<any>): any {
 
   // convert arguments to array and cut off target object
   const args = Array.prototype.slice.call(arguments, 1);
-
-  let val, src;
-
+  let val;
+  let src;
   args.forEach((obj: any) => {
     // skip argument if it is array or isn't object
     if (typeof obj !== 'object' || Array.isArray(obj)) {

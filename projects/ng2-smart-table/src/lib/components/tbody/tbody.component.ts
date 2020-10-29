@@ -17,7 +17,7 @@ export class Ng2SmartTableTbodyComponent  implements OnChanges {
   @Input() deleteConfirm: EventEmitter<any>;
   @Input() editConfirm: EventEmitter<any>;
   @Input() rowClassFunction: any;
-  @Input() dynamicCellValue = false;
+
 
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<any>();

@@ -14,13 +14,13 @@ import { SelectEditorComponent } from './cell-editors/select-editor.component';
 import { TextareaEditorComponent } from './cell-editors/textarea-editor.component';
 import { CustomViewComponent } from './cell-view-mode/custom-view.component';
 import { StaticViewCellComponent } from './cell-view-mode/static-view-cell.component';
-import { EditCellDefault } from './cell-edit-mode/edit-cell-default';
+import { EditCellDefaultComponent } from './cell-edit-mode/edit-cell-default.component';
 import { DefaultEditorComponent } from './cell-editors/default-editor.component';
 import {DynamicViewCellComponent} from './cell-view-mode/dynamic-view-cell.component';
 
 const CELL_COMPONENTS = [
   CellComponent,
-  EditCellDefault,
+  EditCellDefaultComponent,
   DefaultEditorComponent,
   CustomEditComponent,
   DefaultEditComponent,

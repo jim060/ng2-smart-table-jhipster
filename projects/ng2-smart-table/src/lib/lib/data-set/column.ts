@@ -1,5 +1,4 @@
 import { DataSet } from './data-set';
-
 export class Column {
 
   title = '';
@@ -87,4 +86,8 @@ export class Column {
     // TODO: determine type by data
     return 'text';
   }
+  isDynamicValue(): any {
+    return this.settings.dynamicValue;
+  }
+
 }
