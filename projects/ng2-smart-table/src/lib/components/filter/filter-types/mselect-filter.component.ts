@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { DefaultFilterTypeComponent } from './default-filter-type.component';
 import { deepExtend } from '../../../lib/helpers';
+import {Observable, Subscription} from "rxjs";
+import {FormControl} from "@angular/forms";
+import {SessionStorageService} from "ngx-webstorage";
 
 export interface Config {
     dropdownList: any[];
@@ -36,6 +39,9 @@ export interface DropdownSettings {
     </angular2-multiselect>`,
 })
 export class MselectFilterComponent extends DefaultFilterTypeComponent implements OnInit {
+  @Input() events: Observable<void>;
+  @Input() tableID: string;
+  eventsSubscription: Subscription;
     dropdownList: any[] = [];
     selectedItems: any[] = [];
     dropdownSettings: DropdownSettings = {};
@@ -66,7 +72,7 @@ export class MselectFilterComponent extends DefaultFilterTypeComponent implement
       noDataLabel: 'Aucune donnée disponible',
     };
 
-    constructor() {
+    constructor(private sessionStorage: SessionStorageService) {
         super();
     }
 
@@ -83,6 +89,15 @@ export class MselectFilterComponent extends DefaultFilterTypeComponent implement
         } else {
           this.dropdownSettings = Object.assign(this.setting, config.dropdownSettings);
         }
+
+        this.eventsSubscription = this.events.subscribe(() => {
+          this.selectedItems = [];
+          this.column.filter.config.selectedItems = [];
+          this.sessionStorage.clear(this.tableID + '_' + this.column.id);
+          this.sessionStorage.clear(this.tableID + '_' + this.column.id + '_selectedItems');
+          this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
+
+        });
     }
     onItemSelect(item: any) {
         this.updateQuery();

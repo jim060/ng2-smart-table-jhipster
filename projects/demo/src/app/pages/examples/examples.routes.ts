@@ -10,6 +10,7 @@ import { MultiSelectExamplesComponent } from './multiselect/multi-select-example
 import { DateSelectExamplesComponent } from './dateselect/date-select-examples.component';
 import { TimeSelectExamplesComponent } from './timeselect/time-select-examples.component';
 import { NumberSelectExamplesComponent } from './numberselect/number-select-examples.component';
+import {BooleanSelectExamplesComponent} from "./booleanselect/boolean-select-examples.component";
 
 export const routes: Routes = [
   {
@@ -52,6 +53,10 @@ export const routes: Routes = [
         path: 'numberselect',
         component: NumberSelectExamplesComponent,
       },
+      {
+        path: 'boolean-select',
+        component: BooleanSelectExamplesComponent,
+      }
     ],
   },
 ];

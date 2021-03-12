@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { DefaultFilterTypeComponent } from './default-filter-type.component';
-import { combineLatest } from 'rxjs';
+import {combineLatest, Observable, Subject, Subscription} from 'rxjs';
 import { map } from 'rxjs/operators';
+import {SessionStorageService} from "ngx-webstorage";
 
 @Component({
   selector: 'lib-date-filter',
@@ -26,7 +27,9 @@ import { map } from 'rxjs/operators';
   `,
 })
 export class DateFilterComponent extends DefaultFilterTypeComponent implements OnInit {
-
+  @Input() tableID: string;
+  @Input() events: Observable<void>;
+  eventsSubscription: Subscription;
   startDate = new FormControl();
   endDate = new FormControl();
   dateBefore = new FormControl();
@@ -52,7 +55,7 @@ export class DateFilterComponent extends DefaultFilterTypeComponent implements O
     between: 'Entre',
   };
 
-  constructor() {
+  constructor(private sessionStorage: SessionStorageService) {
     super();
   }
 
@@ -88,6 +91,16 @@ export class DateFilterComponent extends DefaultFilterTypeComponent implements O
     } else {
       this.initDefaultFilter();
     }
+    // WAITING FOR INIT FILTER/SORT EVENT
+    this.eventsSubscription = this.events.subscribe(() => {
+      this.startDate.setValue(null);
+      this.endDate.setValue(null);
+      this.dateBefore.setValue(null);
+      this.dateAfter.setValue(null);
+      this.dateEqual.setValue(null);
+      this.sessionStorage.clear(this.tableID + '_' + this.column.id);
+      this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
+    });
   }
 
   initDefaultFilter() {

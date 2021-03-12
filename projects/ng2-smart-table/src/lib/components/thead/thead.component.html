@@ -12,7 +12,8 @@
                               [grid]="grid"
                               [source]="source"
                               (create)="create.emit($event)"
-                              (filter)="filter.emit($event)">
+                              (filter)="filter.emit($event)"
+                              [events]="eventsSubject.asObservable()">
 </tr>
 
 <tr ng2-st-thead-form-row *ngIf="grid.createFormShown"

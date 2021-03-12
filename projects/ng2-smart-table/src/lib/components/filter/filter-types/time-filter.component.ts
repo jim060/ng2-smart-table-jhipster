@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { DefaultFilterTypeComponent } from './default-filter-type.component';
-import { combineLatest } from 'rxjs';
+import {combineLatest, Observable, Subject, Subscription} from 'rxjs';
 import { map } from 'rxjs/operators';
+import {SessionStorageService} from "ngx-webstorage";
 
 @Component({
   selector: 'lib-time-filter',
@@ -20,13 +21,15 @@ import { map } from 'rxjs/operators';
             [formControl]="timeEqual" [ngClass]="inputClass" class="form-control"/>
      <input *ngSwitchCase="'between'" type="time"
             [formControl]="startTime" [ngClass]="inputClass" class="form-control"/>
-     <input *ngSwitchCase="'between'" t ype="time"
+     <input *ngSwitchCase="'between'" type="time"
             [formControl]="endTime" [ngClass]="inputClass" class="form-control"/>
     </div>
   `,
 })
 export class TimeFilterComponent extends DefaultFilterTypeComponent implements OnInit {
-
+  @Input() tableID: string;
+  @Input() events: Observable<void>;
+  eventsSubscription: Subscription;
   startTime = new FormControl();
   endTime = new FormControl();
   timeBefore = new FormControl();
@@ -52,7 +55,7 @@ export class TimeFilterComponent extends DefaultFilterTypeComponent implements O
     between: 'Entre',
   };
 
-  constructor() {
+  constructor(private sessionStorage: SessionStorageService) {
     super();
   }
 
@@ -88,6 +91,16 @@ export class TimeFilterComponent extends DefaultFilterTypeComponent implements O
     } else {
       this.initDefaultFilter();
     }
+    // WAITING FOR INIT FILTER/SORT EVENT
+    this.eventsSubscription = this.events.subscribe(() => {
+      this.startTime.setValue(null);
+      this.endTime.setValue(null);
+      this.timeBefore.setValue(null);
+      this.timeAfter.setValue(null);
+      this.timeEqual.setValue(null);
+      this.sessionStorage.clear(this.tableID + '_' + this.column.id);
+      this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
+    });
   }
 
   initDefaultFilter() {

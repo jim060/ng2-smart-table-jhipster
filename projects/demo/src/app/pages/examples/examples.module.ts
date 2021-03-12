@@ -38,6 +38,8 @@ import {
   BasicExampleButtonViewComponent,
   ButtonViewComponent,
 } from './custom-edit-view/basic-example-button-view.component';
+import {BooleanSelectFilterExampleComponent} from "./booleanselect/booleanselect-filter-example.component";
+import {BooleanSelectExamplesComponent} from "./booleanselect/boolean-select-examples.component";
 
 const EXAMPLES_COMPONENTS = [
   AdvancedExampleFiltersComponent,
@@ -66,6 +68,8 @@ const EXAMPLES_COMPONENTS = [
   BasicExampleButtonViewComponent,
   BasicExampleCustomActionsComponent,
   ButtonViewComponent,
+  BooleanSelectFilterExampleComponent,
+  BooleanSelectExamplesComponent
 ];
 
 @NgModule({

@@ -122,7 +122,7 @@ export class DateselectFilterExampleComponent implements OnInit {
       language: 'fr',
       attr: {
         id: 'DateSelectFilterExampleComponent',
-        rememberFilter: false,
+        rememberFilter: true,
         initializeFilter: isFilterInitialize
       },
       actions: {

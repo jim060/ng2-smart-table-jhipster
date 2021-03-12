@@ -1,10 +1,22 @@
-import { Component, Input, Output, SimpleChange, EventEmitter, OnChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  SimpleChange,
+  EventEmitter,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  AfterContentInit
+} from '@angular/core';
 
 import { Grid } from './lib/grid';
 import { DataSource } from './lib/data-source/data-source';
 import { Row } from './lib/data-set/row';
 import { deepExtend } from './lib/helpers';
 import { LocalDataSource } from './lib/data-source/local/local.data-source';
+import {SessionStorageService} from 'ngx-webstorage';
+import {Subject} from 'rxjs';
 
 @Component({
   // TSLINT:DISABLE TO DISABLE VERIFICATION ON THIS SELECTOR (lib-ng2-smart-table)
@@ -29,6 +41,8 @@ export class Ng2SmartTableComponent implements OnChanges {
   @Output() createConfirm = new EventEmitter<any>();
   @Output() rowHover: EventEmitter<any> = new EventEmitter<any>();
 
+  eventsSubject: Subject<void> = new Subject<void>();
+
   tableClass: string;
   tableId: string;
   tableRememberFilter: boolean;
@@ -38,7 +52,7 @@ export class Ng2SmartTableComponent implements OnChanges {
   isPagerDisplay: boolean;
   rowClassFunction: Function;
   language = 'en';
-
+  buttonFilterInitText = 'Init Filter/Sort';
 
   grid: Grid;
   defaultSettings = {
@@ -109,6 +123,9 @@ export class Ng2SmartTableComponent implements OnChanges {
 
   isAllSelected = false;
 
+  constructor(private sessionStorage: SessionStorageService) {
+  }
+
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
     if (this.grid) {
       if (changes.settings) {
@@ -131,6 +148,7 @@ export class Ng2SmartTableComponent implements OnChanges {
     this.perPageSelect = this.grid.getSetting('pager.perPageSelect');
     this.rowClassFunction = this.grid.getSetting('rowClassFunction');
     this.language = this.grid.getSetting('language');
+    this.buttonFilterInitText =  typeof(this.grid.getSetting('attr.buttonFilterInitText')) === 'string' ? this.grid.getSetting('attr.buttonFilterInitText') : this.buttonFilterInitText;
   }
 
   editRowSelect(row: Row) {
@@ -235,4 +253,19 @@ export class Ng2SmartTableComponent implements OnChanges {
     });
   }
 
+  initFiltersEvent() {
+    // INIT FILTERS
+    this.grid.source.setFilter([], true, false);
+    // INIT SORT MODE
+    this.grid.source.setSort([], false);
+    // REFRESH DATA_SOURCE
+    this.grid.source.refresh();
+    // USED TO SEND EVENT TO DELETE FILTERS CONTENTS
+    this.emitEventClearFilter();
+  }
+
+  // SEND EVENT TO INITIALIZE FILTERS CONTENTS
+  emitEventClearFilter() {
+    this.eventsSubject.next();
+  }
 }

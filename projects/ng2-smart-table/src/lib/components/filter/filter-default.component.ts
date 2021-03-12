@@ -94,6 +94,15 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
       }
       this.columnLoaded.emit(this.column.id);
     }
+    // CHECK IF THERE IS A SAVED SORTING ON CURRENT COLUMN
+    if (this.sessionStorage.retrieve(this.tableID + '_sorting_' + this.column.id) !== null) {
+      // ADD SAVED SORTING MODE TO DATA_SOURCE
+      this.source.setSort([{
+        field: this.column.id,
+        direction: this.sessionStorage.retrieve(this.tableID + '_sorting_' + this.column.id),
+        compare: undefined
+      }], false);
+    }
   }
 
   ngOnDestroy() {
@@ -110,7 +119,22 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
           this.sessionStorage.store(this.tableID + '_' + this.column.id + '_selectedItems', filter.config.selectedItems);
         }
       }
+      // CHECK IF THERE IS AN ACTIVATED SORTING MODE
+      if (this.source.getSort().length > 0) {
+        // CHECK IF THERE IS ALREADY A SAVED SORTING MODE FOR THE CURRENT COLUMN
+        if (this.sessionStorage.retrieve(this.tableID + '_sorting_' + this.column.id) !== null) {
+          // IF YES DELETE CURRENT SORTING MODE
+          this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
+        }
+        // CONDITION USED TO SAVE ONLY ONE TIME SORTING MODE (FOR PERFORMANCE PURPOSE)
+        if ( this.column.id  ===  this.source.getSort()[0].field ) {
+          // SAVE THE NEW SORTING MODE
+          this.sessionStorage.store(this.tableID + '_sorting_' + this.source.getSort()[0].field, this.source.getSort()[0].direction);
+        }
+      }
     }
+
+
   }
 
   onFilter(query: string, doEmit = true) {

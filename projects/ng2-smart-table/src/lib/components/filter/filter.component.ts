@@ -1,6 +1,6 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {AfterContentInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { FilterDefaultComponent } from './filter-default.component';
-import { Subscription } from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
 
 @Component({
   selector: 'lib-ng2-smart-table-filter',
@@ -16,19 +16,30 @@ import { Subscription } from 'rxjs';
       </lib-custom-table-filter>
       <lib-default-table-filter *ngSwitchDefault
                                 [query]="query"
+                                [tableID]="tableID"
                                 [column]="column"
                                 [source]="source"
                                 [language]="language"
                                 [inputClass]="inputClass"
-                                (filter)="onFilter($event)">
+                                (filter)="onFilter($event)"
+                                [events]="eventsSubject.asObservable()">
       </lib-default-table-filter>
     </div>
   `,
 })
-export class FilterComponent extends FilterDefaultComponent implements OnChanges {
+export class FilterComponent extends FilterDefaultComponent implements OnChanges, AfterContentInit {
+
+  @Input() events: Observable<void>;
   query = '';
   protected dataChangedSub: Subscription;
+  eventsSubject: Subject<void> = new Subject<void>();
+  eventsSubscription: Subscription;
 
+  ngAfterContentInit(): void {
+    this.eventsSubscription = this.events.subscribe(() => {
+    this.eventsSubject.next();
+     });
+  }
   ngOnChanges(changes: SimpleChanges) {
     if (changes.source) {
       if (!changes.source.firstChange) {
@@ -50,5 +61,6 @@ export class FilterComponent extends FilterDefaultComponent implements OnChanges
         }
       });
     }
+
   }
 }

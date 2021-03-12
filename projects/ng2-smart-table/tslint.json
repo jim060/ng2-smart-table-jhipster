@@ -1,6 +1,20 @@
 {
   "extends": "../../tslint.json",
   "rules": {
+    "no-trailing-whitespace": false,
+    "no-string-literal": false,
+    "quotemark": [
+      false,
+      "single"
+    ],
+    "max-line-length": [
+      true,
+      240
+    ],
+    "object-literal-key-quotes": [
+      false,
+      "as-needed"
+    ],
     "directive-selector": [
       true,
       "attribute",

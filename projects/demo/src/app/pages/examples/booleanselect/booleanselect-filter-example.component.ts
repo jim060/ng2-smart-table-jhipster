@@ -3,14 +3,14 @@ import {Component, OnInit} from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
-  selector: 'app-multi-select-example-filter',
+  selector: 'app-boolean-select-example-filter',
   template: `
     <ng2-smart-table
       [settings]="settings"
       [source]="source"></ng2-smart-table>
   `,
 })
-export class MultiselectFilterExampleComponent implements OnInit {
+export class BooleanSelectFilterExampleComponent implements OnInit {
   settings: any;
   data = [
     {
@@ -19,7 +19,7 @@ export class MultiselectFilterExampleComponent implements OnInit {
       username: 'Bret',
       email: 'Sincere@april.biz',
       notShownField: true,
-      recProduit: 'Produit 1'
+      active: true
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ export class MultiselectFilterExampleComponent implements OnInit {
       username: 'Antonette',
       email: 'Shanna@melissa.tv',
       notShownField: true,
-      recProduit: 'Produit 1'
+      active: false
     },
     {
       id: 3,
@@ -35,7 +35,7 @@ export class MultiselectFilterExampleComponent implements OnInit {
       username: 'Samantha',
       email: 'Nathan@yesenia.net',
       notShownField: false,
-      recProduit: 'Produit 2'
+      active: false
     },
     {
       id: 4,
@@ -43,7 +43,7 @@ export class MultiselectFilterExampleComponent implements OnInit {
       username: 'Karianne',
       email: 'Julianne.OConner@kory.org',
       notShownField: false,
-      recProduit: 'Produit 2'
+      active: false
     },
     {
       id: 5,
@@ -51,7 +51,7 @@ export class MultiselectFilterExampleComponent implements OnInit {
       username: 'Kamren',
       email: 'Lucio_Hettinger@annie.ca',
       notShownField: false,
-      recProduit: 'Produit 2'
+      active: true
     },
     {
       id: 6,
@@ -59,7 +59,7 @@ export class MultiselectFilterExampleComponent implements OnInit {
       username: 'Leopoldo_Corkery',
       email: 'Karley_Dach@jasper.info',
       notShownField: false,
-      recProduit: 'Produit 3'
+      active: true
     },
     {
       id: 7,
@@ -67,7 +67,7 @@ export class MultiselectFilterExampleComponent implements OnInit {
       username: 'Elwyn.Skiles',
       email: 'Telly.Hoeger@billy.biz',
       notShownField: false,
-      recProduit: 'Produit 3'
+      active: true
     },
     {
       id: 8,
@@ -75,7 +75,7 @@ export class MultiselectFilterExampleComponent implements OnInit {
       username: 'Maxime_Nienow',
       email: 'Sherwood@rosamond.me',
       notShownField: true,
-      recProduit: 'Produit 3'
+      active: false
     },
     {
       id: 9,
@@ -83,7 +83,7 @@ export class MultiselectFilterExampleComponent implements OnInit {
       username: 'Delphine',
       email: 'Chaim_McDermott@dana.io',
       notShownField: false,
-      recProduit: 'Produit 3'
+      active: false
     },
     {
       id: 10,
@@ -91,7 +91,7 @@ export class MultiselectFilterExampleComponent implements OnInit {
       username: 'Moriah.Stanton',
       email: 'Rey.Padberg@karina.biz',
       notShownField: false,
-      recProduit: 'Produit 4'
+      active: true
     },
     {
       id: 11,
@@ -99,7 +99,7 @@ export class MultiselectFilterExampleComponent implements OnInit {
       username: 'Nicholas.Stanton',
       email: 'Rey.Padberg@rosamond.biz',
       notShownField: true,
-      recProduit: 'Produit 4'
+      active: false
     }
   ];
 
@@ -120,7 +120,7 @@ export class MultiselectFilterExampleComponent implements OnInit {
     return {
       language: 'fr',
       attr: {
-        id: 'MultiSelectFilterExampleComponent',
+        id: 'booleanSelectFilterExampleComponent',
         rememberFilter: true,
         buttonFilterInitText: 'Initialize Filters & Sort',
         initializeFilter: isFilterInitialize,
@@ -132,41 +132,34 @@ export class MultiselectFilterExampleComponent implements OnInit {
       },
       columns: {
         id: {
-          width: '20%',
+          width: '15%',
           title: 'ID',
         },
         name: {
-          width: '20%',
+          width: '15%',
           title: 'Full Name',
         },
         username: {
-          width: '20%',
+          width: '15%',
           title: 'User Name',
         },
         email: {
-          width: '20%',
+          width: '15%',
           title: 'Email'
         },
-        recProduit: {
-          width: '20%',
-          title: 'Produit',
+        active: {
+          width: '15%',
+          title: 'Active',
+          valuePrepareFunction: (value: boolean) => {
+            return value === true ? 'Oui' : 'Non';
+          },
           filter: {
-            type: 'multiple',
+            type: 'list',
             config: {
-              dropdownList: [
-                { id: '1', itemName: 'Produit 1' },
-                { id: '2', itemName: 'Produit 2' },
-                { id: '3', itemName: 'Produit 3' },
-                { id: '4', itemName: 'Produit 4' }
-              ],
-              selectedItems: valuesList,
-              dropdownSettings: {
-                singleSelection: false,
-                text: 'Produit',
-                enableSearchFilter: true,
-                classes: 'myclass custom-class'
-              }
-            },
+              list: [
+                { value: true, title: 'Oui' },
+                { value: false, title: 'Non' }
+              ]},
             /* filterFunction(cell?: any, search?: string): boolean {
               const listSearch = search.split(';');
               const value = cell.replace(/ /g, '');
@@ -177,6 +170,12 @@ export class MultiselectFilterExampleComponent implements OnInit {
               }
             } */
           },
+        },
+        buttonVarImportance: {
+          title: 'BTN',
+          width: '25%',
+          hidden: true,
+          filter: {type: 'custom-column'}
         },
       },
     };

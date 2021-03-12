@@ -1,3 +1,7 @@
+## [2.5.4](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.5.4) (2021-03-10)
+#### UPDATE
+* Init filters & sort
+
 ## [2.5.3](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.5.3) (2020-10-29)
 #### UPDATE
 * Performance improve (cell dynamic value)

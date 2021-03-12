@@ -120,7 +120,7 @@ export class TimeselectFilterExampleComponent implements OnInit {
       language: 'fr',
       attr: {
         id: 'TimeSelectFilterExampleComponent',
-        rememberFilter: false,
+        rememberFilter: true,
         initializeFilter: isFilterInitialize
       },
       actions: {

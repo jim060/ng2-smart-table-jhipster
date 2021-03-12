@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {FormControl, NgControl} from '@angular/forms';
 import { distinctUntilChanged, debounceTime, skip } from 'rxjs/operators';
 
 import { DefaultFilterTypeComponent } from './default-filter-type.component';
+import {SessionStorageService} from "ngx-webstorage";
+import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'lib-select-filter',
@@ -20,10 +22,12 @@ import { DefaultFilterTypeComponent } from './default-filter-type.component';
   `,
 })
 export class SelectFilterComponent extends DefaultFilterTypeComponent implements OnInit {
-
+  @Input() events: Observable<void>;
+  @Input() tableID: string;
+  eventsSubscription: Subscription;
   @ViewChild('inputControl', { read: NgControl, static: true }) inputControl: NgControl;
 
-  constructor() {
+  constructor(private sessionStorage: SessionStorageService) {
     super();
   }
 
@@ -35,5 +39,11 @@ export class SelectFilterComponent extends DefaultFilterTypeComponent implements
         debounceTime(this.delay)
       )
       .subscribe((value: string) => this.setFilter());
+    // WAITING FOR INIT FILTER/SORT EVENT
+    this.eventsSubscription = this.events.subscribe(() => {
+      this.query = null;
+      this.sessionStorage.clear(this.tableID + '_' + this.column.id);
+      this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
+    });
   }
 }

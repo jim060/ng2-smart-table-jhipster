@@ -1,5 +1,10 @@
+<div *ngIf="tableRememberFilter">
+  <button class="btn btn-iceblue"
+          (click)="initFiltersEvent()">
+    {{buttonFilterInitText}}
+  </button>
+</div>
 <table [id]="tableId" [ngClass]="tableClass">
-
   <thead ng2-st-thead *ngIf="!isHideHeader || !isHideSubHeader"
                       [grid]="grid"
                       [isAllSelected]="isAllSelected"
@@ -8,7 +13,8 @@
                       (create)="create.emit($event)"
                       (selectAllRows)="onSelectAllRows($event)"
                       (sort)="sort($event)"
-                      (filter)="filter($event)">
+                      (filter)="filter($event)"
+                      [events]="eventsSubject.asObservable()">
   </thead>
 
   <tbody ng2-st-tbody [grid]="grid"

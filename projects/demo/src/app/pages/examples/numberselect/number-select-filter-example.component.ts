@@ -121,7 +121,7 @@ export class NumberSelectFilterExampleComponent implements OnInit {
       language: 'fr',
       attr: {
         id: 'NumberSelectFilterExampleComponent',
-        rememberFilter: false,
+        rememberFilter: true,
         initializeFilter: isFilterInitialize
       },
       actions: {

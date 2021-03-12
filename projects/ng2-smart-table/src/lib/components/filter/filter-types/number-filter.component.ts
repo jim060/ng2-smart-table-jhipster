@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { DefaultFilterTypeComponent } from './default-filter-type.component';
-import { combineLatest } from 'rxjs';
+import {combineLatest, Observable, Subject, Subscription} from 'rxjs';
 import { map } from 'rxjs/operators';
+import {SessionStorageService} from "ngx-webstorage";
 
 @Component({
   selector: 'lib-number-filter',
@@ -26,7 +27,9 @@ import { map } from 'rxjs/operators';
   `,
 })
 export class NumberFilterComponent extends DefaultFilterTypeComponent implements OnInit {
-
+  @Input() tableID: string;
+  @Input() events: Observable<void>;
+  eventsSubscription: Subscription;
   startNum = new FormControl();
   endNum = new FormControl();
   numBefore = new FormControl();
@@ -52,7 +55,8 @@ export class NumberFilterComponent extends DefaultFilterTypeComponent implements
     between: 'Entre',
   };
 
-  constructor() {
+
+  constructor(private sessionStorage: SessionStorageService) {
     super();
   }
 
@@ -81,6 +85,17 @@ export class NumberFilterComponent extends DefaultFilterTypeComponent implements
     } else {
       this.initDefaultFilter();
     }
+    // WAITING FOR INIT FILTER/SORT EVENT
+    this.eventsSubscription = this.events.subscribe(() => {
+      this.startNum.setValue(null);
+      this.endNum.setValue(null);
+      this.numBefore.setValue(null);
+      this.numAfter.setValue(null);
+      this.numEqual.setValue(null);
+      this.sessionStorage.clear(this.tableID + '_' + this.column.id);
+      this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
+
+    });
   }
 
   initDefaultFilter() {

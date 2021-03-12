@@ -1,8 +1,8 @@
-import {Component, Input, Output, EventEmitter, OnChanges} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnChanges, OnInit} from '@angular/core';
 
 import { Grid } from '../../../lib/grid';
 import { DataSource } from '../../../lib/data-source/data-source';
-import { Column } from '../../../lib/data-set/column';
+import {Observable, Subject, Subscription} from "rxjs";
 
 @Component({
   selector: '[ng2-st-thead-filters-row]',
@@ -21,7 +21,8 @@ import { Column } from '../../../lib/data-set/column';
                                   [tableID]="tableID"
                                   [initializeFilter]="initializeFilter"
                                   (columnLoaded)="ngAfterAllColumnsLoaded()"
-                                  (filter)="filter.emit($event)">
+                                  (filter)="filter.emit($event)"
+                                  [events]="eventsSubject.asObservable()">
       </lib-ng2-smart-table-filter>
     </th>
     <th ng2-st-add-button *ngIf="showActionColumnRight"
@@ -31,10 +32,11 @@ import { Column } from '../../../lib/data-set/column';
     </th>
   `,
 })
-export class TheadFitlersRowComponent implements OnChanges {
+export class TheadFitlersRowComponent implements OnChanges, OnInit {
 
   @Input() grid: Grid;
   @Input() source: DataSource;
+  @Input() events: Observable<void>;
 
   @Output() create = new EventEmitter<any>();
   @Output() filter = new EventEmitter<any>();
@@ -49,6 +51,15 @@ export class TheadFitlersRowComponent implements OnChanges {
   tableID: string;
   countColumns: number;
   countColumnLoaded: number;
+  eventsSubject: Subject<void> = new Subject<void>();
+  eventsSubscription: Subscription;
+
+
+  ngOnInit(): void {
+     this.eventsSubscription = this.events.subscribe(() => {
+     this.eventsSubject.next();
+    });
+  }
 
   ngAfterAllColumnsLoaded() {
     if (this.rememberFilter && this.tableID) {

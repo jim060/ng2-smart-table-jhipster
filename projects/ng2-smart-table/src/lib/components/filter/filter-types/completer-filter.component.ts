@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Component, Input, OnInit} from '@angular/core';
+import {Observable, Subject, Subscription} from 'rxjs';
 import { CompleterService } from '@akveo/ng2-completer';
 
 import { DefaultFilterTypeComponent } from './default-filter-type.component';
 import { distinctUntilChanged, debounceTime, map } from 'rxjs/operators';
+import {FormControl} from "@angular/forms";
+import {SessionStorageService} from "ngx-webstorage";
 
 @Component({
   selector: 'lib-completer-filter',
@@ -19,10 +21,12 @@ import { distinctUntilChanged, debounceTime, map } from 'rxjs/operators';
   `,
 })
 export class CompleterFilterComponent extends DefaultFilterTypeComponent implements OnInit {
-
+  @Input() tableID: string;
+  @Input() events: Observable<void>;
+  eventsSubscription: Subscription;
   completerContent = new Subject<any>();
 
-  constructor(private completerService: CompleterService) {
+  constructor(private completerService: CompleterService, private sessionStorage: SessionStorageService) {
     super();
   }
 
@@ -41,6 +45,11 @@ export class CompleterFilterComponent extends DefaultFilterTypeComponent impleme
         this.query = search;
         this.setFilter();
       });
+    // WAITING FOR INIT FILTER/SORT EVENT
+    this.eventsSubscription = this.events.subscribe(() => {
+      this.sessionStorage.clear(this.tableID + '_' + this.column.id);
+      this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
+    });
   }
 
   inputTextChanged(event: string) {
