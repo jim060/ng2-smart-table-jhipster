@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { DefaultFilterTypeComponent } from './default-filter-type.component';
@@ -26,7 +26,7 @@ import {SessionStorageService} from "ngx-webstorage";
     </div>
   `,
 })
-export class DateFilterComponent extends DefaultFilterTypeComponent implements OnInit {
+export class DateFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnDestroy {
   @Input() tableID: string;
   @Input() events: Observable<void>;
   eventsSubscription: Subscription;
@@ -158,7 +158,7 @@ export class DateFilterComponent extends DefaultFilterTypeComponent implements O
         }
       }
       this.filterTypeSelect.setValue(this.filterType);
-    } else if (querySplit[2] === 'date') {
+                  } else if (querySplit[2] === 'date') {
       this.filterType = 'between';
       if (querySplit[3]) {
         const defaultValue = querySplit[3];
@@ -190,5 +190,10 @@ export class DateFilterComponent extends DefaultFilterTypeComponent implements O
           }));
       }
     }
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.eventsSubscription.unsubscribe();
   }
 }

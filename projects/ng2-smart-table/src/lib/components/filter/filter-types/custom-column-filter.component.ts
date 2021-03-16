@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, skip } from 'rxjs/operators';
 
@@ -26,5 +26,7 @@ export class CustomColumnFilterComponent extends DefaultFilterTypeComponent impl
       this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
     });
   }
+
+
 
 }

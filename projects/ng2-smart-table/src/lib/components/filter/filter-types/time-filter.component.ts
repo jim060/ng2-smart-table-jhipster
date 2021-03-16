@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { DefaultFilterTypeComponent } from './default-filter-type.component';
@@ -13,20 +13,20 @@ import {SessionStorageService} from "ngx-webstorage";
       <option [value]="option" *ngFor="let  option of filterOptions">{{labelOptions[option]}}</option>
     </select>
     <div [ngSwitch]="filterType">
-     <input *ngSwitchCase="'before'" type="time"
+     <input *ngSwitchCase="'before'" type="time" step="1"
             [formControl]="timeBefore" [ngClass]="inputClass" class="form-control"/>
-     <input *ngSwitchCase="'after'" type="time"
+     <input *ngSwitchCase="'after'" type="time" step="1"
             [formControl]="timeAfter" [ngClass]="inputClass" class="form-control"/>
-     <input *ngSwitchCase="'equal'" type="time"
+     <input *ngSwitchCase="'equal'" type="time" step="1"
             [formControl]="timeEqual" [ngClass]="inputClass" class="form-control"/>
-     <input *ngSwitchCase="'between'" type="time"
+     <input *ngSwitchCase="'between'" type="time" step="1"
             [formControl]="startTime" [ngClass]="inputClass" class="form-control"/>
-     <input *ngSwitchCase="'between'" type="time"
+     <input *ngSwitchCase="'between'" type="time" step="1"
             [formControl]="endTime" [ngClass]="inputClass" class="form-control"/>
     </div>
   `,
 })
-export class TimeFilterComponent extends DefaultFilterTypeComponent implements OnInit {
+export class TimeFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnDestroy {
   @Input() tableID: string;
   @Input() events: Observable<void>;
   eventsSubscription: Subscription;
@@ -190,5 +190,10 @@ export class TimeFilterComponent extends DefaultFilterTypeComponent implements O
           }));
       }
     }
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.eventsSubscription.unsubscribe();
   }
 }

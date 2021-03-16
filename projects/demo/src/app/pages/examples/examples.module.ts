@@ -40,6 +40,8 @@ import {
 } from './custom-edit-view/basic-example-button-view.component';
 import {BooleanSelectFilterExampleComponent} from "./booleanselect/booleanselect-filter-example.component";
 import {BooleanSelectExamplesComponent} from "./booleanselect/boolean-select-examples.component";
+import {DateTimeSelectExamplesComponent} from "./datetimeselect/date-time-select-examples.component";
+import {DateTimeSelectFilterExampleComponent} from "./datetimeselect/dateTimeSelect-filter-example.component";
 
 const EXAMPLES_COMPONENTS = [
   AdvancedExampleFiltersComponent,
@@ -69,7 +71,9 @@ const EXAMPLES_COMPONENTS = [
   BasicExampleCustomActionsComponent,
   ButtonViewComponent,
   BooleanSelectFilterExampleComponent,
-  BooleanSelectExamplesComponent
+  BooleanSelectExamplesComponent,
+  DateTimeSelectExamplesComponent,
+  DateTimeSelectFilterExampleComponent
 ];
 
 @NgModule({

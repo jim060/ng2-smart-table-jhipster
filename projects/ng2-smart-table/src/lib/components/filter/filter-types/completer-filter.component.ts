@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subject, Subscription} from 'rxjs';
 import { CompleterService } from '@akveo/ng2-completer';
 
@@ -20,7 +20,7 @@ import {SessionStorageService} from "ngx-webstorage";
     </ng2-completer>
   `,
 })
-export class CompleterFilterComponent extends DefaultFilterTypeComponent implements OnInit {
+export class CompleterFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnDestroy {
   @Input() tableID: string;
   @Input() events: Observable<void>;
   eventsSubscription: Subscription;
@@ -59,5 +59,10 @@ export class CompleterFilterComponent extends DefaultFilterTypeComponent impleme
     if (event === '') {
       this.completerContent.next(event);
     }
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.eventsSubscription.unsubscribe();
   }
 }

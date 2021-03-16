@@ -246,7 +246,7 @@ export class LocalDataSource extends DataSource {
             data = LocalFilter
               .filter(data,
                 fieldConf.field, fieldConf.search, fieldConf.filter,
-                fieldConf.multiSearch, fieldConf.dateSearch, fieldConf.timeSearch, fieldConf.numberSearch
+                fieldConf.multiSearch, fieldConf.dateSearch, fieldConf.timeSearch, fieldConf.dateTimeSearch, fieldConf.numberSearch
               );
           }
         });
@@ -257,7 +257,7 @@ export class LocalDataSource extends DataSource {
             mergedData = mergedData.concat(LocalFilter
               .filter(data,
                 fieldConf.field, fieldConf.search, fieldConf.filter,
-                fieldConf.multiSearch, fieldConf.dateSearch, fieldConf.timeSearch, fieldConf.numberSearch
+                fieldConf.multiSearch, fieldConf.dateSearch, fieldConf.timeSearch, fieldConf.dateTimeSearch, fieldConf.numberSearch
               )
             );
           }

@@ -1,17 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-
-import { LocalDataSource } from 'ng2-smart-table';
+import {DatePipe} from '@angular/common';
+import {LocalDataSource} from 'ng2-smart-table';
 
 @Component({
-  selector: 'app-boolean-select-example-filter',
+  selector: 'app-date-time-select-example-filter',
   template: `
     <ng2-smart-table
       [settings]="settings"
       [source]="source"></ng2-smart-table>
   `,
 })
-export class BooleanSelectFilterExampleComponent implements OnInit {
-  settings: any;
+export class DateTimeSelectFilterExampleComponent implements OnInit {
+  settings = {};
+
   data = [
     {
       id: 1,
@@ -19,7 +20,7 @@ export class BooleanSelectFilterExampleComponent implements OnInit {
       username: 'Bret',
       email: 'Sincere@april.biz',
       notShownField: true,
-      active: true
+      recDateTime: new Date('07/12/2021 12:10:12'),
     },
     {
       id: 2,
@@ -27,7 +28,7 @@ export class BooleanSelectFilterExampleComponent implements OnInit {
       username: 'Antonette',
       email: 'Shanna@melissa.tv',
       notShownField: true,
-      active: false
+      recDateTime: new Date('07/13/2021 08:13:45'),
     },
     {
       id: 3,
@@ -35,7 +36,7 @@ export class BooleanSelectFilterExampleComponent implements OnInit {
       username: 'Samantha',
       email: 'Nathan@yesenia.net',
       notShownField: false,
-      active: false
+      recDateTime: new Date('07/14/2021 09:23:12'),
     },
     {
       id: 4,
@@ -43,7 +44,7 @@ export class BooleanSelectFilterExampleComponent implements OnInit {
       username: 'Karianne',
       email: 'Julianne.OConner@kory.org',
       notShownField: false,
-      active: false
+      recDateTime: new Date('07/15/2021 03:43:14'),
     },
     {
       id: 5,
@@ -51,7 +52,7 @@ export class BooleanSelectFilterExampleComponent implements OnInit {
       username: 'Kamren',
       email: 'Lucio_Hettinger@annie.ca',
       notShownField: false,
-      active: true
+      recDateTime: new Date('07/16/2021 17:54:33'),
     },
     {
       id: 6,
@@ -59,7 +60,7 @@ export class BooleanSelectFilterExampleComponent implements OnInit {
       username: 'Leopoldo_Corkery',
       email: 'Karley_Dach@jasper.info',
       notShownField: false,
-      active: true
+      recDateTime: new Date('07/17/2021 16:24:44'),
     },
     {
       id: 7,
@@ -67,7 +68,7 @@ export class BooleanSelectFilterExampleComponent implements OnInit {
       username: 'Elwyn.Skiles',
       email: 'Telly.Hoeger@billy.biz',
       notShownField: false,
-      active: true
+      recDateTime: new Date('07/18/2021 09:23:12'),
     },
     {
       id: 8,
@@ -75,7 +76,7 @@ export class BooleanSelectFilterExampleComponent implements OnInit {
       username: 'Maxime_Nienow',
       email: 'Sherwood@rosamond.me',
       notShownField: true,
-      active: false
+      recDateTime: new Date('07/19/2021 09:23:12'),
     },
     {
       id: 9,
@@ -83,7 +84,7 @@ export class BooleanSelectFilterExampleComponent implements OnInit {
       username: 'Delphine',
       email: 'Chaim_McDermott@dana.io',
       notShownField: false,
-      active: false
+      recDateTime: new Date('07/20/2021 09:23:12'),
     },
     {
       id: 10,
@@ -91,7 +92,7 @@ export class BooleanSelectFilterExampleComponent implements OnInit {
       username: 'Moriah.Stanton',
       email: 'Rey.Padberg@karina.biz',
       notShownField: false,
-      active: true
+      recDateTime: new Date('07/22/2021 09:23'),
     },
     {
       id: 11,
@@ -99,30 +100,31 @@ export class BooleanSelectFilterExampleComponent implements OnInit {
       username: 'Nicholas.Stanton',
       email: 'Rey.Padberg@rosamond.biz',
       notShownField: true,
-      active: false
-    }
+      recDateTime: new Date('07/22/2021 09:23'),
+    },
   ];
+
 
   source: LocalDataSource;
   isFilterInitialize = false;
+
   constructor() {
     this.source = new LocalDataSource(this.data);
   }
 
-  filterValues = [{id: '3', itemName: 'Produit 3'}, {id: '2', itemName: 'Produit 2'}, {id: '1', itemName: 'Produit 1'}];
-  ngOnInit(): void {
-    const mySubList = this.filterValues.filter(element => 'Produit 1;Produit 2'.includes(element.itemName));
 
-    this.settings = this.isFilterInitialize ? this.settings = this.getSettings(this.isFilterInitialize, mySubList) :
-      this.settings = this.getSettings(this.isFilterInitialize);
+  ngOnInit(): void {
+    this.settings = this.isFilterInitialize ? this.settings = this.getSettings(this.isFilterInitialize,
+      'between', '2018-07-17', '2018-07-20') : this.settings = this.getSettings(this.isFilterInitialize);
+
   }
-  getSettings(isFilterInitialize: boolean, valuesList?: any): any {
+  getSettings(isFilterInitialize: boolean, selectedType?: string, value?: string, valueEnd?: string  ): any {
     return {
       language: 'fr',
       attr: {
-        id: 'booleanSelectFilterExampleComponent',
+        id: 'DateSelectFilterExampleComponent',
         rememberFilter: true,
-        initializeFilter: isFilterInitialize,
+        initializeFilter: isFilterInitialize
       },
       actions: {
         add: false,
@@ -131,46 +133,42 @@ export class BooleanSelectFilterExampleComponent implements OnInit {
       },
       columns: {
         id: {
-          width: '15%',
+          width: '20%',
           title: 'ID',
         },
         name: {
-          width: '15%',
+          width: '20%',
           title: 'Full Name',
         },
         username: {
-          width: '15%',
+          width: '20%',
           title: 'User Name',
         },
         email: {
-          width: '15%',
-          title: 'Email'
+          width: '20%',
+          title: 'Email',
         },
-        active: {
-          width: '15%',
-          title: 'Active',
-          valuePrepareFunction: (value: boolean) => {
-            return value === true ? 'Oui' : 'Non';
+        recDateTime: {
+          width: '20%',
+          title: 'Date',
+          valuePrepareFunction: date => {
+            if (!date) {
+              return date;
+            }
+            const raw = new Date(date);
+
+            return new DatePipe('fr-FR').transform(raw, 'dd/MM/yyyy HH:mm:ss');
           },
           filter: {
-            type: 'list',
-            config: {
-              selectText: 'Active',
-              list: [
-                { value: true, title: 'Oui' },
-                { value: false, title: 'Non' }
-              ]},
-            /* filterFunction(cell?: any, search?: string): boolean {
-              const listSearch = search.split(';');
-              const value = cell.replace(/ /g, '');
-              if (listSearch.includes(value)) {
-                return true;
-              } else {
-                return false;
-              }
-            } */
+            type: 'date-time',
+            config : {
+              selectType: selectedType,
+              defaultValue: value,
+              defaultEndValue : valueEnd
+            }
+
           },
-        }
+        },
       },
     };
   }

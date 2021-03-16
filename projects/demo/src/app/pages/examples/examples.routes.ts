@@ -11,6 +11,7 @@ import { DateSelectExamplesComponent } from './dateselect/date-select-examples.c
 import { TimeSelectExamplesComponent } from './timeselect/time-select-examples.component';
 import { NumberSelectExamplesComponent } from './numberselect/number-select-examples.component';
 import {BooleanSelectExamplesComponent} from "./booleanselect/boolean-select-examples.component";
+import {DateTimeSelectExamplesComponent} from "./datetimeselect/date-time-select-examples.component";
 
 export const routes: Routes = [
   {
@@ -56,6 +57,10 @@ export const routes: Routes = [
       {
         path: 'boolean-select',
         component: BooleanSelectExamplesComponent,
+      },
+      {
+        path: 'date-time-select',
+        component: DateTimeSelectExamplesComponent,
       }
     ],
   },

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormControl, NgControl} from '@angular/forms';
 import { distinctUntilChanged, debounceTime, skip } from 'rxjs/operators';
 
@@ -21,7 +21,7 @@ import {Observable, Subscription} from "rxjs";
     </select>
   `,
 })
-export class SelectFilterComponent extends DefaultFilterTypeComponent implements OnInit {
+export class SelectFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnDestroy {
   @Input() events: Observable<void>;
   @Input() tableID: string;
   eventsSubscription: Subscription;
@@ -45,5 +45,10 @@ export class SelectFilterComponent extends DefaultFilterTypeComponent implements
       this.sessionStorage.clear(this.tableID + '_' + this.column.id);
       this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
     });
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.eventsSubscription.unsubscribe();
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnChanges, OnInit, OnDestroy} from '@angular/core';
 
 import { Grid } from '../../../lib/grid';
 import { DataSource } from '../../../lib/data-source/data-source';
@@ -32,7 +32,7 @@ import {Observable, Subject, Subscription} from "rxjs";
     </th>
   `,
 })
-export class TheadFitlersRowComponent implements OnChanges, OnInit {
+export class TheadFitlersRowComponent implements OnChanges, OnInit, OnDestroy {
 
   @Input() grid: Grid;
   @Input() source: DataSource;
@@ -84,5 +84,9 @@ export class TheadFitlersRowComponent implements OnChanges, OnInit {
       this.countColumnLoaded = 0;
       this.countColumns = this.grid.dataSet.getColumns().length;
     }
+  }
+
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnChanges, OnInit, OnDestroy} from '@angular/core';
 
 import { Grid } from '../../lib/grid';
 import { DataSource } from '../../lib/data-source/data-source';
@@ -8,7 +8,7 @@ import {Observable, Subject, Subscription} from 'rxjs';
     selector: '[ng2-st-thead]',
     templateUrl: './thead.component.html',
 })
-export class Ng2SmartTableTheadComponent implements OnChanges, OnInit {
+export class Ng2SmartTableTheadComponent implements OnChanges, OnInit, OnDestroy {
 
     @Input() grid: Grid;
     @Input() source: DataSource;
@@ -34,8 +34,12 @@ export class Ng2SmartTableTheadComponent implements OnChanges, OnInit {
     }
 
   ngOnChanges() {
+    this.isHideHeader = this.grid.getSetting('hideHeader');
+    this.isHideSubHeader = this.grid.getSetting('hideSubHeader');
+  }
 
-      this.isHideHeader = this.grid.getSetting('hideHeader');
-      this.isHideSubHeader = this.grid.getSetting('hideSubHeader');
-    }
+
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
+  }
 }

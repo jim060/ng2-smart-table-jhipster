@@ -43,34 +43,59 @@ export function filterTime(value: any, search: string) {
   const dateSearch2 = new Date();
   if (typeof value === 'string') {
     const splitVal = value.split(':');
-    dateValue.setHours(Number(splitVal[0]), Number(splitVal[1]), 0, 0);
+    dateValue.setHours(Number(splitVal[0]), Number(splitVal[1]), Number(splitVal[2]), 0);
   } else {
-    dateValue.setHours(value.getHours(), value.getMinutes(), 0, 0);
+    dateValue.setHours(value.getHours(), value.getMinutes(), value.getSeconds(), 0);
   }
 
   if (search.startsWith('_time_before_')) { // Before
     const beforeTimeStr = search.substring('_time_before_'.length);
     const splitVal = beforeTimeStr.split(':');
-    dateSearch.setHours(Number(splitVal[0]), Number(splitVal[1]), 0, 0);
+    dateSearch.setHours(Number(splitVal[0]), Number(splitVal[1]), Number(splitVal[2]), 0);
     return dateValue <= dateSearch;
   } else if (search.startsWith('_time_after_')) { // After
     const afterTimeStr = search.substring('_time_after_'.length);
     const splitVal = afterTimeStr.split(':');
-    dateSearch.setHours(Number(splitVal[0]), Number(splitVal[1]), 0, 0);
+    dateSearch.setHours(Number(splitVal[0]), Number(splitVal[1]), Number(splitVal[2]), 0);
     return dateValue >= dateSearch;
   } else if (search.startsWith('_time_equal_')) { // Egual stricte
     const equalsTimeStr = search.substring('_time_equal_'.length);
     const splitVal = equalsTimeStr.split(':');
-    dateSearch.setHours(Number(splitVal[0]), Number(splitVal[1]), 0, 0);
+    dateSearch.setHours(Number(splitVal[0]), Number(splitVal[1]), Number(splitVal[2]), 0);
     return dateValue.getTime() === dateSearch.getTime();
   } else if (search.startsWith('_start_time_')) { // Between
-    const beginTimeStr = search.substring('_start_time_'.length, '_start_time_'.length + 5);
+    const beginTimeStr = search.substring('_start_time_'.length, '_start_time_'.length + 8);
     const splitVal = beginTimeStr.split(':');
-    dateSearch.setHours(Number(splitVal[0]), Number(splitVal[1]), 0, 0);
-    const endTimeStr = search.substring('_start_time_'.length + 5 + '_end_time_'.length);
+    dateSearch.setHours(Number(splitVal[0]), Number(splitVal[1]), Number(splitVal[2]), 0);
+    const endTimeStr = search.substring('_start_time_'.length + 8 + '_end_time_'.length);
     const splitVal2 = endTimeStr.split(':');
-    dateSearch2.setHours(Number(splitVal2[0]), Number(splitVal2[1]), 0, 0);
+    dateSearch2.setHours(Number(splitVal2[0]), Number(splitVal2[1]), Number(splitVal[2]), 0);
     return dateSearch <= dateValue && dateSearch2 >= dateValue;
+  } else { // Other : Default search
+    return (value.toString().toLowerCase().includes(search.toString().toLowerCase()));
+  }
+}
+
+export function filterDateTime(value: Date, search: string) {
+  search = search.includes('T') ? search.replace(/T/g, ' ') : search;
+  if (search.startsWith('_date_time_before_')) { // Before
+    const beforeDateStr = search.substring('_date_time_before_'.length);
+    const beforeDate = new Date(beforeDateStr);
+    return value <= beforeDate;
+  } else if (search.startsWith('_date_time_after_')) { // After
+    const afterDateStr = search.substring('_date_time_after_'.length);
+    const afterDate = new Date(afterDateStr);
+    return value >= afterDate;
+  } else if (search.startsWith('_date_time_equal_')) { // Egual stricte
+    const equalsDateStr = search.substring('_date_time_equal_'.length);
+    const equalsDate = new Date(equalsDateStr);
+    return value.getTime() === equalsDate.getTime();
+  } else if (search.startsWith('_start_date_time_')) { // Between
+    const beginDateStr = search.substring('_start_date_time_'.length, '_start_date_time_'.length + 19);
+    const beginDate = new Date(beginDateStr);
+    const endDateStr = search.substring('_start_date_time_'.length + 19 + '_end_date_time_'.length);
+    const endDate = new Date(endDateStr);
+    return beginDate <= value && endDate >= value;
   } else { // Other : Default search
     return (value.toString().toLowerCase().includes(search.toString().toLowerCase()));
   }
@@ -97,7 +122,6 @@ export function filterNumber(value: number, search: string) {
 }
 
 export class LocalFilter {
-
   static filter(
     data: Array<any>,
     field: string,
@@ -106,15 +130,18 @@ export class LocalFilter {
     multiSearch?: boolean,
     dateSearch?: boolean,
     timeSearch?: boolean,
+    dateTimeSearch?: boolean,
     numberSearch?: boolean,
   ): Array<any> {
     const filter: any = customFilter ? customFilter :
       (multiSearch ? filterMulti :
-        (dateSearch ? filterDate :
-            (timeSearch ? filterTime :
-              (numberSearch ? filterNumber : filterValues)
-            )
-        )
+          (dateSearch ? filterDate :
+              (timeSearch ? filterTime :
+                  (dateTimeSearch ? filterDateTime :
+                      (numberSearch ? filterNumber : filterValues)
+                  )
+              )
+          )
       );
 
     return data.filter((el) => {

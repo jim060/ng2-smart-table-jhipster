@@ -7,34 +7,34 @@ import { map } from 'rxjs/operators';
 import {SessionStorageService} from "ngx-webstorage";
 
 @Component({
-  selector: 'lib-number-filter',
+  selector: 'lib-date-time-filter',
   template: `
     <select [formControl]="filterTypeSelect">
       <option [value]="option" *ngFor="let  option of filterOptions">{{labelOptions[option]}}</option>
     </select>
     <div [ngSwitch]="filterType">
-     <input *ngSwitchCase="'before'" type="number"
-            [formControl]="numBefore" [ngClass]="inputClass" class="form-control"/>
-     <input *ngSwitchCase="'after'" type="number"
-            [formControl]="numAfter" [ngClass]="inputClass" class="form-control"/>
-     <input *ngSwitchCase="'equal'" type="number"
-            [formControl]="numEqual" [ngClass]="inputClass" class="form-control"/>
-     <input *ngSwitchCase="'between'" type="number"
-            [formControl]="startNum" [ngClass]="inputClass" class="form-control"/>
-     <input *ngSwitchCase="'between'" type="number"
-            [formControl]="endNum" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'before'" type="datetime-local" step="1"
+            [formControl]="dateBefore" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'after'" type="datetime-local" step="1"
+            [formControl]="dateAfter" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'equal'" type="datetime-local" step="1"
+            [formControl]="dateEqual" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'between'" type="datetime-local" step="1"
+            [formControl]="startDate" [ngClass]="inputClass" class="form-control"/>
+     <input *ngSwitchCase="'between'" type="datetime-local" step="1"
+            [formControl]="endDate" [ngClass]="inputClass" class="form-control"/>
     </div>
   `,
 })
-export class NumberFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnDestroy {
+export class DateTimeFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnDestroy {
   @Input() tableID: string;
   @Input() events: Observable<void>;
   eventsSubscription: Subscription;
-  startNum = new FormControl();
-  endNum = new FormControl();
-  numBefore = new FormControl();
-  numAfter = new FormControl();
-  numEqual = new FormControl();
+  startDate = new FormControl();
+  endDate = new FormControl();
+  dateBefore = new FormControl();
+  dateAfter = new FormControl();
+  dateEqual = new FormControl();
   filterTypeSelect = new FormControl();
   filterType = 'equal';
   filterOptions = ['before', 'after', 'equal', 'between'];
@@ -42,19 +42,18 @@ export class NumberFilterComponent extends DefaultFilterTypeComponent implements
   labelOptions = {};
 
   labelOptionsEn = {
-    before: 'Min',
-    after: 'Max',
+    before: 'Before',
+    after: 'After',
     equal: 'Equal',
     between: 'Between',
   };
 
   labelOptionsFr = {
-    before: 'Min',
-    after: 'Max',
-    equal: 'Egal',
+    before: 'Avant',
+    after: 'Après',
+    equal: 'Egale',
     between: 'Entre',
   };
-
 
   constructor(private sessionStorage: SessionStorageService) {
     super();
@@ -69,7 +68,14 @@ export class NumberFilterComponent extends DefaultFilterTypeComponent implements
 
       this.changesSubscription = this.getFilterType()
         .subscribe(val => {
-          this.query = val;
+          if (
+            val === '_date_time_before_' ||
+            val === '_date_time_after_' ||
+            val === '_date_time_equal_') {
+            this.query = `${val}null`;
+          } else {
+            this.query = val;
+          }
           this.setFilter();
         });
     });
@@ -87,14 +93,13 @@ export class NumberFilterComponent extends DefaultFilterTypeComponent implements
     }
     // WAITING FOR INIT FILTER/SORT EVENT
     this.eventsSubscription = this.events.subscribe(() => {
-      this.startNum.setValue(null);
-      this.endNum.setValue(null);
-      this.numBefore.setValue(null);
-      this.numAfter.setValue(null);
-      this.numEqual.setValue(null);
+      this.startDate.setValue(null);
+      this.endDate.setValue(null);
+      this.dateBefore.setValue(null);
+      this.dateAfter.setValue(null);
+      this.dateEqual.setValue(null);
       this.sessionStorage.clear(this.tableID + '_' + this.column.id);
       this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
-
     });
   }
 
@@ -107,21 +112,21 @@ export class NumberFilterComponent extends DefaultFilterTypeComponent implements
       if (config.defaultValue) {
         switch (this.filterType) {
           case 'before': {
-            this.numBefore.setValue(config.defaultValue);
+            this.dateBefore.setValue(config.defaultValue);
             break;
           }
           case 'after': {
-            this.numAfter.setValue(config.defaultValue);
+            this.dateAfter.setValue(config.defaultValue);
             break;
           }
           case 'equal': {
-            this.numEqual.setValue(config.defaultValue);
+            this.dateEqual.setValue(config.defaultValue);
             break;
           }
           case 'between': {
-            this.startNum.setValue(config.defaultValue);
+            this.startDate.setValue(config.defaultValue);
             if (config.defaultEndValue) {
-              this.endNum.setValue(config.defaultEndValue);
+              this.endDate.setValue(config.defaultEndValue);
             }
             break;
           }
@@ -133,34 +138,34 @@ export class NumberFilterComponent extends DefaultFilterTypeComponent implements
 
   initRememberFilter() {
     const querySplit = this.query.split('_');
-    if (querySplit[2] === 'before' || querySplit[2] === 'after' || querySplit[2] === 'equal') {
-      this.filterType = querySplit[2];
-      if (querySplit[3]) {
-        const defaultValue = querySplit[3];
+    if (querySplit[3] === 'before' || querySplit[3] === 'after' || querySplit[3] === 'equal') {
+      this.filterType = querySplit[3];
+      if (querySplit[4]) {
+        const defaultValue = querySplit[4];
         switch (this.filterType) {
           case 'before': {
-            this.numBefore.setValue(defaultValue);
+            this.dateBefore.setValue(defaultValue);
             break;
           }
           case 'after': {
-            this.numAfter.setValue(defaultValue);
+            this.dateAfter.setValue(defaultValue);
             break;
           }
           case 'equal': {
-            this.numEqual.setValue(defaultValue);
+            this.dateEqual.setValue(defaultValue);
             break;
           }
         }
       }
       this.filterTypeSelect.setValue(this.filterType);
-    } else if (querySplit[2] === 'number') {
+    } else if (querySplit[2] + '_' + querySplit[3] === 'date_time') {
       this.filterType = 'between';
-      if (querySplit[3]) {
-        const defaultValue = querySplit[3];
-        const defaultEndValue = querySplit[6];
-        this.startNum.setValue(defaultValue);
+      if (querySplit[4]) {
+        const defaultValue = querySplit[4];
+        const defaultEndValue = querySplit[8];
+        this.startDate.setValue(defaultValue);
         if (defaultEndValue) {
-          this.endNum.setValue(defaultEndValue);
+          this.endDate.setValue(defaultEndValue);
         }
       }
       this.filterTypeSelect.setValue(this.filterType);
@@ -170,25 +175,25 @@ export class NumberFilterComponent extends DefaultFilterTypeComponent implements
   getFilterType() {
     switch (this.filterType) {
       case 'before': {
-        return this.numBefore.valueChanges.pipe(map(value => `_number_before_${value}`));
+        return this.dateBefore.valueChanges.pipe(map(value => `_date_time_before_${value}`));
       }
       case 'after': {
-        return this.numAfter.valueChanges.pipe(map(value => `_number_after_${value}`));
+        return this.dateAfter.valueChanges.pipe(map(value => `_date_time_after_${value}`));
       }
       case 'equal': {
-        return this.numEqual.valueChanges.pipe(map(value => `_number_equal_${value}`));
+        return this.dateEqual.valueChanges.pipe(map(value => `_date_time_equal_${value}`));
       }
       case 'between': {
-        return combineLatest(this.startNum.valueChanges, this.endNum.valueChanges)
+        return combineLatest(this.startDate.valueChanges, this.endDate.valueChanges)
           .pipe(map(([val1, val2]) => {
-            return `_start_number_${val1}_end_number_${val2}`;
+            return `_start_date_time_${val1 === '' ? 'null' : val1}_end_date_time_${val2 === '' ? 'null' : val2}`;
           }));
       }
     }
   }
+
   ngOnDestroy() {
     super.ngOnDestroy();
     this.eventsSubscription.unsubscribe();
   }
-
 }

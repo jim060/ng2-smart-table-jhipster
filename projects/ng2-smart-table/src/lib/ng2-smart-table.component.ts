@@ -52,7 +52,7 @@ export class Ng2SmartTableComponent implements OnChanges {
   isPagerDisplay: boolean;
   rowClassFunction: Function;
   language = 'en';
-  buttonFilterInitText = 'Init Filter/Sort';
+  buttonFilterInitText = 'Reset filters';
 
   grid: Grid;
   defaultSettings = {
@@ -123,8 +123,7 @@ export class Ng2SmartTableComponent implements OnChanges {
 
   isAllSelected = false;
 
-  constructor(private sessionStorage: SessionStorageService) {
-  }
+  constructor() {}
 
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
     if (this.grid) {
@@ -148,7 +147,18 @@ export class Ng2SmartTableComponent implements OnChanges {
     this.perPageSelect = this.grid.getSetting('pager.perPageSelect');
     this.rowClassFunction = this.grid.getSetting('rowClassFunction');
     this.language = this.grid.getSetting('language');
-    this.buttonFilterInitText =  typeof(this.grid.getSetting('attr.buttonFilterInitText')) === 'string' ? this.grid.getSetting('attr.buttonFilterInitText') : this.buttonFilterInitText;
+    this.buttonFilterInitText =  typeof(this.grid.getSetting('attr.buttonFilterInitText')) === 'string' ? this.grid.getSetting('attr.buttonFilterInitText') :
+      this.getInitFiltersBtnText(this.grid.getSetting('language'));
+
+  }
+
+
+  getInitFiltersBtnText(language: string): string {
+    if (language === 'fr') {
+      return 'Réinitialiser les filtres';
+    } else {
+      return 'Reset filters';
+    }
   }
 
   editRowSelect(row: Row) {
@@ -253,18 +263,24 @@ export class Ng2SmartTableComponent implements OnChanges {
     });
   }
 
+
+  /**
+   * @description INIT FILTERS & SORTING MODE
+   */
   initFiltersEvent() {
     // INIT FILTERS
     this.grid.source.setFilter([], true, false);
-    // INIT SORT MODE
+    // INIT SORTING MODE
     this.grid.source.setSort([], false);
     // REFRESH DATA_SOURCE
     this.grid.source.refresh();
-    // USED TO SEND EVENT TO DELETE FILTERS CONTENTS
+    // SEND EVENT TO DELETE FILTERS CONTENTS
     this.emitEventClearFilter();
   }
 
-  // SEND EVENT TO INITIALIZE FILTERS CONTENTS
+  /**
+   * SEND EVENT TO INITIALIZE FILTERS CONTENTS
+   */
   emitEventClearFilter() {
     this.eventsSubject.next();
   }

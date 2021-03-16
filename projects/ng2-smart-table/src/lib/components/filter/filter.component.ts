@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterContentInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import { FilterDefaultComponent } from './filter-default.component';
 import {Observable, Subject, Subscription} from 'rxjs';
 
@@ -27,7 +27,7 @@ import {Observable, Subject, Subscription} from 'rxjs';
     </div>
   `,
 })
-export class FilterComponent extends FilterDefaultComponent implements OnChanges, AfterContentInit {
+  export class FilterComponent extends FilterDefaultComponent implements OnChanges, AfterContentInit, OnDestroy {
 
   @Input() events: Observable<void>;
   query = '';
@@ -61,6 +61,10 @@ export class FilterComponent extends FilterDefaultComponent implements OnChanges
         }
       });
     }
+  }
 
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.eventsSubscription.unsubscribe();
   }
 }

@@ -53,12 +53,12 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
           this.column.filter.config.defaultEndValue , false);
       }
       //  ON LOAD TIME FILTER INIT
-    } else if (this.initializeFilter  && this.column.getFilterType() === 'time'  &&  this.column.filter.config) {
+    } else if (this.initializeFilter  && this.column.getFilterType() === 'date-time'  &&  this.column.filter.config) {
       if (!this.column.filter.config.selectType.toString().toLowerCase().includes('between')) {
-        this.onFilterTime( '_time_' + this.column.filter.config.selectType  + '_' +
+        this.onFilterDateTime( '_date_time_' + this.column.filter.config.selectType  + '_' +
           this.column.filter.config.defaultValue , false);
       } else {
-        this.onFilterTime( '_start_time_' + this.column.filter.config.defaultValue  + '_end_time_' +
+        this.onFilterDateTime( '_start_date_time_' + this.column.filter.config.defaultValue  + '_end_date_time_' +
           this.column.filter.config.defaultEndValue , false);
       }
     }
@@ -80,6 +80,9 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
               break;
             case 'time':
               this.onFilterTime(this.query, false);
+              break;
+            case 'date-time':
+              this.onFilterDateTime(this.query, false);
               break;
             case 'number':
               this.onFilterNumber(this.query, false);
@@ -170,6 +173,15 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
       search: query,
       filter: this.column.getFilterFunction(),
       timeSearch: true,
+    }, true, doEmit);
+  }
+
+  onFilterDateTime(query: string, doEmit = true) {
+    this.source.addFilter({
+      field: this.column.id,
+      search: query,
+      filter: this.column.getFilterFunction(),
+      dateTimeSearch: true,
     }, true, doEmit);
   }
 

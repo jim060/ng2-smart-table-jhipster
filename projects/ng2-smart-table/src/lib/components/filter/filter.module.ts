@@ -19,6 +19,7 @@ import { MselectFilterComponent } from './filter-types/mselect-filter.component'
 import { DefaultFilterTypeComponent } from './filter-types/default-filter-type.component';
 import { FilterDefaultComponent } from './filter-default.component';
 import {CustomColumnFilterComponent} from "./filter-types/custom-column-filter.component";
+import {DateTimeFilterComponent} from "./filter-types/date-time-filter.component";
 
 const FILTER_COMPONENTS = [
   FilterDefaultComponent,
@@ -34,7 +35,8 @@ const FILTER_COMPONENTS = [
   TimeFilterComponent,
   NumberFilterComponent,
   MselectFilterComponent,
-  CustomColumnFilterComponent
+  CustomColumnFilterComponent,
+  DateTimeFilterComponent
 ];
 
 @NgModule({

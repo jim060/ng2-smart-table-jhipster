@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, skip } from 'rxjs/operators';
 
@@ -17,7 +17,7 @@ import {SessionStorageService} from "ngx-webstorage";
       placeholder="{{ column.title }}"/>
   `,
 })
-export class InputFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnChanges {
+export class InputFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnChanges, OnDestroy{
   @Input() events: Observable<void>;
   @Input() tableID: string;
   eventsSubscription: Subscription;
@@ -52,5 +52,9 @@ export class InputFilterComponent extends DefaultFilterTypeComponent implements 
     if (changes.query) {
       this.inputControl.setValue(this.query);
     }
+  }
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.eventsSubscription.unsubscribe();
   }
 }

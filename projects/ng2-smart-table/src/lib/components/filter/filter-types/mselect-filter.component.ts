@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { DefaultFilterTypeComponent } from './default-filter-type.component';
 import { deepExtend } from '../../../lib/helpers';
 import {Observable, Subscription} from "rxjs";
@@ -38,7 +38,7 @@ export interface DropdownSettings {
     (onDeSelectAll)="onDeSelectAll($event)">
     </angular2-multiselect>`,
 })
-export class MselectFilterComponent extends DefaultFilterTypeComponent implements OnInit {
+export class MselectFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnDestroy {
   @Input() events: Observable<void>;
   @Input() tableID: string;
   eventsSubscription: Subscription;
@@ -116,4 +116,9 @@ export class MselectFilterComponent extends DefaultFilterTypeComponent implement
         this.query = this.selectedItems.map(item => item.itemName).join(';');
         this.setFilter();
     }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.eventsSubscription.unsubscribe();
+  }
 }

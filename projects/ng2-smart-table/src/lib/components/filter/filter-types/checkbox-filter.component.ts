@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { DefaultFilterTypeComponent } from './default-filter-type.component';
@@ -15,7 +15,7 @@ import {SessionStorageService} from "ngx-webstorage";
                 (click)="resetFilter($event)">{{column.getFilterConfig()?.resetText || 'reset'}}</a>
   `,
 })
-export class CheckboxFilterComponent extends DefaultFilterTypeComponent implements OnInit {
+export class CheckboxFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnDestroy {
   @Input() events: Observable<void>;
   @Input() tableID: string;
   eventsSubscription: Subscription;
@@ -51,5 +51,10 @@ export class CheckboxFilterComponent extends DefaultFilterTypeComponent implemen
     this.inputControl.setValue(false, { emitEvent: false });
     this.filterActive = false;
     this.setFilter();
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.eventsSubscription.unsubscribe();
   }
 }

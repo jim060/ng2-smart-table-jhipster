@@ -155,7 +155,7 @@ export class TimeselectFilterExampleComponent implements OnInit {
 
             try {
               const raw = new Date(time);
-              const formatted = new DatePipe('fr-FR').transform(raw, 'HH:mm');
+              const formatted = new DatePipe('fr-FR').transform(raw, 'HH:mm:ss');
               return formatted;
             } catch (error) {
               return time;
