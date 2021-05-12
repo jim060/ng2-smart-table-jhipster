@@ -1,11 +1,6 @@
-## [2.5.7](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.5.7) (2021-05-12)
-
-
-
-## [2.5.7](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.5.7) (2021-05-12)
-
-
-
+## [2.5.8](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.5.8) (2021-05-12)
+## IMPROVEMENT
+ MULTI-SELECT FILTER : SAVE SELECTED ITEMS ONLY IF NON-EMPTY LIST 
 ## [2.5.7](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.5.7) (2021-05-12)
 ## FIXING A BUG 
 * MULTI-SELECT  FILTER selectedItems VALUES (updateQuery FUNCTION)

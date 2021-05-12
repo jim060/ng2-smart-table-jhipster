@@ -119,7 +119,7 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
       const filter = this.column.filter;
       if (filter) {
         const type = filter.type;
-        if (type === 'multiple') {
+        if (type === 'multiple' && filter.config.selectedItems && filter.config.selectedItems.length > 0) {
           // Si multiple, on stock les items sélectionnés égalements.
           this.sessionStorage.clear(this.tableID + '_' + this.column.id + '_selectedItems');
           this.sessionStorage.store(this.tableID + '_' + this.column.id + '_selectedItems', filter.config.selectedItems);
