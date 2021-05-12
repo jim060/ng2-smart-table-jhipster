@@ -73,10 +73,11 @@ export class TimeFilterComponent extends DefaultFilterTypeComponent implements O
             val === '_time_after_' ||
             val === '_time_equal_') {
             this.query = `${val}null`;
-          } else {
+
+          } else if (!val.includes('null')) {
             this.query = val;
+            this.setFilter();
           }
-          this.setFilter();
         });
     });
 
@@ -100,6 +101,7 @@ export class TimeFilterComponent extends DefaultFilterTypeComponent implements O
       this.timeEqual.setValue(null);
       this.sessionStorage.clear(this.tableID + '_' + this.column.id);
       this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
+
     });
   }
 
@@ -175,18 +177,18 @@ export class TimeFilterComponent extends DefaultFilterTypeComponent implements O
   getFilterType() {
     switch (this.filterType) {
       case 'before': {
-        return this.timeBefore.valueChanges.pipe(map(value => `_time_before_${value}`));
+        return this.timeBefore.valueChanges.pipe(map(value =>  value !== null ? `_time_before_${value}`  : ''));
       }
       case 'after': {
-        return this.timeAfter.valueChanges.pipe(map(value => `_time_after_${value}`));
+        return this.timeAfter.valueChanges.pipe(map(value =>  value !== null ? `_time_after_${value}`  : ''));
       }
       case 'equal': {
-        return this.timeEqual.valueChanges.pipe(map(value => `_time_equal_${value}`));
+        return this.timeEqual.valueChanges.pipe(map(value => value !== null ?  `_time_equal_${value}` : ''));
       }
       case 'between': {
         return combineLatest(this.startTime.valueChanges, this.endTime.valueChanges)
           .pipe(map(([val1, val2]) => {
-            return `_start_time_${val1 === '' ? 'null' : val1}_end_time_${val2 === '' ? 'null' : val2}`;
+            return  val1  !== null  && val2 !== null ?   `_start_time_${val1}_end_time_${val2}` : '';
           }));
       }
     }

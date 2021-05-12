@@ -17,7 +17,7 @@ import {SessionStorageService} from "ngx-webstorage";
       placeholder="{{ column.title }}"/>
   `,
 })
-export class InputFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnChanges, OnDestroy{
+export class InputFilterComponent extends DefaultFilterTypeComponent implements OnInit, OnChanges, OnDestroy {
   @Input() events: Observable<void>;
   @Input() tableID: string;
   eventsSubscription: Subscription;
@@ -45,6 +45,9 @@ export class InputFilterComponent extends DefaultFilterTypeComponent implements 
       this.inputControl.setValue(null);
       this.sessionStorage.clear(this.tableID + '_' + this.column.id);
       this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
+      this.query = null;
+      this.setFilter();
+
     });
   }
 

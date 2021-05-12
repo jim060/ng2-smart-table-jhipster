@@ -69,8 +69,10 @@ export class NumberFilterComponent extends DefaultFilterTypeComponent implements
 
       this.changesSubscription = this.getFilterType()
         .subscribe(val => {
-          this.query = val;
-          this.setFilter();
+          if (!val.includes('null')) {
+            this.query = val;
+            this.setFilter();
+          }
         });
     });
 
@@ -170,18 +172,18 @@ export class NumberFilterComponent extends DefaultFilterTypeComponent implements
   getFilterType() {
     switch (this.filterType) {
       case 'before': {
-        return this.numBefore.valueChanges.pipe(map(value => `_number_before_${value}`));
+        return this.numBefore.valueChanges.pipe(map(value => value !== null ? `_number_before_${value}` : ''));
       }
       case 'after': {
-        return this.numAfter.valueChanges.pipe(map(value => `_number_after_${value}`));
+        return this.numAfter.valueChanges.pipe(map(value => value !== null ? `_number_after_${value}` : ''));
       }
       case 'equal': {
-        return this.numEqual.valueChanges.pipe(map(value => `_number_equal_${value}`));
+        return this.numEqual.valueChanges.pipe(map(value => value !== null ? `_number_equal_${value}`  : ''));
       }
       case 'between': {
         return combineLatest(this.startNum.valueChanges, this.endNum.valueChanges)
           .pipe(map(([val1, val2]) => {
-            return `_start_number_${val1}_end_number_${val2}`;
+            return val1  !== null  && val2 !== null ?  `_start_number_${val1}_end_number_${val2}`  : '';
           }));
       }
     }

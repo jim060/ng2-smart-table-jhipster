@@ -112,7 +112,10 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
     // Store column filter if rememberFilter mode is activate
     if (this.rememberFilter && this.tableID) {
       this.sessionStorage.clear(this.tableID + '_' + this.column.id);
-      this.sessionStorage.store(this.tableID + '_' + this.column.id, this.query);
+      if (this.query && this.query !== '' && !this.query.includes('null')) {
+
+        this.sessionStorage.store(this.tableID + '_' + this.column.id, this.query);
+      }
       const filter = this.column.filter;
       if (filter) {
         const type = filter.type;
@@ -141,6 +144,9 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
   }
 
   onFilter(query: string, doEmit = true) {
+    if (doEmit === true ) {
+      doEmit = query !== null;
+    }
     this.source.addFilter({
       field: this.column.id,
       search: query,
@@ -149,6 +155,9 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
   }
 
   onFilterMulti(query: string, doEmit = true) {
+    if (doEmit === true ) {
+      doEmit = query !== '' && query !== null;
+    }
     this.source.addFilter({
       field: this.column.id,
       search: query,
@@ -158,6 +167,9 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
   }
 
   onFilterDate(query: string, doEmit = true) {
+    if (doEmit === true ) {
+      doEmit = query !== '' && query !== null;
+    }
     this.source.addFilter({
       field: this.column.id,
       search: query,
@@ -167,7 +179,9 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
   }
 
   onFilterTime(query: string, doEmit = true) {
-
+    if (doEmit === true ) {
+      doEmit = query !== '' && query !== null;
+    }
     this.source.addFilter({
       field: this.column.id,
       search: query,
@@ -177,6 +191,9 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
   }
 
   onFilterDateTime(query: string, doEmit = true) {
+    if (doEmit === true ) {
+      doEmit = query !== '' && query !== null;
+    }
     this.source.addFilter({
       field: this.column.id,
       search: query,
@@ -186,6 +203,9 @@ export class FilterDefaultComponent implements OnInit, OnDestroy {
   }
 
   onFilterNumber(query: string, doEmit = true) {
+    if (doEmit === true ) {
+      doEmit = query !== '' && query !== null;
+    }
     this.source.addFilter({
       field: this.column.id,
       search: query,

@@ -38,12 +38,15 @@ export class SelectFilterComponent extends DefaultFilterTypeComponent implements
         distinctUntilChanged(),
         debounceTime(this.delay)
       )
-      .subscribe((value: string) => this.setFilter());
+      .subscribe((value: string) => {
+        this.setFilter();
+      });
     // WAITING FOR INIT FILTER/SORT EVENT
     this.eventsSubscription = this.events.subscribe(() => {
       this.query = null;
       this.sessionStorage.clear(this.tableID + '_' + this.column.id);
       this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
+      this.setFilter();
     });
   }
 

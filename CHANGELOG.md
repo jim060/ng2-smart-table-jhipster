@@ -1,3 +1,20 @@
+## [2.5.7](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.5.7) (2021-05-12)
+
+
+
+## [2.5.7](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.5.7) (2021-05-12)
+
+
+
+## [2.5.7](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.5.7) (2021-05-12)
+## FIXING A BUG 
+* MULTI-SELECT  FILTER selectedItems VALUES (updateQuery FUNCTION)
+
+## [2.5.6](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.5.6) (2021-05-12)
+## IMPROVEMENT
+* SAVE FILTER ONLY IF QUERY VALUE IS NOT EQUAL TO NULL OR EMPTY STRING
+* ONLY ONE BACK-END CALL IF BUTTON INIT FILTER IS CLICKED
+
 ## [2.5.5](https://github.com/jim060/ng2-smart-table-jhipster/compare/v1.3.6...v2.5.5) (2021-03-16)
 #### UPDATE
 * Init filters & sort (improvement)

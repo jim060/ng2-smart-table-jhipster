@@ -73,10 +73,10 @@ export class DateFilterComponent extends DefaultFilterTypeComponent implements O
             val === '_date_after_' ||
             val === '_date_equal_') {
             this.query = `${val}null`;
-          } else {
+          } else if (!val.includes('null')) {
             this.query = val;
+            this.setFilter();
           }
-          this.setFilter();
         });
     });
 
@@ -175,18 +175,18 @@ export class DateFilterComponent extends DefaultFilterTypeComponent implements O
   getFilterType() {
     switch (this.filterType) {
       case 'before': {
-        return this.dateBefore.valueChanges.pipe(map(value => `_date_before_${value}`));
+        return this.dateBefore.valueChanges.pipe(map(value => value !== null ? `_date_before_${value}` : ''));
       }
       case 'after': {
-        return this.dateAfter.valueChanges.pipe(map(value => `_date_after_${value}`));
+        return this.dateAfter.valueChanges.pipe(map(value => value !== null ? `_date_after_${value}` : ''));
       }
       case 'equal': {
-        return this.dateEqual.valueChanges.pipe(map(value => `_date_equal_${value}`));
+        return this.dateEqual.valueChanges.pipe(map(value => value !== null ?  `_date_equal_${value}` : ''));
       }
       case 'between': {
         return combineLatest(this.startDate.valueChanges, this.endDate.valueChanges)
           .pipe(map(([val1, val2]) => {
-            return `_start_date_${val1 === '' ? 'null' : val1}_end_date_${val2 === '' ? 'null' : val2}`;
+            return  val1  !== null  && val2 !== null ?  `_start_date_${val1}_end_date_${val2}` : '';
           }));
       }
     }

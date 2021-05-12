@@ -96,6 +96,7 @@ export class MselectFilterComponent extends DefaultFilterTypeComponent implement
           this.sessionStorage.clear(this.tableID + '_' + this.column.id);
           this.sessionStorage.clear(this.tableID + '_' + this.column.id + '_selectedItems');
           this.sessionStorage.clear(this.tableID + '_sorting_' + this.column.id);
+          this.updateQuery();
 
         });
     }
@@ -113,7 +114,9 @@ export class MselectFilterComponent extends DefaultFilterTypeComponent implement
     }
     updateQuery() {
         // this.query = this.selectedItems.map(item => item.itemName).join(';').replace(/ /g, '');
+
         this.query = this.selectedItems.map(item => item.itemName).join(';');
+        this.column.filter.config.selectedItems = this.selectedItems;
         this.setFilter();
     }
 
